@@ -7,11 +7,11 @@
 #  @param s string corresponding to a filename
 #  @return list of dictionaries
 def readStdnts(s):
-	file = open(s, "r")
+	iFile = open(s, "r")
 	allRecords = []
 	sRecord = {}
 
-	for line in file:
+	for line in iFile:
 		sLine = line.strip()
 		sLine = sLine.split(" ")
 
@@ -30,9 +30,23 @@ def readStdnts(s):
 #  @return list of macIds
 def readFreeChoice(s):
 	freeList=[]
-	file = open(s, "r")
-	for line in file:
+	iFile = open(s, "r")
+	for line in iFile:
 		sLine = line.strip()
 		sLine = sLine.split(" ")
 		freeList.append(sLine[0])
 	return freeList
+
+## @brief Formats a file input into a dictionary of departments and capacities
+#  @param s string corresponding to a filename
+#  @return dictionary of departments and capacities
+def readDeptCapacity(s):
+	deptList={}
+	iFile = open(s, "r")
+	
+	for line in iFile:
+		sLine = line.strip()
+		sLine.split(" ")
+		deptList[sLine[0]] = sLine[1] 
+	return deptList
+
