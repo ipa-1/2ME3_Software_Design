@@ -16,3 +16,17 @@ def sort(s):
 				s[j+1] = temp
 	return s	
 
+## @brief Returns the average gpa of male or females students
+#  @param L a list of dictionaries created by function readStdnts(s)
+#  @param g a string representing male or female
+def average(L, g):
+	stud_average = 0
+	person_count = 0
+	for student in L:
+		if student['gender'] == g:
+			average  += int(student['gpa'])
+			person_count +=1
+	if person_count ==0:
+		return 0
+	else:
+		return ((average)/person_count)

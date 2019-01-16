@@ -8,5 +8,6 @@ from CalcModule import *
 
 file = "data.txt"
 list = readStdnts(file)
+list = sort(list)
 for x in list:
 	print(x)	
