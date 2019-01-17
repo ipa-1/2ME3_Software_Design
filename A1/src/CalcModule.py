@@ -29,4 +29,59 @@ def average(L, g):
 	if person_count ==0:
 		return 0
 	else:
-		return ((average)/person_count)
+## @brief Given a list of dictionaries of students, list of students with free choice, and capacity, returns dictionary of department capacities
+#  @param S a list of the dictionaries of students
+#  @param F a list of students with free choice
+#  @param C a dictionary of department capacities
+def allocate(S,F,C):
+	allocated={'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
+	student_allocated = False
+	allocating = S.copy()
+	allocating = sort(allocating)
+
+	#Allocate the students with free choice by finding their record in the general list, checking gpa, and capacity of desired choice
+	for fc_student in F: #Iterate through all students with free choice
+		for all_student in allocating: #Iterate through all students in general list
+
+			if (all_student)['macid'] == fc_student: #If macid matches
+				if int((all_student)['gpa']) >= 4: #Check if their gpa entry is less than or equal to 4
+					#print((all_student)['macid'], "is eligible for fc")
+					for choices in (all_student)['choices']: #Iterate through the current student's choices
+						for all_dept in C: #Iterate through the departments in the capacity list
+							if all_dept == choices: #If the choice is found in the capacity list
+								if len((allocated[all_dept])) < int(C[all_dept]): #Check to see if at full capacity
+									#print(all_dept, "is an eligible choice for", (all_student)['macid'])
+									allocated[all_dept].append((all_student)['macid']) #Add student to department
+									student_allocated = True #Set boolean value to exit all loops
+									allocating.remove(all_student) #Remove student from general list to keep track of who has been allocated already
+									break
+						if student_allocated == True: # If the student was allocated to one of their choices
+							break
+					if student_allocated == True:
+						student_allocated = False
+						break
+
+					for choices in C: #If all deparments of student's choice are full, allocate to 
+						if len((allocated[choices])) < int(C[choices]):
+							print(choices, "is an eligible choice for", (all_student)['macid'])
+							allocated[choices].append((all_student)['macid'])
+							allocating.remove(all_student)
+							break
+				else: #Student did not have at least a 4 gpa
+					allocating.remove(all_student)
+
+	for rem_student in allocating:
+		if int ((rem_student)['gpa']) >= 4:
+			for choices in (rem_student)['choices']:
+				for all_dept in C:
+					if all_dept == choices:
+						if len((allocated[all_dept])) < int(C[all_dept]):
+							#print(all_dept, "is an eligible choice for", (rem_student)['macid'])
+							allocated[all_dept].append((rem_student)['macid'])
+							student_allocated = True
+							allocating.remove(rem_student)
+							break	
+				if student_allocated == True:
+					student_allocated = False
+					break						
+	return(allocated)
