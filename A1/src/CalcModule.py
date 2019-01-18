@@ -40,6 +40,10 @@ def average(L, g):
 #  @param F a list of students with free choice
 #  @param C a dictionary of department capacities
 #  @return a dictionary with departments as keys and students in the program in a list as the value
+
+#  Assumption: Only students with a gpa higher than 4 will be allocated, students with a gpa of 4 or less will not be allocated
+#  Assumption: All free choice students will be granted their first choice regardless of capacity, however there will be an exception if this occurs
+
 def allocate(S,F,C):
 	allocated={'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
 	student_allocated = False
@@ -49,34 +53,23 @@ def allocate(S,F,C):
 	#Allocate the students with free choice by finding their record in the general list, checking gpa, and capacity of desired choice
 	for fc_student in F: #Iterate through all students with free choice
 		for all_student in allocating: #Iterate through all students in general list
-
 			if (all_student)['macid'] == fc_student: #If macid matches
-				if int((all_student)['gpa']) >= 4: #Check if their gpa entry is less than or equal to 4
-					#print((all_student)['macid'], "is eligible for fc")
-					for choices in (all_student)['choices']: #Iterate through the current student's choices
-						for all_dept in C: #Iterate through the departments in the capacity list
-							if all_dept == choices: #If the choice is found in the capacity list
-								if len((allocated[all_dept])) < int(C[all_dept]): #Check to see if at full capacity
-									#print(all_dept, "is an eligible choice for", (all_student)['macid'])
-									allocated[all_dept].append((all_student)['macid']) #Add student to department
-									student_allocated = True #Set boolean value to exit all loops
-									allocating.remove(all_student) #Remove student from general list to keep track of who has been allocated already
-									break
-						if student_allocated == True: # If the student was allocated to one of their choices
-							break
-					if student_allocated == True:
-						student_allocated = False
-						break
+				if int((all_student)['gpa']) > 4: #Check if their gpa entry is greater than 4
+					student_choice = ((all_student)['choices'])[0]
+					allocated[student_choice].append((all_student)['macid']) #Add student to department
+					allocating.remove(all_student) #Remove student from general list to keep track of who has been allocated already
 
-					for choices in C: #If all deparments of student's choice are full, allocate to 
-						if len((allocated[choices])) < int(C[choices]):
-							#print(choices, "is an eligible choice for", (all_student)['macid'])
-							allocated[choices].append((all_student)['macid'])
-							allocating.remove(all_student)
-							break
 				else: #Student did not have at least a 4 gpa
 					allocating.remove(all_student)
+	
+		for all_courses in C:
+			try:
+				if len(allocated['all_courses']) < int(C[all_courses]):
+					print("too many in ", all_courses )
+			except full_capacity_error:
+				print(all_courses, "has exceeded capacity")
 
+	#Allocate the remaining students, the list is already sorted and in order of gpa
 	for rem_student in allocating:
 		if int ((rem_student)['gpa']) >= 4:
 			for choices in (rem_student)['choices']:
