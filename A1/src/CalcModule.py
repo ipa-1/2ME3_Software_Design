@@ -47,6 +47,7 @@ def average(L, g):
 def allocate(S,F,C):
 	allocated={'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
 	student_allocated = False
+
 	allocating = S.copy()
 	allocating = sort(allocating)
 
@@ -80,3 +81,4 @@ def allocate(S,F,C):
 					student_allocated = False
 					break						
 	return(allocated)
+
