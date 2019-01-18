@@ -4,6 +4,7 @@
 #  @date 2019-01-13
 
 ## @brief Sorts a list of student dictionaries based on gpa
+#  @details Using the gpa key of the student dictionaries, the positions of students in the list will be rearranged to be in order of gpa
 #  @param S a list of the dictionaries of students
 #  @return a list of the dictionaries of students
 def sort(s):
@@ -16,9 +17,11 @@ def sort(s):
 				s[j+1] = temp
 	return s	
 
-## @brief Returns the average gpa of male or females students
+## @brief Calculates the average gpa of a list of students
+#  @details Given a list of students and their gender, the average is calculated
 #  @param L a list of dictionaries created by function readStdnts(s)
 #  @param g a string representing male or female
+#  @return average gpa of a list of students
 def average(L, g):
 	stud_average = 0
 	person_count = 0
@@ -29,10 +32,14 @@ def average(L, g):
 	if person_count ==0:
 		return 0
 	else:
-## @brief Given a list of dictionaries of students, list of students with free choice, and capacity, returns dictionary of department capacities
+		return (stud_average/person_count)
+
+## @brief Allocates students into departments
+#  @details Given a list of dictionaries of students, list of students with free choice, and capacity, returns dictionary of department capacities 
 #  @param S a list of the dictionaries of students
 #  @param F a list of students with free choice
 #  @param C a dictionary of department capacities
+#  @return a dictionary with departments as keys and students in the program in a list as the value
 def allocate(S,F,C):
 	allocated={'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
 	student_allocated = False
@@ -63,7 +70,7 @@ def allocate(S,F,C):
 
 					for choices in C: #If all deparments of student's choice are full, allocate to 
 						if len((allocated[choices])) < int(C[choices]):
-							print(choices, "is an eligible choice for", (all_student)['macid'])
+							#print(choices, "is an eligible choice for", (all_student)['macid'])
 							allocated[choices].append((all_student)['macid'])
 							allocating.remove(all_student)
 							break

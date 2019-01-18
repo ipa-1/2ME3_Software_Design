@@ -6,8 +6,11 @@
 from ReadAllocationData import * 
 from CalcModule import *
 
+
 file = "data.txt"
 list = readStdnts(file)
-list = sort(list)
-for x in list:
-	print(x)	
+
+def test_sort():
+	test_list = sort(list)
+	
+	
