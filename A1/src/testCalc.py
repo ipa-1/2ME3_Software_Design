@@ -75,8 +75,13 @@ def test_allocate_1():
 	test_file_1 = "alllist.txt"
 	test_file_2 = "fclist.txt"
 	test_file_3 = "deptlist.txt"
-	result = allocate("alllist.txt","fclist.txt","deptlist.txt")
-	assertionEqual(['ipa1'], result["materials"] , "sorted")
+	S_test = readStdnts(test_file_1)
+	F_test = readFreeChoice(test_file_2)
+	C_test = readFreeChoice(test_file_3)
+
+	result = allocate(S_test,F_test,C_test)
+	assertionEqual(['ipa1'], result["materials"] , "free choice allocated to first choice regardless of capacity")
+	assertionEqual(['ipe3'], result["chemical"] , "free choice allocated to first choice regardless of capacity")
 
 def test():
 	test_average_1()

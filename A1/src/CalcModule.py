@@ -62,12 +62,7 @@ def allocate(S,F,C):
 				else: #Student did not have at least a 4 gpa
 					allocating.remove(all_student)
 	
-		for all_courses in C:
-			try:
-				if len(allocated['all_courses']) < int(C[all_courses]):
-					print("too many in ", all_courses )
-			except full_capacity_error:
-				print(all_courses, "has exceeded capacity")
+
 
 	#Allocate the remaining students, the list is already sorted and in order of gpa
 	for rem_student in allocating:
