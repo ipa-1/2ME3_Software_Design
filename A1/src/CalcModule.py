@@ -27,7 +27,7 @@ def average(L, g):
 	person_count = 0
 	for student in L:
 		if student['gender'] == g:
-			average  += int(student['gpa'])
+			stud_average  += int(student['gpa'])
 			person_count +=1
 	if person_count ==0:
 		return 0
