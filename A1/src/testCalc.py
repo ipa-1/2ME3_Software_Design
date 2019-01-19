@@ -29,17 +29,17 @@ sort_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'fema
  {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
   {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '7', 'choices': ['civil', 'chemical', 'electrical']}]
 
-def assertionEqual(test, result, name):
+def assertionEqual(fname, test, result, name):
   if test == result:
-    print("Test passed, %s == %s, %s " % (test, result, name))
+    print("Test passed, %s : %s == %s, %s " % (fname, test, result, name))
   else:
-    print("Test failed, %s != %s, %s " % (test, result, name))
+    print("Test failed, %s : %s != %s, %s " % (fname, test, result, name))
 
-def assertionApproximatelyEqual(test, result, error, name):
+def assertionApproximatelyEqual(fname, test, result, error, name):
   if abs(test - result) < error:
-    print("Test passed, Actual: %s  Approximate: %s, %s " % (test, result, name))
+    print("Test passed, %s : Actual: %s  Approximate: %s, %s " % (fname, test, result, name))
   else:
-    print("Test failed, Actual: %s  Approximate: %s, %s " % (test, result, name))		
+    print("Test failed, %s : Actual: %s  Approximate: %s, %s " % (fname, test, result, name))		
 
 def test_sort_1():
 	test_list = sort(sort_test_1)
@@ -48,7 +48,7 @@ def test_sort_1():
 		if int(test_list[student]['gpa']) > int(test_list[student-1]['gpa']):
 			list_sorted = False
 			break
-	assertionEqual(True, list_sorted, "sorted")
+	assertionEqual("sort(s)", True, list_sorted, "sorted regular list")
 
 def test_sort_2():
 	test_list = sort(sort_test_2)
@@ -57,19 +57,19 @@ def test_sort_2():
 		if int(test_list[student]['gpa']) > int(test_list[student-1]['gpa']):
 			list_sorted = False
 			break
-	assertionEqual(True, list_sorted, "sorted")
+	assertionEqual("sort(s)", True, list_sorted, "sorted list with two duplicate gpa values")
 
 def test_average_1():
 	test_list = ave_test_1
-	assertionApproximatelyEqual(6,average(test_list,"female"), 0.000005, "average1: integer")
+	assertionApproximatelyEqual("average(L, g)", 6,average(test_list,"female"), 0.000005, "integer")
 
 def test_average_2():
 	test_list = ave_test_2
-	assertionApproximatelyEqual(0,average(test_list,"female"), 0.000005, "average2: no values in list matching gender")
+	assertionApproximatelyEqual("average(L, g)", 0,average(test_list,"female"), 0.000005, "no values in list matching gender")
 
 def test_average_3():
 	test_list = ave_test_3
-	assertionApproximatelyEqual(8.3333333,average(test_list,"male"), 0.000005, "average3: floating point average test")
+	assertionApproximatelyEqual("average(L, g)", 8.3333333,average(test_list,"male"), 0.000005, "floating point average test")
 
 def test_allocate_1():
 	test_file_1 = "alllist.txt"
@@ -81,8 +81,9 @@ def test_allocate_1():
 	C_test = readDeptCapacity(test_file_3)
 
 	result = allocate(S_test,F_test,C_test)
-	assertionEqual(['ipa1', 'ipk2'], result["materials"] , "free choice allocated to first choice regardless of capacity")
-	assertionEqual(['ipe3'], result["chemical"] , "free choice allocated to first choice regardless of capacity")
+	assertionEqual("allocate(S,F,C)", ['ipa1', 'ipk2'], result["materials"] , "free choice allocated to first choice regardless of capacity")
+	assertionEqual("allocate(S,F,C)", ['ipe3'], result["chemical"] , "regular student allocated to second choice due to capacity")
+	assertionEqual("allocate(S,F,C)", [], result["electrical"] , "free choice and regular students must have a gpa of 4 to be allocated")
 
 def test():
 	test_average_1()
