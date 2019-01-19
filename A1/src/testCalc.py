@@ -1,7 +1,7 @@
 ## @file testCalc.py
 #  @author Alice Ip 
-#  @brief 
-#  @date 2019-01-15 
+#  @brief Test file to test functions in CalcModule
+#  @date 2019-01-18
 
 from ReadAllocationData import * 
 from CalcModule import *
