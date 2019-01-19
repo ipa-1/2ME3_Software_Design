@@ -46,7 +46,7 @@ def readDeptCapacity(s):
 	
 	for line in iFile:
 		sLine = line.strip()
-		sLine.split(" ")
+		sLine = sLine.split(" ")
 		deptList[sLine[0]] = sLine[1] 
 	return deptList
 

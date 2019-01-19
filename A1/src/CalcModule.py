@@ -42,7 +42,7 @@ def average(L, g):
 #  @return a dictionary with departments as keys and students in the program in a list as the value
 
 #  Assumption: Only students with a gpa higher than 4 will be allocated, students with a gpa of 4 or less will not be allocated
-#  Assumption: All free choice students will be granted their first choice regardless of capacity, however there will be an exception if this occurs
+#  Assumption: All free choice students will be granted their first choice regardless of capacity
 
 def allocate(S,F,C):
 	allocated={'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}

@@ -1,3 +1,0 @@
-ipa1 Alice Ip female 7 materials engphys civil
-ipk2 Kevin Ip male 8 materials software
-ipe3 Eric Ip male 12 civil chemical electrical
