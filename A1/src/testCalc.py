@@ -85,6 +85,21 @@ def test_allocate_1():
 	assertionEqual("allocate(S,F,C)", ['ipe3'], result["chemical"] , "regular student allocated to second choice due to capacity")
 	assertionEqual("allocate(S,F,C)", [], result["electrical"] , "free choice and regular students must have a gpa of 4 to be allocated")
 
+def test_allocate_2():
+	test_file_1 = "alllist2.txt"
+	test_file_2 = "fclist.txt"
+	test_file_3 = "deptlist.txt"
+
+	S_test = readStdnts(test_file_1)
+	F_test = readFreeChoice(test_file_2)
+	C_test = readDeptCapacity(test_file_3)
+
+	test_2_result = {'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
+	test_2_actual = allocate(S_test,F_test,C_test)
+	result = test_2_result == test_2_actual
+	assertionEqual("allocate(S,F,C)", True, result , "Empty student file allocation")
+
+
 def test():
 	test_average_1()
 	test_average_2()
@@ -92,5 +107,6 @@ def test():
 	test_sort_1()
 	test_sort_2()
 	test_allocate_1()
+	test_allocate_2()
 
 test()
