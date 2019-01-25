@@ -1,6 +1,6 @@
 ## @file ReadAllocationData.py
 #  @author Alice Ip 
-#  @brief 
+#  @brief Reads in files and organizes the information into a specific format
 #  @date 2019-01-13
 
 ## @brief Formats a file input into a list of dictionaries
