@@ -1,6 +1,6 @@
 ## @file ReadAllocationData.py
 #  @author Alice Ip 
-#  @brief Reads in files and organizes the information into a specific format
+#  @brief 
 #  @date 2019-01-13
 
 ## @brief Formats a file input into a list of dictionaries
@@ -23,6 +23,7 @@ def readStdnts(s):
 
 		sRecord = dict(macid=sLine[0], fname=sLine[1], lname=sLine[2], gender=sLine[3], gpa=float(sLine[4]), choices=[sLine[5],sLine[6],sLine[7]])
 		allRecords.append(sRecord);
+	
 	return allRecords
 
 ## @brief Formats a file input into a list of macids of students who get free choice

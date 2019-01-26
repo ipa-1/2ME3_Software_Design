@@ -73,7 +73,7 @@ def allocate(S,F,C):
 					if all_dept == choices:
 						if len((allocated[all_dept])) < (C[all_dept]):
 							#print(all_dept, "is an eligible choice for", (rem_student)['macid'])
-							allocated[all_dept].append((rem_student)['macid'])
+							allocated[all_dept].append((rem_student))
 							student_allocated = True
 							allocating.remove(rem_student)
 							break	
