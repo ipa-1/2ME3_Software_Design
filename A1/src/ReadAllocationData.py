@@ -21,7 +21,7 @@ def readStdnts(s):
 			sLineLen+=1
 
 
-		sRecord = dict(macid=sLine[0], fname=sLine[1], lname=sLine[2], gender=sLine[3], gpa=sLine[4], choices=[sLine[5],sLine[6],sLine[7]])
+		sRecord = dict(macid=sLine[0], fname=sLine[1], lname=sLine[2], gender=sLine[3], gpa=float(sLine[4]), choices=[sLine[5],sLine[6],sLine[7]])
 		allRecords.append(sRecord);
 	return allRecords
 
@@ -47,6 +47,6 @@ def readDeptCapacity(s):
 	for line in iFile:
 		sLine = line.strip()
 		sLine = sLine.split(" ")
-		deptList[sLine[0]] = sLine[1] 
+		deptList[sLine[0]] = int(sLine[1])
 	return deptList
 

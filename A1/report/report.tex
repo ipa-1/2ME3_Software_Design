@@ -16,42 +16,55 @@
 \newcounter{stepnum}
 
 \title{Assignment 1 Solution}
-\author{author name and macid}
+\author{Alice Ip and ipa1}
 \date{\today}
 
 \begin {document}
 
 \maketitle
 
-Introductory blurb.
+Part 1 of this software design exercise was to write modules to allocate engineering students from first year into their second year programs. One module reads relevant data from files and the other performs operations on the data. In addition there was a python file for the test driver. In this report, I will summarize and discuss the results of the implementation and testing of my modules as well as a comparison of the module of another student in the course.
 
 \section{Testing of the Original Program}
 
-Description of approach to testing.  Rationale for test case selection.  Summary
-of results.  Any problems uncovered through testing.
+To design test cases for each function, I first created a test case for the simplest form, such as having an empty list of dictionaries of students and then I created test cases to test specifications from the assignment, and calculations from the functions. All test cases passed. Assumptions made include:
 
-Under testing you should list any assumptions you needed to make about the
-program's inputs or expected behaviour.
+\begin{itemize}
+\item Only students with a gpa higher than 4 will be allocated, students with a gpa of 4 or less will not be allocated
+\item All free choice students will be granted their first choice regardless of capacity
+\item Non-free choice students who were not able to get into any of their top three choices would be randomly allocated into a department
+\item There is enough capacity to fit all students in at least one program
+\end{itemize}
 
 \section{Results of Testing Partner's Code}
 
-Summary of results.
+After a successful compile of my ``testCalc.py'' test module, the partner's ``CalcModule.py'' module passed 5/9 tests. Assumptions that the partner made include:
+
+\begin{itemize}
+
+\item Only students with a gpa higher than 4 will be allocated, students with a gpa of 4 or less will not be allocated
+\item If the capacity of a department that a free choice student chose is full, they will be allocated according to their remaining two choices
+\item If the capacities of all the departments that a student chose is full, they will be put into a ``deptFull'' list that holds all the unallocated students
+\end{itemize}
 
 \section{Discussion of Test Results}
 
 \subsection{Problems with Original Code}
+After testing the partner code, I discovered that I had read the requirements specifications wrong, and put the wrong type for ``gpa'' and ``capacity''. As a result, although all the tests pass for my module, they caused errors in the partner ``CalcModule'' files similar to the image below. Also, I was able to compare and analyze my approach to the specifications. Rather than forcing students into a program with full capacity or into a program that is not in their top three choices, it may have been better to not allocate the students, and throw an exception. This method would raise awareness to the problem the school has with their capacities and may increase the satisfaction of the students.
 
 \subsection{Problems with Partner's Code}
-
+A common theme I noticed in my partner's ``CalcModule.py'' file is the excessive use of lists to accomplish a task. In the average function, my partner created two lists, one to hold all the students of the gender being calculated, and another to hold the GPA values of the students of the correct gender. For the purposes of this function, I think that it is sufficient to iterate through the list once, check the gender, add the GPA value into a variable that will hold the total, while keeping track of the number of students that are the correct gender. To calculate the average value, my partner used integer division, resulting in a loss of precision. It is not stated how the result of this function will be used, however in a typical situation where a average is used, usually, precision may be important for drawing conclusions.
 \section{Critique of Design Specification}
-
+The design specification through natural language was ambiguous and resulted in a substantial amount of assumptions. Depending on the approach that the programmer designs, the results of the program may be far from the expectations of assigner. For example, it is stated ``The algorithm for the allocation will allocate all students with a gpa greater than 4.0. Those with less than 4.0 will not be allocated.'' However, these two specifications do not indicate the correct course of action for a student with a GPA of exactly 4.0. Another example would be the lack of specification for situations where capacity is full for free students as well as for regular students. The assignee lacks the information needed to decide how such situations should be handled. Although the specifications for the input and output types of each function was very clear, to ensure reliability and correctness of the program, more information about the expectations of the output should be included.
 %\newpage
 
 \section{Answers to Questions}
 
 \begin{enumerate}[(a)]
 
-\item answer
+\item How could you make function average(L,g) more general? That is, can you specify a similar function, but one that is more versatile/flexible than the given function? The new function should be capable of the identical behaviour as average(L, g) but also have other capabilities. Along a similar line of thinking, how could you make the sort(S) more general?
+
+To make average(L,g)
 
 \item answer
 

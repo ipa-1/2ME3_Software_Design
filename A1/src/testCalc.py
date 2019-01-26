@@ -6,28 +6,28 @@
 from ReadAllocationData import * 
 from CalcModule import *
 
-ave_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'female', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'female', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-ave_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'male', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-ave_test_3= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_3= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-sort_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
- {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']}]
+sort_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+ {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']}]
 
-sort_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
- {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '7', 'choices': ['civil', 'chemical', 'electrical']}]
+sort_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+ {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['civil', 'chemical', 'electrical']}]
 
 def assertionEqual(fname, test, result, name):
   if test == result:

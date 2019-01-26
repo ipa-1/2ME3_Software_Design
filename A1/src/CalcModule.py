@@ -11,7 +11,7 @@ def sort(s):
 	list_length = len(s)
 	for i in range(list_length-1,0,-1):
 		for j in range(0,i):
-			if (int((s[j])['gpa'])) < (int((s[j+1])['gpa'])):
+			if ((s[j])['gpa']) < ((s[j+1])['gpa']):
 				temp = s[j]
 				s[j] = s[j+1]
 				s[j+1] = temp
@@ -27,7 +27,7 @@ def average(L, g):
 	person_count = 0
 	for student in L:
 		if student['gender'] == g:
-			stud_average  += int(student['gpa'])
+			stud_average  += (student['gpa'])
 			person_count +=1
 	if person_count ==0:
 		return 0
@@ -55,7 +55,7 @@ def allocate(S,F,C):
 	for fc_student in F: #Iterate through all students with free choice
 		for all_student in allocating: #Iterate through all students in general list
 			if (all_student)['macid'] == fc_student: #If macid matches
-				if int((all_student)['gpa']) > 4: #Check if their gpa entry is greater than 4
+				if (all_student['gpa']) > 4: #Check if their gpa entry is greater than 4
 					student_choice = ((all_student)['choices'])[0]
 					allocated[student_choice].append((all_student)['macid']) #Add student to department
 					allocating.remove(all_student) #Remove student from general list to keep track of who has been allocated already
@@ -67,11 +67,11 @@ def allocate(S,F,C):
 
 	#Allocate the remaining students, the list is already sorted and in order of gpa
 	for rem_student in allocating:
-		if int ((rem_student)['gpa']) >= 4:
+		if  (rem_student)['gpa'] >= 4:
 			for choices in (rem_student)['choices']:
 				for all_dept in C:
 					if all_dept == choices:
-						if len((allocated[all_dept])) < int(C[all_dept]):
+						if len((allocated[all_dept])) < (C[all_dept]):
 							#print(all_dept, "is an eligible choice for", (rem_student)['macid'])
 							allocated[all_dept].append((rem_student)['macid'])
 							student_allocated = True
