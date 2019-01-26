@@ -57,7 +57,7 @@ def allocate(S,F,C):
 			if (all_student)['macid'] == fc_student: #If macid matches
 				if (all_student['gpa']) > 4: #Check if their gpa entry is greater than 4
 					student_choice = ((all_student)['choices'])[0]
-					allocated[student_choice].append((all_student)['macid']) #Add student to department
+					allocated[student_choice].append((all_student)) #Add student to department
 					allocating.remove(all_student) #Remove student from general list to keep track of who has been allocated already
 
 				else: #Student did not have at least a 4 gpa
@@ -79,6 +79,9 @@ def allocate(S,F,C):
 							break	
 				if student_allocated == True:
 					student_allocated = False
-					break						
+					break
+
+	#for x in allocated:
+		#print(x, allocated[x])				
 	return(allocated)
 

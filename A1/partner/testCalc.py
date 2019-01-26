@@ -84,8 +84,9 @@ def test_allocate_1():
 
 	expected_dictionary = [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']}]
 	test_bool = expected_dictionary == result["materials"]
-	expected_dictionary2 = [{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['civil', 'chemical', 'electrical']}] 
+	expected_dictionary2 = [{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12.0, 'choices': ['civil', 'chemical', 'electrical']}] 
 	test_bool2 = expected_dictionary2 == result["chemical"]
+
 
 	assertionEqual("allocate(S,F,C)", True , test_bool , "free choice allocated to first choice regardless of capacity")
 	assertionEqual("allocate(S,F,C)", True , test_bool2 , "regular student allocated to second choice due to capacity")
