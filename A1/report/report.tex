@@ -36,6 +36,8 @@ To design test cases for each function, I first created a test case for the simp
 \item There is enough capacity to fit all students in at least one program
 \end{itemize}
 
+
+
 \section{Results of Testing Partner's Code}
 
 After a successful compile of my ``testCalc.py'' test module, the partner's ``CalcModule.py'' module passed 5/9 tests. Assumptions that the partner made include:
@@ -46,6 +48,8 @@ After a successful compile of my ``testCalc.py'' test module, the partner's ``Ca
 \item If the capacity of a department that a free choice student chose is full, they will be allocated according to their remaining two choices
 \item If the capacities of all the departments that a student chose is full, they will be put into a ``deptFull'' list that holds all the unallocated students
 \end{itemize}
+
+Since my partner made the same assumption regarding the GPA, some of the expected results from the test cases were correct. However, my partner assumed that capacity was a higher priority than free chocie, and did not allocate free choice students to their first choice if the capacity was full. As a result, failed the test that tested for free choice allocation to first choice regardless of capacity. In the case that any of the inputs were empty, my partner would return a string ``Data is empty'' while I assumed that a empty dictionary with no allocations was sufficient, so my partner failed this test. My partner performed integer division when calculating the average, and as a result, the output did not fit the approximation error range that I had implemented in my test cases for average, failing this test. I realised while testing for regular students being allocated to second choice due to capacity, that a separate test case with a separate input should have been made, as the errors from other assumptions affected this test case, resulting in another failed test.
 
 \section{Discussion of Test Results}
 
@@ -64,11 +68,28 @@ The design specification through natural language was ambiguous and resulted in 
 
 \item How could you make function average(L,g) more general? That is, can you specify a similar function, but one that is more versatile/flexible than the given function? The new function should be capable of the identical behaviour as average(L, g) but also have other capabilities. Along a similar line of thinking, how could you make the sort(S) more general?
 
-To make average(L,g)
+To make average(L,g) more general, a new parameter could have been taken to determine the accuracy of the resulting average value: average(L,g,accuracy)
+To make sort(S) more general, a new parameter could be taken to determine whether the sort is in ascending or descending order: sort(S,order)
 
-\item answer
+\item The assignment states that you can assume that aliasing will not occur with the dictionaries in your lists. What does aliasing mean in this context? In general, could aliasing be a concern with dicts? How might you guard against potential problems?
 
-\item ...
+Aliasing in this context, may happen whenever two variables refer to the same dictionary object, and a change is made to a value using one variable that results in a change in value of the other variable. In general, this may be an issue if someone wanted to make a copy of a dictionary, using ``='' operator or if someone tries to assign a dictionary value to another dictionary or list. To guard against potential problems, good knowledge of which data types are mutable, good testing of functions, and careful usage of assignment variables when using mutable data types can help.
+
+\item The assignment did not require you to test the ReadAllocationData.py module. Describe some potential test cases you could have used to build confidence in this module. Of the two modules, why do you think CalcModule.py was selected over ReadAllocationData.py as the one you should test?
+
+Potential test cases to build confidence in the ``ReadAllocationData.py'' module could include testing to ensure that for each output, the correct types are present. For example, possible testing to make sure that the GPA is a float value, the first name is a string value, and that capacity is a positive integer. Other test cases could include testing to make sure the values in the textfiles are of the correct format. For example, whether the macid started with alphabet letters and ended with a number if there is a number.The Implementation of the functions in ``ReadAllocationData.py'' was not significant as long as it produced output in the specified format. As well, there was little to no manipulation of the data that was processed in these functions, and ambiguities would be insignificant. ``CalcModule'.py'' on the other hand used a combination of many different data types such as dictionaries and lists, and had much more constraints and requirements to meet. Consequently, bugs, errors, and unexpected situations were more likely to exist and cause an undesired outcome as a result of function use.
+
+\item The assignment uses strings as the keys in several dictionaries. It also uses strings to represent members of finite sets. For instance, the strings ``male'' and ``female'' are used to represent elements of the set {male, female'}. What are the problems with using strings in this way? What would be a better approach?
+
+A problem with using strings in this way, is that it must be referred to, and used as a string. Using strings as dictionary keys cause typing to be more ambiguous. A better approach would be to use a enumerated type, where ``male'' and ``female'' are the values of a user defined data type ``gender''. 
+
+\item A dictionary isn't the only option to implement records and structs in Python, where records and structs correspond to the mathematical notion of a tuple. What are other options for implementing the mathematical notion of tuples in Python? Would you recommend changing the data structure used in the code modules? How would you change it?
+
+Other ways of implementing records and structs include writing a custom class. By using a class, you can ensure that each object provides the same set of fields of the correct type. Fields stored on classes are mutable, and new fields can be added freely. Properties of a class can be accessed easily. Another method would be to use the types.SimpleNamespaceClass. This method allows you to access, modify, add, and delete attributes easily. I would recommend changing the data structure used in the code modules to the typing.NamedTupleClass, for this particular problem, since the modules use simple types that are already in Python. This Class allows you to define the types of values in the objects, removing a large portion of possible ambiguity, while keeping the structure of each object simple. The fields are immutable, preventing possible change of values, which is not required for the modules in the assignment.
+
+\item In the specification the student's preferred choices are listed as `choices': [string, string, string]. If the list of strings was changed to a different data structure like a tuple, would the CalcModule.py module need to be modified? Consider instead if a custom class (Abstract Data Type (ADT)) was written for students, and the CalcModule.py module was modified accordingly. This custom class provides a method that returns the next choice and another method that returns True when there are no more choices. In this new case, if the data structure inside the custom class changes, say from lists to tuples, will the CalcModule.py module need to be modified? Please justify your answer
+
+Tuples and lists are accessed in the same way, through indexing. However, if a dictionary is used, the CalcModule.py may need to be modified to access the correct values. If a custom class was written for students with the stated functions, if the data structure inside the custom class changes in regard to the student's choices, the CalcModule.py module would not need to be modified, since the custom class handles obtaining the choice values, and the CalcModule.py module would only need to check if they are eligible, and if capacity is available. It does not need to access the tuple in order to allocate the student in a program.
 
 \end{enumerate}
 
