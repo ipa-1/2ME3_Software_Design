@@ -6,28 +6,28 @@
 from ReadAllocationData import * 
 from CalcModule import *
 
-ave_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'female', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'female', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-ave_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'male', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-ave_test_3= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
-{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']},
-{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': '5', 'choices': ['materials', 'chemical', 'software']}]
+ave_test_3= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']},
+{'macid': 'ipa3', 'fname': 'Alex', 'lname': 'Ip', 'gender': 'male', 'gpa': 5, 'choices': ['materials', 'chemical', 'software']}]
 
-sort_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
- {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '12', 'choices': ['civil', 'chemical', 'electrical']}]
+sort_test_1= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+ {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 12, 'choices': ['civil', 'chemical', 'electrical']}]
 
-sort_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': '7', 'choices': ['materials', 'engphys', 'civil']},
- {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': '8', 'choices': ['materials', 'software', '']},
-  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': '7', 'choices': ['civil', 'chemical', 'electrical']}]
+sort_test_2= [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},
+ {'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']},
+  {'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['civil', 'chemical', 'electrical']}]
 
 def assertionEqual(fname, test, result, name):
   if test == result:
@@ -81,8 +81,14 @@ def test_allocate_1():
 	C_test = readDeptCapacity(test_file_3)
 
 	result = allocate(S_test,F_test,C_test)
-	assertionEqual("allocate(S,F,C)", ['ipa1', 'ipk2'], result["materials"] , "free choice allocated to first choice regardless of capacity")
-	assertionEqual("allocate(S,F,C)", ['ipe3'], result["chemical"] , "regular student allocated to second choice due to capacity")
+
+	expected_dictionary = [{'macid': 'ipa1', 'fname': 'Alice', 'lname': 'Ip', 'gender': 'female', 'gpa': 7, 'choices': ['materials', 'engphys', 'civil']},{'macid': 'ipk2', 'fname': 'Kevin', 'lname': 'Ip', 'gender': 'male', 'gpa': 8, 'choices': ['materials', 'software', '']}]
+	test_bool = expected_dictionary == result["materials"]
+	expected_dictionary2 = [{'macid': 'ipe3', 'fname': 'Eric', 'lname': 'Ip', 'gender': 'male', 'gpa': 7, 'choices': ['civil', 'chemical', 'electrical']}] 
+	test_bool2 = expected_dictionary2 == result["chemical"]
+
+	assertionEqual("allocate(S,F,C)", True , test_bool , "free choice allocated to first choice regardless of capacity")
+	assertionEqual("allocate(S,F,C)", True , test_bool2 , "regular student allocated to second choice due to capacity")
 	assertionEqual("allocate(S,F,C)", [], result["electrical"] , "free choice and regular students must have a gpa of 4 to be allocated")
 
 def test_allocate_2():
@@ -96,6 +102,7 @@ def test_allocate_2():
 
 	test_2_result = {'civil':[], 'chemical':[], 'electrical':[], 'mechanical':[], 'software':[], 'materials':[], 'engphys':[]}
 	test_2_actual = allocate(S_test,F_test,C_test)
+	print (test_2_actual)
 	result = test_2_result == test_2_actual
 	assertionEqual("allocate(S,F,C)", True, result , "Empty student file allocation")
 
