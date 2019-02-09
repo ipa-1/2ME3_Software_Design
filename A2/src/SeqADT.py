@@ -1,6 +1,6 @@
 # @file SeqADT.py
 #  @author Alice Ip ipa1
-#  @brief
+#  @brief An abstract data type that represents a sequence
 #  @date 2019-02-09
 
 # @brief An abstract data type that represents a sequence

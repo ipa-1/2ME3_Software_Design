@@ -1,6 +1,6 @@
 # @file StdntAllocTypes.py
 #  @author Alice Ip ipa1
-#  @brief
+#  @brief Enum and NamedTuple types for student allocation
 #  @date 2019-02-09
 
 from typing import *
