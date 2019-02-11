@@ -11,33 +11,33 @@ class AALst:
 
     # @brief init initial data structure
     @staticmethod
-    def init(self):
+    def init():
 
-        self.__s = {}
+        AALst.s = {}
 
     # @brief add adds a student to a department
     #  @param dep department name
     #  @param m name of student
     @staticmethod
-    def add_stdnt(self, dep, m):
-        if (dep not in self.__s):
-            self.__s[dep] = []
-            self.__s[dep].append(m)
+    def add_stdnt(dep, m):
+        if (dep not in AALst.s):
+            AALst.s[dep] = []
+            AALst.s[dep].append(m)
         else:
-            self.__s[dep].append(m)
+            AALst.s[dep].append(m)
 
     # @brief lst_alloc outputs names of students in department
     #  @param d department name
     #  @return list of students
     @staticmethod
-    def lst_alloc(self, d):
+    def lst_alloc(d):
 
-        return self.__s[dep]
+        return AALst.s[dep]
 
     # @brief num_alloc outputs number of students in a department
     #  @param d department name
     #  @return number of students in a department
     @staticmethod
-    def num_alloc(self, d):
+    def num_alloc(d):
 
-        return len(self.__s[dep])
+        return len(AALst.s[dep])

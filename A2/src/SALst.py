@@ -8,127 +8,146 @@ from AALst import *
 from DCapALst import *
 
 # @brief add adds a student to a department
+
+
 class SALst:
 
-	s = []
+    s = []
 
+    @staticmethod
+    def init():
+        SALst.s = []  # dictionary of StudentT
 
-	@staticmethod
-	def init():
-	    SALst.s = []  # dictionary of StudentT
+    # @brief add will add macid and info into the s dictionary
+    # @param m macid of student
+    # @param i SInfoT of student
 
-	# @brief add will add macid and info into the s dictionary
-	# @param m macid of student
-	# @param i SInfoT of student
+    @staticmethod
+    def add(m, i):
 
-	@staticmethod
-	def add(m, i):
+        found = False
+        for student in SALst.s:
+            if student[0] == m:
+                raise KeyError
+        if found == False:
+            SALst.s.append((m, i))
 
-		found = False
-		for student in SALst.s:
-			if student[0] == m:
-				raise KeyError
-		if found == False:
-			SALst.s.append((m, i))
+    # @brief remove will remove m from s
+    # @param m macid of student
 
-	# @brief remove will remove m from s
-	# @param m macid of student
+    @staticmethod
+    def remove(m):
 
-	@staticmethod
-	def remove(self,m):
+        found = False
+        s = SALst.s
+        for x in range(0, len(s)):
+            student = s[x]
+            if student[0] == m:
+                del s[x]
+                found = True
+        if found == False:
+            raise KeyError
 
-		found = False
-		s = SALst.s
-		for x in range(0, len(s)):
-			student = s[x]
-			if student[0] == m:
-				del s[x]
-				found = True
-		if found == False:
-			raise KeyError
+    # @brief elm checks if m is in s
+    # @param m string
+    # @return boolean indicating if m is in s
 
-	# @brief elm checks if m is in s
-	# @param m string
-	# @return boolean indicating if m is in s
+    @staticmethod
+    def elm(m):
 
-	@staticmethod
-	def elm(self,m):
+        found = False
+        for student in SALst.s:
+            if student[0] == m:
+                return True
+        if found == False:
+            return False
 
-		found = False
-		for student in SALst.s:
-			if student[0] == m:
-				return True
-		if found == False:
-			return False
+    # @brief info returns the student's information
+    # @param m macid of the student
+    # @return SInfoT of student
 
-	# @brief info returns the student's information
-	# @param m macid of the student
-	# @return SInfoT of student
+    @staticmethod
+    def info(m):
 
-	@staticmethod
-	def info(self,m):
+        found = False
+        for student in SALst.s:
+            if student[0] == m:
+                return True
+        if found == False:
+            raise KeyError
 
-		found = False
-		for student in SALst.s:
-			if student[0] == m:
-				return True
-		if found == False:
-			raise KeyError
+    # @brief sort sorts the s based on the filter given
+    # @param f filter to sort by
+    # @return
+    @staticmethod
+    def sort(f):
+        filtered = []
+        for student in SALst.s:
+            if f(student[1]):
+                filtered.append(student)
 
-	# @brief sort sorts the s based on the filter given
-	# @param f filter to sort by
-	# @return
-	@staticmethod
-	def sort(f):
-		filtered = []
-		for student in SALst.s:
-			if f(student[1]):
-				filtered.append(student)
-		
-		#for x in range(0,len(filtered)):
+        for x in range(0, len(filtered) - 1):
+            # print(filtered[x][1].gpa)
+            if (filtered[x][1].gpa < filtered[x + 1][1].gpa):
+                temp = filtered[x]
+                filtered[x] = filtered[x + 1]
+                filtered[x + 1] = temp
+        macid_list = []
+        for y in filtered:
+            macid_list.append(y[0])
 
-		for student in filtered:
-			if (student[1].gpa) == 1:
-				a = 3
+        return(macid_list)
 
+        # print("\n")
 
+    # @brief average calculates the average of a filtered list of students
+    # @param f filter for students to calculate average of
+    # @return a float representing average
+    @staticmethod
+    def average(f):
 
-	# @brief average calculates the average of a filtered list of students
-	# @param f filter for students to calculate average of
-	# @return a float representing average
-	@staticmethod
-	def average(self,f):
+        filtered = []
+        for student in SALst.s:
+            if f(student[1]):
+                filtered.append(student)
 
-		filtered = []
-		for student in SALst.s:
-			a =(student[1].gpa)
-			##if f(student.info):
-				##filtered.append(student)
+        if (len(filtered) == 0):
+            raise ValueError
 
-		if (len(filtered) == 0):
-			raise ValueError
-		return 5
+        average_sum = 0
 
-	# @
-	@staticmethod
-	def allocate(self):
-	    AALst.init()
-	    F = sort(lambda t: t.freechoice and t.gpa >= 4)
+        for x in range(0, len(filtered)):
+        	average_sum+=filtered[x][1].gpa
+        	print(filtered[x][1].gpa)
 
-	    for m in F:
-	        ch = SALst.info(m).choices
-	        AALst.add_stdent(ch.next(), m)
+        print(average_sum)
+        average = average_sum/(len(filtered))
+        return(average)
 
+    # @brief allocate allocates students into deparments
+    @staticmethod
+    def allocate():
 
+        AALst.init()
+        freechoice_list = SALst.sort(lambda t: t.freechoice and t.gpa >= 4)
 
-#alice1 = SInfoT("first", "last", GenT.male, 5.0, ([DeptT.civil, DeptT.chemical]), True)
-#alice2 = SInfoT("first", "last", GenT.male, 13.0, ([DeptT.civil, DeptT.chemical]), False)
-#alice3 = SInfoT("first", "last", GenT.male, 7.0, ([DeptT.civil, DeptT.chemical]), True)
-#SALst.s = [("ipa1",alice),("ipa2",alice2),("ipa3",alice3)]
+        for m in freechoice_list:
+            ch = SALst.info(m).choices
+            AALst.add_stdent(ch.next(), m)
 
-#print(SALst.sort(lambda t: t.freechoice and t.gpa >= 4.0))
+        regular_list = SALst.sort(lambda t: not t.freechoice and t.gpa >= 4)
 
-
+        for all m in regular_list:
+        	ch = SALst.info(m).choices
+        	alloc = False
+        	while (not alloc and not ch.end()){
+        		d = ch.next()
+        		if AALst.num_alloc(d) < DCapALst.capacity(d):
+        			AALst.add_stdnt(d,m)
+        			alloc = True
+        	}
+        	if (not alloc):
+        		raise RuntimeError
 
 
 

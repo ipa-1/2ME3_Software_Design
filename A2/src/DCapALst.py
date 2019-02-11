@@ -33,7 +33,7 @@ class DCapALst:
     def remove(d):
 
         found = False
-        for x in range(0, len(self.__s)):
+        for x in range(0, len(DCapALst.s)):
             if DCapALst.s[x] == d:
                 del DCapALst.s[x]
                 found = True
@@ -66,4 +66,4 @@ class DCapALst:
             raise KeyError
 
 #x = SeqADT([1, 2, 3])
-#print(x.next())
+# print(x.next())
