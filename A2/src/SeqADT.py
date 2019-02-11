@@ -11,7 +11,7 @@ class SeqADT:
     # @brief SeqADT constructor
     #  @details takes a sequence of T
     #  @param x sequence of t
-    def __init__(self, x):
+    def init(self, x):
 
         self.__s = x
         self.__i = 0
@@ -29,7 +29,7 @@ class SeqADT:
         if self.__i >= len(self.__s):
             raise StopIteration
 
-        return self.__s[self.__i -1]
+        return self.__s[self.__i - 1]
 
     # @brief end determines when to end iteration
     #  @return a boolean value if i >= s

@@ -8,73 +8,109 @@ from AALst import *
 from DCapALst import *
 
 # @brief add adds a student to a department
+class SALst:
 
+	s = []
 
-def init():
-    s = []  # dictionary of StudentT
+	@staticmethod
+	def init(self):
+	    self.__s = []  # dictionary of StudentT
 
-# @brief add will add macid and info into the s dictionary
-# @param m macid of student
-# @param i SInfoT of student
+	# @brief add will add macid and info into the s dictionary
+	# @param m macid of student
+	# @param i SInfoT of student
 
-def add(m, i):
+	@staticmethod
+	def add(self,m, i):
 
-	found = False
-	for x in s:
-		if x[0] == m:
+		found = False
+		for student in s:
+			if student[0] == m:
+				raise KeyError
+		if found == False:
+			s.append((m, i))
+
+	# @brief remove will remove m from s
+	# @param m macid of student
+
+	@staticmethod
+	def remove(self,m):
+
+		found = False
+		for x in range(0, len(s)):
+			student = s[x]
+			if student[0] == m:
+				del s[x]
+				found = True
+		if found == False:
 			raise KeyError
-	if found == False:
-		s.append((m,i))
 
-# @brief remove will remove m from s
-# @param m macid of student
+	# @brief elm checks if m is in s
+	# @param m string
+	# @return boolean indicating if m is in s
 
+	@staticmethod
+	def elm(self,m):
 
-def remove(m):
+		found = False
+		for student in s:
+			if student[0] == m:
+				return True
+		if found == False:
+			return False
 
-	found = False
-	for x in range(0,len(s)):
-		t = s[x]
-		if t[0] == m:
-			del s[x]
-			found = True
-	if found == False:
-		raise KeyError
+	# @brief info returns the student's information
+	# @param m macid of the student
+	# @return SInfoT of student
 
-# @brief elm checks if m is in s
-# @param m string
-# @return boolean indicating if m is in s
+	@staticmethod
+	def info(self,m):
 
+		found = False
+		for student in s:
+			if student[0] == m:
+				return True
+		if found == False:
+			raise KeyError
 
-def elm(m):
-
-	if (m in s):
-		return True
-	else:
-		return False
-# @brief info returns the student's information
-# @param m macid of the student
-# @return SInfoT of student
-def info(m):
-
-	return s[m]
-
-'''
-# @brief sort sorts the s based on the filter given
-# @param f filter to sort by
-# @return
-def sort(f):
+	# @brief sort sorts the s based on the filter given
+	# @param f filter to sort by
+	# @return
+	@staticmethod
+	def sort(self,f):
+		filtered = []
+		for student in s:
+			if f(student.info):
+				filtered.append(student)
 
 
-def average(f):
-    if len(s) == 0
-        raise ValueError
+
+	# @brief average calculates the average of a filtered list of students
+	# @param f filter for students to calculate average of
+	# @return a float representing average
+	@staticmethod
+	def average(self,f):
+
+		filtered = []
+		for student in s:
+			if f(student.info):
+				filtered.append(student)
+
+		if (len(filtered) == 0):
+			raise ValueError
+		return 5
+
+	# @
+	@staticmethod
+	def allocate(self):
+	    AALst.init()
+	    F = sort(lambda t: t.freechoice and t.gpa >= 4)
+
+	    for m in F:
+	        ch = SALst.info(m).choices
+	        AALst.add_stdent(ch.next(), m)
 
 
-def allocate():
-    AALst.init()
-    F = sort(lamda t: t.freechoice and t.gpa >= 4)
-    for m in F:
-        ch = SALst.info(m).choices
-        AALst.add_stdent(ch.next(), m)
-'''
+
+
+

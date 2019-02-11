@@ -11,9 +11,9 @@ class DCapALst:
 
     # @brief init initial data structure
     @staticmethod
-    def __init__(self):
+    def init(self):
 
-        self.__s = {}
+        self.__s = []
 
     # @brief add adds a department to the data structure
     #  @param d department name
@@ -21,20 +21,24 @@ class DCapALst:
     @staticmethod
     def add(self, d, n):
 
-        if d in self.__s:
-            raise KeyError
+        for department in self.__s:
+            if department[0] == d:
+                raise KeyError
 
-        self.__s[d] = n
+        self.__s.append((d, n))
 
     # @brief remove removes a department from data structure
     #  @param d department name
     @staticmethod
     def remove(self, d):
 
-        if d not in self.__s:
+        found = False
+        for x in range(0, len(self.__s)):
+            if self.__s[x] == d:
+                del self.__s[x]
+                found = True
+        if (found == False):
             raise KeyError
-
-        self.__s.pop(d)
 
     # @brief elm checks to see if deparment is in list
     #  @param d department name
@@ -42,10 +46,10 @@ class DCapALst:
     @staticmethod
     def elm(self, d):
 
-        if d in self.__s:
-            return True
-        else:
-            return False
+        for department in self.__s:
+            if department[0] == d:
+                return True
+        return False
 
     # @brief capacity outputs the capacity of a department
     #  @param d department name
@@ -53,9 +57,13 @@ class DCapALst:
     @staticmethod
     def capacity(self, d):
 
-        if d not in self.__s:
+        found = False
+        for department in self.__s:
+            if department[0] == d:
+                return department[1]
+                found = True
+        if (found == False):
             raise KeyError
-        return self.s[d]
 
-x = SeqADT([1,2,3])
-print(x.next())
+#x = SeqADT([1, 2, 3])
+#print(x.next())
