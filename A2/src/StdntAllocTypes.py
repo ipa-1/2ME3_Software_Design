@@ -33,5 +33,6 @@ class SInfoT(NamedTuple):
     choices:SeqADT
     freechoice:bool
 
+sinfo1 = SInfoT("first", "last", GenT.male, 12.0, ([DeptT.civil, DeptT.chemical]), True)
 
 
