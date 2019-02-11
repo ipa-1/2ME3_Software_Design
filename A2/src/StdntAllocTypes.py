@@ -32,3 +32,6 @@ class SInfoT(NamedTuple):
     gpa:float  # type is real
     choices:SeqADT
     freechoice:bool
+
+
+

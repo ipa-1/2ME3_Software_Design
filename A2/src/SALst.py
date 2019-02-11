@@ -12,23 +12,24 @@ class SALst:
 
 	s = []
 
+
 	@staticmethod
-	def init(self):
-	    self.__s = []  # dictionary of StudentT
+	def init():
+	    SALst.s = []  # dictionary of StudentT
 
 	# @brief add will add macid and info into the s dictionary
 	# @param m macid of student
 	# @param i SInfoT of student
 
 	@staticmethod
-	def add(self,m, i):
+	def add(m, i):
 
 		found = False
-		for student in s:
+		for student in SALst.s:
 			if student[0] == m:
 				raise KeyError
 		if found == False:
-			s.append((m, i))
+			SALst.s.append((m, i))
 
 	# @brief remove will remove m from s
 	# @param m macid of student
@@ -37,6 +38,7 @@ class SALst:
 	def remove(self,m):
 
 		found = False
+		s = SALst.s
 		for x in range(0, len(s)):
 			student = s[x]
 			if student[0] == m:
@@ -53,7 +55,7 @@ class SALst:
 	def elm(self,m):
 
 		found = False
-		for student in s:
+		for student in SALst.s:
 			if student[0] == m:
 				return True
 		if found == False:
@@ -67,7 +69,7 @@ class SALst:
 	def info(self,m):
 
 		found = False
-		for student in s:
+		for student in SALst.s:
 			if student[0] == m:
 				return True
 		if found == False:
@@ -77,11 +79,17 @@ class SALst:
 	# @param f filter to sort by
 	# @return
 	@staticmethod
-	def sort(self,f):
+	def sort(f):
 		filtered = []
-		for student in s:
-			if f(student.info):
+		for student in SALst.s:
+			if f(student[1]):
 				filtered.append(student)
+		
+		#for x in range(0,len(filtered)):
+
+		for student in filtered:
+			if (student[1].gpa) == 1:
+				a = 3
 
 
 
@@ -92,9 +100,10 @@ class SALst:
 	def average(self,f):
 
 		filtered = []
-		for student in s:
-			if f(student.info):
-				filtered.append(student)
+		for student in SALst.s:
+			a =(student[1].gpa)
+			##if f(student.info):
+				##filtered.append(student)
 
 		if (len(filtered) == 0):
 			raise ValueError
@@ -109,6 +118,15 @@ class SALst:
 	    for m in F:
 	        ch = SALst.info(m).choices
 	        AALst.add_stdent(ch.next(), m)
+
+
+
+#alice1 = SInfoT("first", "last", GenT.male, 5.0, ([DeptT.civil, DeptT.chemical]), True)
+#alice2 = SInfoT("first", "last", GenT.male, 13.0, ([DeptT.civil, DeptT.chemical]), False)
+#alice3 = SInfoT("first", "last", GenT.male, 7.0, ([DeptT.civil, DeptT.chemical]), True)
+#SALst.s = [("ipa1",alice),("ipa2",alice2),("ipa3",alice3)]
+
+#print(SALst.sort(lambda t: t.freechoice and t.gpa >= 4.0))
 
 
 

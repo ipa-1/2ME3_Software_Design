@@ -11,31 +11,31 @@ class DCapALst:
 
     # @brief init initial data structure
     @staticmethod
-    def init(self):
+    def init():
 
-        self.__s = []
+        DCapALst.s = []
 
     # @brief add adds a department to the data structure
     #  @param d department name
     #  @param n current capacity of department
     @staticmethod
-    def add(self, d, n):
+    def add(d, n):
 
-        for department in self.__s:
+        for department in DCapALst.s:
             if department[0] == d:
                 raise KeyError
 
-        self.__s.append((d, n))
+        DCapALst.s.append((d, n))
 
     # @brief remove removes a department from data structure
     #  @param d department name
     @staticmethod
-    def remove(self, d):
+    def remove(d):
 
         found = False
         for x in range(0, len(self.__s)):
-            if self.__s[x] == d:
-                del self.__s[x]
+            if DCapALst.s[x] == d:
+                del DCapALst.s[x]
                 found = True
         if (found == False):
             raise KeyError
@@ -44,9 +44,9 @@ class DCapALst:
     #  @param d department name
     #  @return true if department is in list, false otherwise
     @staticmethod
-    def elm(self, d):
+    def elm(d):
 
-        for department in self.__s:
+        for department in DCapALst.s:
             if department[0] == d:
                 return True
         return False
@@ -55,10 +55,10 @@ class DCapALst:
     #  @param d department name
     #  @return department's capacity
     @staticmethod
-    def capacity(self, d):
+    def capacity(d):
 
         found = False
-        for department in self.__s:
+        for department in DCapALst.s:
             if department[0] == d:
                 return department[1]
                 found = True
