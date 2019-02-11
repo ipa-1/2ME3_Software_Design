@@ -26,15 +26,9 @@ class DeptT(Enum):
 
 # @brief An NamedTuple to store student information
 class SInfoT(NamedTuple):
-    fname:
-        str
-    lname:
-        str
-    gender:
-        GenT
-    gpa:
-        float  # type is real
-    choices:
-        SeqADT
-    freechoice:
-        bool
+    fname:str
+    lname:str
+    gender:GenT
+    gpa:float  # type is real
+    choices:SeqADT
+    freechoice:bool

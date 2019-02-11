@@ -11,19 +11,20 @@ from DCapALst import *
 
 
 def init():
-    s = {}  # dictionary of StudentT
+    s = []  # dictionary of StudentT
 
 # @brief add will add macid and info into the s dictionary
 # @param m macid of student
 # @param i SInfoT of student
 
-
 def add(m, i):
 
-    if (m in s):
-        raise KeyError
-    else:
-        s[m] = i
+	found = False
+	for x in s:
+		if x[0] == m:
+			raise KeyError
+	if found == False:
+		s.append((m,i))
 
 # @brief remove will remove m from s
 # @param m macid of student
@@ -31,10 +32,14 @@ def add(m, i):
 
 def remove(m):
 
-    if (m in s):
-        s.pop(m)
-    else:
-        raise KeyError
+	found = False
+	for x in range(0,len(s)):
+		t = s[x]
+		if t[0] == m:
+			del s[x]
+			found = True
+	if found == False:
+		raise KeyError
 
 # @brief elm checks if m is in s
 # @param m string
@@ -55,6 +60,9 @@ def info(m):
 	return s[m]
 
 '''
+# @brief sort sorts the s based on the filter given
+# @param f filter to sort by
+# @return
 def sort(f):
 
 

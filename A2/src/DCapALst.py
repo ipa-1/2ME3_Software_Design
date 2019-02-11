@@ -56,3 +56,6 @@ class DCapALst:
         if d not in self.__s:
             raise KeyError
         return self.s[d]
+
+x = SeqADT([1,2,3])
+print(x.next())

@@ -29,7 +29,7 @@ class SeqADT:
         if self.__i >= len(self.__s):
             raise StopIteration
 
-        return self.__s[self.__i]
+        return self.__s[self.__i -1]
 
     # @brief end determines when to end iteration
     #  @return a boolean value if i >= s
