@@ -73,7 +73,7 @@ class SALst:
         found = False
         for student in SALst.s:
             if student[0] == m:
-                return True
+                return student[1]
         if found == False:
             raise KeyError
 

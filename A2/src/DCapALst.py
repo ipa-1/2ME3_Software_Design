@@ -4,7 +4,7 @@
 #  @date 2019-02-09
 
 from StdntAllocTypes import *
-from SeqADT import *
+
 
 
 # @brief An abstract data type that stores department capacity

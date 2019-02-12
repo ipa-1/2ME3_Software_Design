@@ -6,6 +6,7 @@
 from DCapALst import *
 from SALst import *
 from StdntAllocTypes import *
+from SeqADT import *
 
 convert_dept = {'civil': DeptT.civil, 'chemical': DeptT.chemical, 'electrical': DeptT.electrical,
                 'mechanical': DeptT.mechanical, 'software': DeptT.software, 'materials': DeptT.materials, 'engphys': DeptT.engphys}
