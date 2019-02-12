@@ -1,14 +1,14 @@
-# @file SALst.py
+## @file SALst.py
 #  @author Alice Ip ipa1
 #  @brief provides services for working with the allocation and departments
-#  @date 2019-02-09
+#  @date 2019-02-11
 
 from StdntAllocTypes import *
 from AALst import *
 from DCapALst import *
 from SeqADT import *
 
-# @brief add adds a student to a department
+## @brief add adds a student to a department
 
 
 class SALst:
@@ -19,9 +19,9 @@ class SALst:
     def init():
         SALst.s = []  # dictionary of StudentT
 
-    # @brief add will add macid and info into the s dictionary
-    # @param m macid of student
-    # @param i SInfoT of student
+    ## @brief add will add macid and info into the s dictionary
+    #  @param m macid of student
+    #  @param i SInfoT of student
 
     @staticmethod
     def add(m, i):
@@ -33,8 +33,8 @@ class SALst:
         if found is False:
             SALst.s.append((m, i))
 
-    # @brief remove will remove m from s
-    # @param m macid of student
+    ## @brief remove will remove m from s
+    #  @param m macid of student
 
     @staticmethod
     def remove(m):
@@ -49,9 +49,9 @@ class SALst:
         if found is False:
             raise KeyError
 
-    # @brief elm checks if m is in s
-    # @param m string
-    # @return boolean indicating if m is in s
+    ## @brief elm checks if m is in s
+    #  @param m string
+    #  @return boolean indicating if m is in s
 
     @staticmethod
     def elm(m):
@@ -63,9 +63,9 @@ class SALst:
         if found is False:
             return False
 
-    # @brief info returns the student's information
-    # @param m macid of the student
-    # @return SInfoT of student
+    ## @brief info returns the student's information
+    #  @param m macid of the student
+    #  @return SInfoT of student
 
     @staticmethod
     def info(m):
@@ -77,9 +77,9 @@ class SALst:
         if found is False:
             raise KeyError
 
-    # @brief sort sorts the s based on the filter given
-    # @param f filter to sort by
-    # @return
+    ## @brief sort sorts the s based on the filter given
+    #  @param f filter to sort by
+    #  @return list of macids
     @staticmethod
     def sort(f):
         filtered = []
@@ -99,9 +99,9 @@ class SALst:
 
         return(macid_list)
 
-    # @brief average calculates the average of a filtered list of students
-    # @param f filter for students to calculate average of
-    # @return a float representing average
+    ## @brief average calculates the average of a filtered list of students
+    #  @param f filter for students to calculate average of
+    #  @return a float representing average
     @staticmethod
     def average(f):
 
@@ -121,7 +121,8 @@ class SALst:
         average = average_sum / (len(filtered))
         return(average)
 
-    # @brief allocate allocates students into deparments
+    ## @brief allocate allocates students into deparments
+    #  @details allocates freechoice students, regular students, according to gpa
     @staticmethod
     def allocate():
 

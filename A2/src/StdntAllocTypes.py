@@ -1,7 +1,7 @@
-# @file StdntAllocTypes.py
+## @file StdntAllocTypes.py
 #  @author Alice Ip ipa1
 #  @brief Enum and NamedTuple types for student allocation
-#  @date 2019-02-09
+#  @date 2019-02-11
 
 from typing import *
 from SeqADT import *

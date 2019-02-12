@@ -1,12 +1,12 @@
-# @file AALst.py
+## @file AALst.py
 #  @author Alice Ip ipa1
 #  @brief Allocation Association List Module
-#  @date 2019-02-09
+#  @date 2019-02-11
 
 from StdntAllocTypes import *
 
 
-# @brief Allocation Association List that holds the students in a particular department
+## @brief Allocation Association List that holds the students in a particular department
 class AALst:
 
     # @brief init initial data structure
@@ -15,7 +15,7 @@ class AALst:
 
         AALst.s = {}
 
-    # @brief add adds a student to a department
+    ## @brief add adds a student to a department
     #  @param dep department name
     #  @param m name of student
     @staticmethod
@@ -26,7 +26,7 @@ class AALst:
         else:
             AALst.s[dep].append(m)
 
-    # @brief lst_alloc outputs names of students in department
+    ## @brief lst_alloc outputs names of students in department
     #  @param d department name
     #  @return list of students
     @staticmethod
@@ -34,7 +34,7 @@ class AALst:
 
         return AALst.s[d]
 
-    # @brief num_alloc outputs number of students in a department
+    ## @brief num_alloc outputs number of students in a department
     #  @param d department name
     #  @return number of students in a department
     @staticmethod

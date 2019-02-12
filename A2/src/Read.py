@@ -1,7 +1,7 @@
-# @file Read.py
+## @file Read.py
 #  @author Alice Ip ipa1
 #  @brief
-#  @date 2019-02-09
+#  @date 2019-02-11
 
 from DCapALst import *
 from SALst import *
@@ -14,6 +14,9 @@ convert_dept = {'civil': DeptT.civil, 'chemical': DeptT.chemical,
                 'engphys': DeptT.engphys}
 convert_gender = {'male': GenT.male, 'female': GenT.female}
 
+
+## @brief load_stdnt_data reads a file of student data and puts into SALst
+#  @param s is the file name
 
 def load_stdnt_data(s):
     SALst.init()
@@ -47,6 +50,9 @@ def load_stdnt_data(s):
 
         SALst.add(macid, student_info)
 
+
+## @brief load_dcap_data reads a file of deparment capacities and puts into SALst
+#  @param s is the file name
 
 def load_dcap_data(s):
     DCapALst.init()
