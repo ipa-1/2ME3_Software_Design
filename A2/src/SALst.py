@@ -30,7 +30,7 @@ class SALst:
         for student in SALst.s:
             if student[0] == m:
                 raise KeyError
-        if found == False:
+        if found is False:
             SALst.s.append((m, i))
 
     # @brief remove will remove m from s
@@ -46,7 +46,7 @@ class SALst:
             if student[0] == m:
                 del s[x]
                 found = True
-        if found == False:
+        if found is False:
             raise KeyError
 
     # @brief elm checks if m is in s
@@ -60,7 +60,7 @@ class SALst:
         for student in SALst.s:
             if student[0] == m:
                 return True
-        if found == False:
+        if found is False:
             return False
 
     # @brief info returns the student's information
@@ -74,7 +74,7 @@ class SALst:
         for student in SALst.s:
             if student[0] == m:
                 return student[1]
-        if found == False:
+        if found is False:
             raise KeyError
 
     # @brief sort sorts the s based on the filter given
@@ -88,7 +88,7 @@ class SALst:
                 filtered.append(student)
 
         for x in range(0, len(filtered) - 1):
-            # print(filtered[x][1].gpa)
+
             if (filtered[x][1].gpa < filtered[x + 1][1].gpa):
                 temp = filtered[x]
                 filtered[x] = filtered[x + 1]
@@ -98,8 +98,6 @@ class SALst:
             macid_list.append(y[0])
 
         return(macid_list)
-
-        # print("\n")
 
     # @brief average calculates the average of a filtered list of students
     # @param f filter for students to calculate average of
@@ -118,11 +116,9 @@ class SALst:
         average_sum = 0
 
         for x in range(0, len(filtered)):
-        	average_sum+=filtered[x][1].gpa
-        	#print(filtered[x][1].gpa)
+            average_sum += filtered[x][1].gpa
 
-        #print(average_sum)
-        average = average_sum/(len(filtered))
+        average = average_sum / (len(filtered))
         return(average)
 
     # @brief allocate allocates students into deparments
@@ -139,16 +135,13 @@ class SALst:
         regular_list = SALst.sort(lambda t: not t.freechoice and t.gpa >= 4)
 
         for m in regular_list:
-        	ch = SALst.info(m).choices
-        	alloc = False
-        	while (not alloc and not ch.end()):
-        		d = ch.next()
-        		if AALst.num_alloc(d) < DCapALst.capacity(d):
-        			AALst.add_stdnt(d,m)
-        			alloc = True
-        	
-        	if (not alloc):
-        		raise RuntimeError
+            ch = SALst.info(m).choices
+            alloc = False
+            while (not alloc and not ch.end()):
+                d = ch.next()
+                if AALst.num_alloc(d) < DCapALst.capacity(d):
+                    AALst.add_stdnt(d, m)
+                    alloc = True
 
-
-
+            if (not alloc):
+                raise RuntimeError

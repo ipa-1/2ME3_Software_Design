@@ -21,4 +21,3 @@ print(SALst.average(lambda x: x.gender == GenT.male))
 AALst.init()
 SALst.allocate()
 print(AALst.lst_alloc(DeptT.civil))
-

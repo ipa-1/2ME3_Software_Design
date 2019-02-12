@@ -6,7 +6,6 @@
 from StdntAllocTypes import *
 
 
-
 # @brief Allocation Association List that holds the students in a particular department
 class AALst:
 

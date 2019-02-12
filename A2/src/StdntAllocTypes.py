@@ -13,6 +13,7 @@ class GenT(Enum):
     male = 0
     female = 1
 
+
 # @brief An enum type for department names
 class DeptT(Enum):
     civil = 0
@@ -26,14 +27,9 @@ class DeptT(Enum):
 
 # @brief An NamedTuple to store student information
 class SInfoT(NamedTuple):
-    fname:str
-    lname:str
-    gender:GenT
-    gpa:float  # type is real
-    choices:SeqADT
-    freechoice:bool
-
-a = SeqADT([DeptT.civil,DeptT.chemical])
-#sinfo1 = SInfoT("first", "last", GenT.male, 12.0, SeqADT([DeptT.civil, DeptT.chemical]), True)
-
-
+    fname: str
+    lname: str
+    gender: GenT
+    gpa: float  # type is real
+    choices: SeqADT
+    freechoice: bool

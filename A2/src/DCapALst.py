@@ -3,9 +3,6 @@
 #  @brief An abstract data type that stores department capacity
 #  @date 2019-02-09
 
-from StdntAllocTypes import *
-
-
 
 # @brief An abstract data type that stores department capacity
 class DCapALst:
@@ -38,7 +35,7 @@ class DCapALst:
             if DCapALst.s[x] == d:
                 del DCapALst.s[x]
                 found = True
-        if (found == False):
+        if (found is False):
             raise KeyError
 
     # @brief elm checks to see if deparment is in list
@@ -63,9 +60,5 @@ class DCapALst:
             if department[0] == d:
                 return department[1]
                 found = True
-        if (found == False):
+        if (found is False):
             raise KeyError
-
-#x = SeqADT([1, 2, 3])
-#y = SeqADT([DeptT.civil, DeptT.chemical])
-#print(x.next())
