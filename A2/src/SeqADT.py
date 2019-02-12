@@ -26,7 +26,7 @@ class SeqADT:
     def next(self):
         self.__i += 1
 
-        if self.__i >= len(self.__s)+1:
+        if self.__i >= len(self.__s) + 1:
             raise StopIteration
 
         return self.__s[self.__i - 1]
@@ -38,4 +38,3 @@ class SeqADT:
             return True
         else:
             return False
-

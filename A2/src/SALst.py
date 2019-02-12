@@ -146,6 +146,3 @@ class SALst:
 
             if (not alloc):
                 raise RuntimeError
-                
-choices = SeqADT([DeptT.civil, DeptT.chemical])
-print(choices.next())

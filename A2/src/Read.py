@@ -65,6 +65,3 @@ def load_dcap_data(s):
         dept_name = dept_line[0].replace(',', '')
         dept_name = convert_dept[dept_name]
         DCapALst.add(dept_name, capacity)
-
-
-
