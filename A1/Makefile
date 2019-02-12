@@ -4,7 +4,7 @@ DOC = doxygen
 DOCFLAGS = 
 DOCCONFIG = docConfig
 
-SRC = src/testCalc.py
+SRC = partner/testCalc.py
 
 .PHONY: all test doc clean
 
