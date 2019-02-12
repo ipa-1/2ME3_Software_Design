@@ -65,3 +65,8 @@ def load_dcap_data(s):
         dept_name = dept_line[0].replace(',', '')
         dept_name = convert_dept[dept_name]
         DCapALst.add(dept_name, capacity)
+
+
+load_stdnt_data("StdntData.txt")
+assert(SALst.s[0][0]=="macid1" )
+assert(SALst.s[0][1]==SInfoT(fname='firstname', lname='lastname', gender='male', gpa='9.2', choices=[DeptT.software, DeptT.chemical, DeptT.materials], freechoice='True'))

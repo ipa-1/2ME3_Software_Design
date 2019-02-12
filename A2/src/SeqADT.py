@@ -38,3 +38,4 @@ class SeqADT:
             return True
         else:
             return False
+
