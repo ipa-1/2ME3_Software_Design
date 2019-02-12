@@ -21,3 +21,14 @@ print(SALst.average(lambda x: x.gender == GenT.male))
 AALst.init()
 SALst.allocate()
 print(AALst.lst_alloc(DeptT.civil))
+
+print("tests")
+choices = SeqADT([DeptT.civil, DeptT.chemical])
+assert(choices.next() == DeptT.civil)
+assert(choices.next() == DeptT.chemical)
+with raises (Exceptions.StopIteration):
+    choices.next()
+
+
+
+
