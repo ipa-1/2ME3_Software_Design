@@ -92,6 +92,20 @@ class TestSALst:
             close = True
         assert(close is True)
 
+    def test_allocate(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.civil, 2)
+
+        sinfo1 = SInfoT("first", "last", GenT.male, 12.0,
+                        SeqADT([DeptT.civil, DeptT.chemical]), True)
+
+        SALst.init()
+        SALst.add("stdnt1", sinfo1)
+
+        AALst.init()
+        SALst.allocate()
+        assert(AALst.s == {DeptT.civil: ['stdnt1']})
+
     def test_info_none(self):
         SALst.s = []
         with pytest.raises(KeyError):
