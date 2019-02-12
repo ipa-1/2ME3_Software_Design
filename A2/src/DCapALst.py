@@ -67,4 +67,5 @@ class DCapALst:
             raise KeyError
 
 #x = SeqADT([1, 2, 3])
-# print(x.next())
+#y = SeqADT([DeptT.civil, DeptT.chemical])
+#print(x.next())

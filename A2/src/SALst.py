@@ -119,9 +119,9 @@ class SALst:
 
         for x in range(0, len(filtered)):
         	average_sum+=filtered[x][1].gpa
-        	print(filtered[x][1].gpa)
+        	#print(filtered[x][1].gpa)
 
-        print(average_sum)
+        #print(average_sum)
         average = average_sum/(len(filtered))
         return(average)
 
@@ -134,7 +134,7 @@ class SALst:
 
         for m in freechoice_list:
             ch = SALst.info(m).choices
-            AALst.add_stdent(ch.next(), m)
+            AALst.add_stdnt(ch.next(), m)
 
         regular_list = SALst.sort(lambda t: not t.freechoice and t.gpa >= 4)
 

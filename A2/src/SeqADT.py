@@ -11,7 +11,7 @@ class SeqADT:
     # @brief SeqADT constructor
     #  @details takes a sequence of T
     #  @param x sequence of t
-    def init(self, x):
+    def __init__(self, x):
 
         self.__s = x
         self.__i = 0

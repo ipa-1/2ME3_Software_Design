@@ -44,7 +44,7 @@ def load_stdnt_data(s):
 		freechoice = student_line[len(student_line)-1]
 		
 		student_info = SInfoT(first_name,last_name, gender, gpa, (courses), freechoice)
-		print(student_info)
+		#print(student_info)
 		SALst.add(macid,student_info)
 
 

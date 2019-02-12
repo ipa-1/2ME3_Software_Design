@@ -33,7 +33,7 @@ class AALst:
     @staticmethod
     def lst_alloc(d):
 
-        return AALst.s[dep]
+        return AALst.s[d]
 
     # @brief num_alloc outputs number of students in a department
     #  @param d department name
