@@ -1,7 +1,7 @@
-# @file Read.py
+## @file test_All.py
 #  @author Alice Ip ipa1
 #  @brief
-#  @date 2019-02-09
+#  @date 2019-02-11
 
 from pytest import *
 from StdntAllocTypes import *
@@ -10,7 +10,7 @@ from DCapALst import *
 from AALst import *
 from SALst import *
 
-class TestRead:
-	def setup_method(self, method):
-		stdntf = load_stdnt_data("StdntData.txt")
-		deptf = load_dcap_data("DeptCap.txt")
+class TestStdntAllocTypes:
+	def test_SInfoT(self):
+		sinfo1 = SInfoT("first", "last", GenT.male, 12.0, SeqADT([DeptT.civil, DeptT.chemical]), True)
+		assert (sinfo1.fname == "first")
