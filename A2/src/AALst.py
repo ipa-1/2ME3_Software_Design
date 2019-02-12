@@ -4,6 +4,7 @@
 #  @date 2019-02-09
 
 from StdntAllocTypes import *
+from SeqADT import *
 
 
 # @brief Allocation Association List that holds the students in a particular department

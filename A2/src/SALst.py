@@ -6,6 +6,7 @@
 from StdntAllocTypes import *
 from AALst import *
 from DCapALst import *
+from SeqADT import *
 
 # @brief add adds a student to a department
 
@@ -137,15 +138,15 @@ class SALst:
 
         regular_list = SALst.sort(lambda t: not t.freechoice and t.gpa >= 4)
 
-        for all m in regular_list:
+        for m in regular_list:
         	ch = SALst.info(m).choices
         	alloc = False
-        	while (not alloc and not ch.end()){
+        	while (not alloc and not ch.end()):
         		d = ch.next()
         		if AALst.num_alloc(d) < DCapALst.capacity(d):
         			AALst.add_stdnt(d,m)
         			alloc = True
-        	}
+        	
         	if (not alloc):
         		raise RuntimeError
 
