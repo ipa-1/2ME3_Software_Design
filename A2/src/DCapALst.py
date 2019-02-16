@@ -1,64 +1,58 @@
 ## @file DCapALst.py
-#  @author Alice Ip ipa1
-#  @brief An abstract data type that stores department capacity
-#  @date 2019-02-11
+#  @title Department Capacity Association List
+#  @author Dominik Buszowiecki
+#  @date February 9, 2019
+
+from StdntAllocTypes import *
 
 
-# @brief An abstract data type that stores department capacity
+## @brief An abstract data type containing the capacities of engineering departments as a list
 class DCapALst:
 
-    ## @brief init initial data structure
+    ## @brief Initializes the Department Capacity List to be empty
     @staticmethod
     def init():
-
         DCapALst.s = []
 
-    ## @brief add adds a department to the data structure
-    #  @param d department name
-    #  @param n current capacity of department
+    ## @brief Adds a department and its capacity to the list
+    #  @exception throws KeyError if the given department has been added before
+    #  @param d A department of type StdntAllocTypes.DeptT
+    #  @param n An integer representing the capacity of the department (d parameter)
     @staticmethod
-    def add(d, n):
-
-        for department in DCapALst.s:
-            if department[0] == d:
+    def add(d: DeptT, n: int):
+        for i in DCapALst.s:
+            if d == i[0]:
                 raise KeyError
-
         DCapALst.s.append((d, n))
 
-    ## @brief remove removes a department from data structure
-    #  @param d department name
+    ## @breif Removes a department and its capacity from the list
+    #  @exception throws KeyError if the given department is not in DCapALst
+    #  @param d A department of type StdntAllocTypes.DeptT to be removed
     @staticmethod
-    def remove(d):
+    def remove(d: DeptT):
+        for i in range(0, len(DCapALst.s)):
+            if d == DCapALst.s[i][0]:
+                del DCapALst.s[i]
+                return
+        raise KeyError
 
-        found = False
-        for x in range(0, len(DCapALst.s)):
-            if DCapALst.s[x][0] == d:
-                del DCapALst.s[x]
-                found = True
-        if (found is False):
-            raise KeyError
-
-    ## @brief elm checks to see if deparment is in list
-    #  @param d department name
-    #  @return true if department is in list, false otherwise
+    ## @brief elm checks if a department has been added
+    #  @param d A department of type StdntAllocTypes.DeptT
+    #  @return True if the department has been added, otherwise False
     @staticmethod
-    def elm(d):
-
-        for department in DCapALst.s:
-            if department[0] == d:
+    def elm(d: DeptT) -> bool:
+        for i in DCapALst.s:
+            if d == i[0]:
                 return True
         return False
 
-    ## @brief capacity outputs the capacity of a department
-    #  @param d department name
-    #  @return department's capacity
+    ## @brief capacity returns the capacity of a department
+    #  @exception throws KeyError if the department given is not in DCapALst
+    #  @param d A department of type StdntAllocTypes.DeptT
+    #  @return An integer representing the capacity of the department given as a parameter.
     @staticmethod
-    def capacity(d):
-
-        found = False
-        for department in DCapALst.s:
-            if department[0] == d:
-                found = True
-                return department[1]
-        if (found is False):
-            raise KeyError
+    def capacity(d: DeptT) -> bool:
+        for i in DCapALst.s:
+            if d == i[0]:
+                return i[1]
+        raise KeyError
