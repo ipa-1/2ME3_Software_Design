@@ -32,7 +32,7 @@ class DCapALst:
 
         found = False
         for x in range(0, len(DCapALst.s)):
-            if DCapALst.s[x] == d:
+            if DCapALst.s[x][0] == d:
                 del DCapALst.s[x]
                 found = True
         if (found is False):

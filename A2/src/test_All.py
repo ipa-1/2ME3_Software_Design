@@ -72,6 +72,47 @@ class TestSeqADT:
 
 class TestSALst:
 
+    def test_add_success(self):
+        alice1 = SInfoT("first", "last", GenT.male, 5.0,
+                        ([DeptT.civil, DeptT.chemical]), True)
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        assert(SALst.elm("ipa1") == True)
+
+    def test_add_failure(self):
+        alice1 = SInfoT("first", "last", GenT.male, 5.0,
+                        ([DeptT.civil, DeptT.chemical]), True)
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        with pytest.raises(KeyError):
+             SALst.add("ipa1", alice1)
+
+    def test_remove_success(self):
+        alice1 = SInfoT("first", "last", GenT.male, 5.0,
+                        ([DeptT.civil, DeptT.chemical]), True)
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        SALst.remove("ipa1")
+        with pytest.raises(KeyError):
+             SALst.elm("ipa1", alice1)
+
+    def test_remove_success(self):
+
+        SALst.init()
+        with pytest.raises(KeyError):
+            SALst.remove("ipa1")
+
+    def test_elm_true(self):
+        alice1 = SInfoT("first", "last", GenT.male, 5.0,
+                        ([DeptT.civil, DeptT.chemical]), True)
+	SALst.init()
+        SALst.add("ipa1", alice1)
+        assert(SALst.elm("ipa1") == True)
+
+    def test_elm_false(self):
+        SALst.init()
+        assert(SALst.elm("ipa1") == False)
+
     def test_sort(self):
         alice1 = SInfoT("first", "last", GenT.male, 5.0,
                         ([DeptT.civil, DeptT.chemical]), True)
@@ -172,7 +213,7 @@ class TestDCapALst:
 
     def test_elm_True(self):
         DCapALst.init()
-        DCapALst.add(DeptT.materials)
+        DCapALst.add(DeptT.materials,100)
         assert(DCapALst.elm(DeptT.materials) == True)
 
     def test_elm_False(self):
@@ -187,3 +228,10 @@ class TestDCapALst:
 
     def test_capacity_True(self):
         DCapALst.init()
+        DCapALst.add(DeptT.materials,50)
+        assert(DCapALst.capacity(DeptT.materials) == 50)
+
+    def test_capacity_False(self):
+        DCapALst.init()
+        with pytest.raises(KeyError):
+             DCapALst.capacity(DeptT.materials)  
