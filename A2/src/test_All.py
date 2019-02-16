@@ -43,10 +43,11 @@ class TestRead:
         load_stdnt_data("src/StdntData.txt")
         assert(SALst.elm("macid1") == True)
         assert(SALst.info("macid1") == SInfoT(fname='firstname',
-                                       lname='lastname', gender='male', gpa='9.2',
-                                       choices=[DeptT.software, DeptT.chemical,
-                                                DeptT.materials],
-                                       freechoice='True'))
+                                              lname='lastname', gender='male', gpa='9.2',
+                                              choices=[DeptT.software, DeptT.chemical,
+                                                       DeptT.materials],
+                                              freechoice='True'))
+
 
 class TestSeqADT:
 
@@ -70,6 +71,7 @@ class TestSeqADT:
         choices = SeqADT([DeptT.software, DeptT.chemical])
         assert(choices.end() == False)
 
+
 class TestSALst:
 
     def test_add_success(self):
@@ -85,7 +87,7 @@ class TestSALst:
         SALst.init()
         SALst.add("ipa1", alice1)
         with pytest.raises(KeyError):
-             SALst.add("ipa1", alice1)
+            SALst.add("ipa1", alice1)
 
     def test_remove_success(self):
         alice1 = SInfoT("first", "last", GenT.male, 5.0,
@@ -94,7 +96,7 @@ class TestSALst:
         SALst.add("ipa1", alice1)
         SALst.remove("ipa1")
         with pytest.raises(KeyError):
-             SALst.elm("ipa1", alice1)
+            SALst.elm("ipa1", alice1)
 
     def test_remove_success(self):
 
@@ -105,7 +107,7 @@ class TestSALst:
     def test_elm_true(self):
         alice1 = SInfoT("first", "last", GenT.male, 5.0,
                         ([DeptT.civil, DeptT.chemical]), True)
-	SALst.init()
+        SALst.init()
         SALst.add("ipa1", alice1)
         assert(SALst.elm("ipa1") == True)
 
@@ -151,12 +153,26 @@ class TestSALst:
             close = True
         assert(close is True)
 
-    def test_allocate(self):
+    def test_allocate_free(self):
         DCapALst.init()
         DCapALst.add(DeptT.civil, 2)
 
         sinfo1 = SInfoT("first", "last", GenT.male, 12.0,
                         SeqADT([DeptT.civil, DeptT.chemical]), True)
+
+        SALst.init()
+        SALst.add("stdnt1", sinfo1)
+
+        AALst.init()
+        SALst.allocate()
+        assert(AALst.lst_alloc(DeptT.civil) == ['stdnt1'])
+
+    def test_allocate_regular(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.civil, 2)
+
+        sinfo1 = SInfoT("first", "last", GenT.male, 12.0,
+                        SeqADT([DeptT.civil, DeptT.chemical]), False)
 
         SALst.init()
         SALst.add("stdnt1", sinfo1)
@@ -185,24 +201,28 @@ class TestSALst:
         assert(info_present == SInfoT("first", "last", GenT.male,
                                       5.0, ([DeptT.civil, DeptT.chemical]), True))
 
+
 class TestAALst:
+
     def test_add_to_existing(self):
         AALst.init()
         AALst.add_stdnt(DeptT.software, "ipa1")
         AALst.add_stdnt(DeptT.software, "ipa2")
-        assert(AALst.lst_alloc(DeptT.software) == ["ipa1","ipa2"])
+        assert(AALst.lst_alloc(DeptT.software) == ["ipa1", "ipa2"])
         assert(AALst.num_alloc(DeptT.software) == 2)
 
+
 class TestDCapALst:
+
     def test_add_existing(self):
         DCapALst.init()
-        DCapALst.add(DeptT.software,100)
+        DCapALst.add(DeptT.software, 100)
         with pytest.raises(KeyError):
-            DCapALst.add(DeptT.software,100)
+            DCapALst.add(DeptT.software, 100)
 
     def test_remove_True(self):
         DCapALst.init()
-        DCapALst.add(DeptT.software,100)
+        DCapALst.add(DeptT.software, 100)
         DCapALst.remove(DeptT.software)
         assert(DCapALst.elm(DeptT.software) == False)
 
@@ -213,7 +233,7 @@ class TestDCapALst:
 
     def test_elm_True(self):
         DCapALst.init()
-        DCapALst.add(DeptT.materials,100)
+        DCapALst.add(DeptT.materials, 100)
         assert(DCapALst.elm(DeptT.materials) == True)
 
     def test_elm_False(self):
@@ -228,10 +248,10 @@ class TestDCapALst:
 
     def test_capacity_True(self):
         DCapALst.init()
-        DCapALst.add(DeptT.materials,50)
+        DCapALst.add(DeptT.materials, 50)
         assert(DCapALst.capacity(DeptT.materials) == 50)
 
     def test_capacity_False(self):
         DCapALst.init()
         with pytest.raises(KeyError):
-             DCapALst.capacity(DeptT.materials)  
+            DCapALst.capacity(DeptT.materials)
