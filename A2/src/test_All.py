@@ -41,13 +41,12 @@ class TestRead:
 
     def test_stdnt_data(self):
         load_stdnt_data("src/StdntData.txt")
-        assert(SALst.s[0][0] == "macid1")
-        assert(SALst.s[0][1] == SInfoT(fname='firstname',
+        assert(SALst.elm("macid1") == True)
+        assert(SALst.inf("macid1") == SInfoT(fname='firstname',
                                        lname='lastname', gender='male', gpa='9.2',
                                        choices=[DeptT.software, DeptT.chemical,
                                                 DeptT.materials],
                                        freechoice='True'))
-
 
 class TestSeqADT:
 
@@ -80,7 +79,10 @@ class TestSALst:
                         ([DeptT.civil, DeptT.chemical]), True)
         alice3 = SInfoT("first", "last", GenT.male, 7.0,
                         ([DeptT.civil, DeptT.chemical]), True)
-        SALst.s = [("ipa1", alice1), ("ipa2", alice2), ("ipa3", alice3)]
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        SALst.add("ipa2", alice2)
+        SALst.add("ipa3", alice3)
         id_list = SALst.sort(lambda t: t.freechoice and t.gpa >= 4.0)
         assert(id_list == ['ipa2', 'ipa3', 'ipa1'])
 
