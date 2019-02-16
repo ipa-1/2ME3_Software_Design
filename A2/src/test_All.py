@@ -95,8 +95,7 @@ class TestSALst:
         SALst.init()
         SALst.add("ipa1", alice1)
         SALst.remove("ipa1")
-        with pytest.raises(KeyError):
-            SALst.elm("ipa1", alice1)
+        assert(SALst.elm("ipa1") == False)
 
     def test_remove_failure(self):
 
