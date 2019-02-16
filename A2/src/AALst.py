@@ -39,5 +39,6 @@ class AALst:
     #  @return number of students in a department
     @staticmethod
     def num_alloc(d):
-
+	if (d not in AALst.s):
+	    return 0
         return len(AALst.s[d])
