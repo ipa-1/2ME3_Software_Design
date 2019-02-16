@@ -58,7 +58,7 @@ class DCapALst:
         found = False
         for department in DCapALst.s:
             if department[0] == d:
-                return department[1]
                 found = True
+                return department[1]
         if (found is False):
             raise KeyError

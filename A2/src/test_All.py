@@ -98,7 +98,7 @@ class TestSALst:
         with pytest.raises(KeyError):
             SALst.elm("ipa1", alice1)
 
-    def test_remove_success(self):
+    def test_remove_failure(self):
 
         SALst.init()
         with pytest.raises(KeyError):
@@ -180,6 +180,22 @@ class TestSALst:
         AALst.init()
         SALst.allocate()
         assert(AALst.lst_alloc(DeptT.civil) == ['stdnt1'])
+
+    def test_not_allocated(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.civil, 2)
+
+        sinfo1 = SInfoT("first", "last", GenT.male, 12.0,
+                        SeqADT([]), False)
+
+        SALst.init()
+        SALst.add("stdnt1", sinfo1)
+
+        AALst.init()
+        
+        with pytest.raises(RuntimeError):
+            SALst.allocate()   
+   
 
     def test_info_none(self):
         SALst.s = []
