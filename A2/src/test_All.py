@@ -42,7 +42,7 @@ class TestRead:
     def test_stdnt_data(self):
         load_stdnt_data("src/StdntData.txt")
         assert(SALst.elm("macid1") == True)
-        assert(SALst.inf("macid1") == SInfoT(fname='firstname',
+        assert(SALst.info("macid1") == SInfoT(fname='firstname',
                                        lname='lastname', gender='male', gpa='9.2',
                                        choices=[DeptT.software, DeptT.chemical,
                                                 DeptT.materials],
@@ -87,7 +87,7 @@ class TestSALst:
         assert(id_list == ['ipa2', 'ipa3', 'ipa1'])
 
     def test_average_zero_division(self):
-        SALst.s = []
+        SALst.init()
         with pytest.raises(ValueError):
             SALst.average(lambda x: x.gender == GenT.male)
 
@@ -98,7 +98,11 @@ class TestSALst:
                         ([DeptT.civil, DeptT.chemical]), True)
         alice3 = SInfoT("first", "last", GenT.male, 7.0,
                         ([DeptT.civil, DeptT.chemical]), True)
-        SALst.s = [("ipa1", alice1), ("ipa2", alice2), ("ipa3", alice3)]
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        SALst.add("ipa2", alice2)
+        SALst.add("ipa3", alice3)
+
         average_value = SALst.average(lambda x: x.gender == GenT.male)
         true_value = average_value - 8.333333333333334
         close = False
@@ -118,7 +122,7 @@ class TestSALst:
 
         AALst.init()
         SALst.allocate()
-        assert(AALst.s == {DeptT.civil: ['stdnt1']})
+        assert(AALst.lst_alloc(DeptT.civil) == ['stdnt1'])
 
     def test_info_none(self):
         SALst.s = []
@@ -132,8 +136,54 @@ class TestSALst:
                         ([DeptT.civil, DeptT.chemical]), True)
         alice3 = SInfoT("first", "last", GenT.male, 7.0,
                         ([DeptT.civil, DeptT.chemical]), True)
-        SALst.s = [("ipa1", alice1), ("ipa2", alice2), ("ipa3", alice3)]
+        SALst.init()
+        SALst.add("ipa1", alice1)
+        SALst.add("ipa2", alice2)
+        SALst.add("ipa3", alice3)
         info_present = SALst.info('ipa1')
         assert(info_present == SInfoT("first", "last", GenT.male,
                                       5.0, ([DeptT.civil, DeptT.chemical]), True))
 
+class TestAALst:
+    def test_add_to_existing(self):
+        AALst.init()
+        AALst.add_stdnt(DeptT.software, "ipa1")
+        AALst.add_stdnt(DeptT.software, "ipa2")
+        assert(AALst.lst_alloc(DeptT.software) == ["ipa1","ipa2"])
+        assert(AALst.num_alloc(DeptT.software) == 2)
+
+class TestDCapALst:
+    def test_add_existing(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.software,100)
+        with pytest.raises(KeyError):
+            DCapALst.add(DeptT.software,100)
+
+    def test_remove_True(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.software,100)
+        DCapALst.remove(DeptT.software)
+        assert(DCapALst.elm(DeptT.software) == False)
+
+    def test_remove_False(self):
+        DCapALst.init()
+        with pytest.raises(KeyError):
+            DCapALst.remove(DeptT.engphys)
+
+    def test_elm_True(self):
+        DCapALst.init()
+        DCapALst.add(DeptT.materials)
+        assert(DCapALst.elm(DeptT.materials) == True)
+
+    def test_elm_False(self):
+        DCapALst.init()
+        assert(DCapALst.elm(DeptT.civil) == False)
+        assert(DCapALst.elm(DeptT.chemical) == False)
+        assert(DCapALst.elm(DeptT.electrical) == False)
+        assert(DCapALst.elm(DeptT.mechanical) == False)
+        assert(DCapALst.elm(DeptT.software) == False)
+        assert(DCapALst.elm(DeptT.materials) == False)
+        assert(DCapALst.elm(DeptT.engphys) == False)
+
+    def test_capacity_True(self):
+        DCapALst.init()

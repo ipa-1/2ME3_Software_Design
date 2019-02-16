@@ -40,4 +40,4 @@ class AALst:
     @staticmethod
     def num_alloc(d):
 
-        return len(AALst.s[dep])
+        return len(AALst.s[d])
