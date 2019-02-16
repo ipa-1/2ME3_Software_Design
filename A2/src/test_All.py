@@ -58,6 +58,18 @@ class TestSeqADT:
         with pytest.raises(StopIteration):
             choices.next()
 
+    def test_start(self):
+        choices = SeqADT([DeptT.civil, DeptT.chemical])
+        choices.start()
+        assert(choices.next() == DeptT.civil)
+
+    def test_end_true(self):
+        choices = SeqADT([])
+        assert(choices.end() == True)
+
+    def test_end_false(self):
+        choices = SeqADT([DeptT.software, DeptT.chemical])
+        assert(choices.end() == False)
 
 class TestSALst:
 
@@ -123,15 +135,3 @@ class TestSALst:
         assert(info_present == SInfoT("first", "last", GenT.male,
                                       5.0, ([DeptT.civil, DeptT.chemical]), True))
 
-class TestAALst:
-
-    def test_add_new_dep(self)
-        AALst.init()
-        AALst.add_stdnt(DeptT.software, "ipa1")
-        print(AALst.s)
-
-    def test_add_existing_dep
-
-AALst.init()
-AALst.add_stdnt(DeptT.software, "ipa1")
-print(AALst.s)
