@@ -122,3 +122,10 @@ class TestSALst:
         info_present = SALst.info('ipa1')
         assert(info_present == SInfoT("first", "last", GenT.male,
                                       5.0, ([DeptT.civil, DeptT.chemical]), True))
+
+class TestAALst:
+
+    def test_add_new_dep(self)
+        AALst.init()
+        AALst.add_stdnt(DeptT.software, "ipa1")
+        print(AALst.s)
