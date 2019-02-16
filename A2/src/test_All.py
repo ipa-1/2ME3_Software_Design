@@ -129,3 +129,9 @@ class TestAALst:
         AALst.init()
         AALst.add_stdnt(DeptT.software, "ipa1")
         print(AALst.s)
+
+    def test_add_existing_dep
+
+AALst.init()
+AALst.add_stdnt(DeptT.software, "ipa1")
+print(AALst.s)
