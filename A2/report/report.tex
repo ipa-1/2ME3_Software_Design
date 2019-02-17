@@ -4,6 +4,11 @@
 \usepackage{paralist}
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xspace}
+\usepackage{amsfonts}
+\usepackage{amsmath}
 
 \oddsidemargin 0mm
 \evensidemargin 0mm
@@ -16,7 +21,7 @@
 \newcounter{stepnum}
 
 \title{Assignment 2 Solution}
-\author{?}
+\author{Alice Ip,ipa1, 400078727}
 \date{\today}
 
 \begin {document}
@@ -27,23 +32,48 @@ Introductory blurb.
 
 \section{Testing of the Original Program}
 
-Description of approach to testing.  Rationale for test case selection.  Summary
-of results.  Any problems uncovered through testing.
+When deciding on test cases, I used the pytest ``python -m pytest --cov --cov-report html'' feature as a guideline. This feature outputs the line coverage in html files for each python file and highlights the lines that were not covered in testing. This method allowed me to ensure that I covered all branches. However, some test cases made use of other class functions, and would show up as ``covered'' using this feature. As a result, I also made sure to make test cases to cover all possible results and exceptions in separate tests to ensure that individual functions worked. After running my test cases on my files, I discovered many errors in my program. An example of  such an error would be in the ``AALst.py'' file, where if the num\_alloc function was called on a department that had no elements inside, there would be a ``KeyError''. After this unsuccessful test case, I adjusted my file to have a branch to handle this particular situation. I was able to get a 100\% coverage  and pass on all 29 of my test cases
+
 
 \section{Results of Testing Partner's Code}
 
-Consequences of running partner's code.  Success, or lack of success, running
-test cases.  Explanation of why it worked, or didn't.
+When I ran my ``all\_Tests.py'' file against my partner's SeqADT.py, DCapALst.py, SALst.py, all 29 test cases passed. Since the test cases only tested the outputs/results from calling the functions in their files, as long as my partner followed all assignment specifications that I also followed, this was an expected result. The assignment specification indicated the types of all data values, eliminating any ambiguity of interaction between the modules. Assumptions ,necessary exceptions, and the inputs and outputs of each function was explicitly stated, with only the data structure and the implementations left as a decision for my partner and I. After comparing our code for the modules, I discovered that my implementation was almost the exact same as my partners, with the exception that I used much more if statements and variables to hold boolean values, whereas my partner just returned an expression that resulted in a boolean value. This discovery is also not a surprise, considering the assignment specifications.
 
 \section{Critique of Given Design Specification}
 
+Advantages: The outputs of each module is very clear and modulari
 Advantages and disadvantages of the given design specification.
 
 \section{Answers}
 
-\begin{enumerate}
+\begin{enumerate}[label=\alph*]
+\item Contrast the natural language of A1 to the formal specification of A2. What are the advantages and disadvantages of each approach? \\ 
 
-\item 
+The natural language of A1 was very easy to understand just from reading, and explained exactly what the purpose and function of each function was. While I was working on A1, I knew exactly what the purpose of each function was, and what it did, and had an idea of how it might be used, or how it may use other functions in the program. This type of specification is much more beginner friendly, and allowed much more implementation freedom. At the same time, assumptions and exceptions were almost completely omitted. For example, the programmer would decide the outcome of a free choice student whose first choice was a department that was already at full capacity. As a result, the program may not work as expected by the person who gave the specification. \\ 
+
+The formal specification of A2 was much more structured and explicit on what was expected out of each function. Assumptions, exceptions, inputs, outputs, uses are clearly stated. As long as the programmer followed such guidelines, the program will most likely work as expected. Since the guidelines are strict, it is very possible that a different person could work on each module, and still end with a fully functional program with limited coordination. However, it was much harder figuring out exactly what the purpose of each module was, in contrast with the natural language. The formal specification required more advanced math knowledge in order to comprehend the semantics of the transition statements.
+
+\item The specification makes the assumption that the gpa will be between 0 and 12. How would you modify the specification to change this assumption to an exception? Would you need to modify the specification to replace a record type with a new ADT? \\ 
+
+To turn this into an exception, you could include in the add function of SALst.py file:\\ \\ exception: $((i.gpa < 0 \vee i.gpa > 12)  \Rightarrow \text{KeyError} )$ \\ \\
+Alternatively, this could be an exception in the Read.py load\_stdnt\_data function. Since gpa values are generally part of a set of discrete and finite numbers, a new enum similar to the GenT and DeptT enum could be made to restrict the values that gpa could be. The record type does not need to be replaced, just the type of gpa. \\
+
+\item If we ignore the functions sort, average and allocate, the two modules SALst and DCapALst are very similar. Ignoring the functions mentioned, how could the documentation be modified to take advantage of the similarities?  \\ 
+
+Instead of having two completely separate modules, you could have a parent class with the init, add, remove, and elm functions. SALst and DCapALst would be children that inherit from this parent class, and each have their own specializations ( SALst would have sort, average, allocate functions, and DCapALst would have it's capacity function). This parent class could then be used for other problems where you may want to add, remove, and check if an item is inside.
+
+\item A1 had a question about generality of an interface. In what ways is A2 more general than A1 \\ 
+
+A2 has the SeqADT data type, which takes in a sequence of T. This T can be any data type, and it would still be able to return a value, and increase the iteration. It does not limit the use of this data type to our current problem. As well, we make use of passing functions to the sort and average functions in SALst.py. These functions are a filter for the list to be sorted and averaged, and can change depending on how the caller wants to use the information. On the other hand, depending on how you implemented the program in A1, most likely it would only have one parameter, the list, and any filtering done on this list would be hardcoded in the function.
+
+\item The list of choices for each students is represented by a custom object, SeqADT, instead of a Python list. For this specific usage, what are the advantages of using SeqADT over a regular list?
+
+SeqADT has the next function, which will return the current value and increment by one. This limits the accessibility, because the order of which you can obtain values is fixed. In our problem, the SeqADT is used to hold the prefered department a student would like to be in, in order of most preferred to least preferred. Our program hopes to allocate students in the most satisfiable way, so there will only be a need to access and check the deparments in one order, there is no need for random access, and will prevent any possible errors relating to accessing the wrong preference of a student.
+
+\item Many of the strings in A1 have been replaced by enums in A2. For these cases, what advantages do enums provide? Why weren't enums also introduced in the specification for macids?
+
+Enums allow for a standardized typing for values such as gender, and departments, which are from a finite and predetermined set of immutable values. In our problem, our enum values genT.male allows the programmer to easily identify that this is a representation for data that indicates that the student is male, in comparison to using the string ``m'' to represent male. We can implement consistency in our program by constantly using this type, and expect this particular type in a particular format when being used in user supplied functions such as sort, and average. Macids, on the other hand, should not be of the enum type, because there is an almost infinite number of possible macids, and are not predefined.
+
 
 \end{enumerate}
 
@@ -91,6 +121,12 @@ Advantages and disadvantages of the given design specification.
 
 \newpage
 
+\section{Code for test\_All.py}
+
+\noindent \lstinputlisting{../src/test_All.py}
+
+\newpage
+
 \section{Code for Partner's SeqADT.py}
 
 \noindent \lstinputlisting{../partner/SeqADT.py}
@@ -106,5 +142,4 @@ Advantages and disadvantages of the given design specification.
 \section{Code for Partner's SALst.py}
 
 \noindent \lstinputlisting{../partner/SALst.py}
-
 \end {document}
