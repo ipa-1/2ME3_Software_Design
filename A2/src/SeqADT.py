@@ -1,35 +1,40 @@
 ## @file SeqADT.py
-#  @title Sequence ADT
-#  @author Dominik Buszowiecki
-#  @date February 9, 2019
+#  @author Alice Ip ipa1
+#  @brief An abstract data type that represents a sequence
+#  @date 2019-02-11
+
+# @brief An abstract data type that represents a sequence
 
 
-## @brief An abstract data type that represents a sequence of values
 class SeqADT:
 
     ## @brief SeqADT constructor
-    #  @details Initializes the state variables of SeqADT. The state variables are a list that
-    #           is given as a parameter and a variable used to index the list
-    #           (initialized to 0).
-    #  @param x A list of values
-    def __init__(self, x: list):
+    #  @details takes a sequence of T
+    #  @param x sequence of t
+    def __init__(self, x):
+
         self.__s = x
         self.__i = 0
 
-    ## @brief start will reset the index state variable to 0
+    ## @brief start resets the i value to 0
     def start(self):
+
         self.__i = 0
 
-    ## @brief next will return the next value in the sequence
-    #  @exception throws StopIteration if there is no more items in the sequence
-    #  @return value of next item in the sequence
+    ## @brief next increases the value of i
+    #  @return the value of the previous i
     def next(self):
-        if self.__i >= len(self.__s):
-            raise StopIteration
         self.__i += 1
+
+        if self.__i >= len(self.__s) + 1:
+            raise StopIteration
+
         return self.__s[self.__i - 1]
 
-    ## @breif end will check if there are more items in the sequence
-    #  @return True if there are no more items in the sequence, otherwise False
-    def end(self) -> bool:
-        return self.__i >= len(self.__s)
+    ## @brief end determines when to end iteration
+    #  @return a boolean value if i >= s
+    def end(self):
+        if self.__i >= len(self.__s):
+            return True
+        else:
+            return False
