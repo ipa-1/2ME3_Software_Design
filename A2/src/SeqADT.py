@@ -1,11 +1,9 @@
 ## @file SeqADT.py
 #  @author Alice Ip ipa1
-#  @brief An abstract data type that represents a sequence
+#  @Title Sequence Abstract Data Type
 #  @date 2019-02-11
 
 # @brief An abstract data type that represents a sequence
-
-
 class SeqADT:
 
     ## @brief SeqADT constructor

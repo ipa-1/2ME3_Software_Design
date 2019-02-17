@@ -1,6 +1,6 @@
 ## @file SALst.py
 #  @author Alice Ip ipa1
-#  @brief provides services for working with the allocation and departments
+#  @brief Student Allocation List
 #  @date 2019-02-11
 
 from StdntAllocTypes import *
@@ -8,9 +8,7 @@ from AALst import *
 from DCapALst import *
 from SeqADT import *
 
-## @brief add adds a student to a department
-
-
+## @brief performs functions on a list of students
 class SALst:
 
     s = []

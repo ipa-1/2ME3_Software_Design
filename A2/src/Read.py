@@ -1,6 +1,6 @@
 ## @file Read.py
 #  @author Alice Ip ipa1
-#  @brief
+#  @title reads student and department files
 #  @date 2019-02-11
 
 from DCapALst import *

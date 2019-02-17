@@ -1,13 +1,13 @@
 ## @file DCapALst.py
 #  @author Alice Ip ipa1
-#  @brief An abstract data type that stores department capacity
+#  @Title Department Capacity List
 #  @date 2019-02-11
 
 
-# @brief An abstract data type that stores department capacity
+# @brief List that holds departments and their capacity
 class DCapALst:
 
-    ## @brief init initial data structure
+    ## @brief init initializes data structure
     @staticmethod
     def init():
 

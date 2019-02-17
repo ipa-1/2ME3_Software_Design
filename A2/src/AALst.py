@@ -1,15 +1,15 @@
 ## @file AALst.py
 #  @author Alice Ip ipa1
-#  @brief Allocation Association List Module
+#  @title Allocation Association List Module
 #  @date 2019-02-11
 
 from StdntAllocTypes import *
 
 
-## @brief Allocation Association List that holds the students in a particular department
+## @brief List that holds the students allocated in a particular department
 class AALst:
 
-    # @brief init initial data structure
+    # @brief init creates the allocation list data structure
     @staticmethod
     def init():
 
