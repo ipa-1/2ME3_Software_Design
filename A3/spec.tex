@@ -620,6 +620,10 @@ F[$n$].size() = 0 & W.top().r = ACE\\
 
 \section*{Critique of Design}
 
+The interface for the modules has rigour and formality. It uses language from discrete math, which has predefined symbols formal syntax, and precise semantics, removing all ambiguity. As well, arguments are checked to see if they are valid, and if not, an exception is called. Modules exercise a proper amount of separation of concerns, with high cohesion and low coupling. All modules are components of a game, so they are closely related. However, modules only call upon each other when necessary. For example, the StackT object does not call upon any other modules , but only provides the necessary functions for itself. The StackT module exhibits generality, as the T value can be of any type. As a result, StackT can be used to represent stacks of other types. Each function only performs one task, so it is clear how each function could be, or will be used. For example, there is a function ``is\_valid\_tab\_mv,'' which checks to make sure the cardT values are correct, and then a ``is\_valid\_pos'' function which checks to make sure the arguments are valid, and then a ``tab\_mv'' function which actually moves the values. \\
+
+ A possible improvement would be making the ``valid\_tab\_tab'' and other valid functions more general, so that the functions could be reused for other types of solitare . Another related improvement would be the sizes for the tableau and foundation could be a exported constant, so that the number of tableaus and foundation could be changed. Possible considerations would be limiting the size, or setting a constant for a maximum size of the stack of tableaus, as when the game is actually implemented, the tableau will show an image of the cards, and the number of cards in a tableau stack shouldn't be able to extend out of the game window. This will also limit ways the user could use the applications, and prevent possible bugs or errors
+
 \wss{Write a critique of the interface for the modules in this project.  Is there
 anything missing?  Is there anything you would consider changing?  Why?}\\
 
