@@ -113,7 +113,7 @@ N/A
 
 \subsubsection* {Exported Types}
 
- T \wss{What should be written here?}
+ Stack(T) = ? \wss{What should be written here?}
 
 \subsubsection* {Exported Constants}
 
@@ -143,7 +143,7 @@ toSeq& & seq of T & \\
 
 \subsubsection* {State Variables}
 
-$S$: List of T\wss{What is the type of the state variable?}
+$S$: sequence of T\wss{What is the type of the state variable?}
 
 \subsubsection* {State Invariant}
 
@@ -279,7 +279,7 @@ $W$: CardStackT \textit{\# Waste}\\
 
 $|T| =10 \wss{\text{What goes here?}}$\\
 $|F| = 8\wss{\text{What goes here?}}$\\
-cnt\_cards($T$, $F$, $D$, $W$, 104 \wss{\text{What goes here?}}) = TOTAL\_CARDS\\
+cnt\_cards($T$, $F$, $D$, $W$, $\lambda t \rightarrow True$ \wss{\text{What goes here?}}) = TOTAL\_CARDS\\
 two\_decks($T$, $F$, $D$, $W$) \textit{\# each card appears twice in the combined deck}
 
 \subsubsection* {Assumptions \& Design Decisions}
@@ -409,7 +409,7 @@ $c = \mbox{Foundation}$ & False\\
 \hhline{|-|-|}
 $c = \mbox{Deck}$& False \\
 \hhline{|-|-|}
-$c = \mbox{Waste}$ & True\\
+$c = \mbox{Waste}$ &  $ |D| >$ 0 \\
 \hhline{|-|-|}
 \end{tabular}
 
@@ -424,9 +424,9 @@ $c = \mbox{Waste}$ & True\\
 
 \begin{tabular}{|p{3cm}|l|}
 \hhline{|-|-|}
-$c = \mbox{Tableau}$ & T[$n_0$], T[$n_1$] := T[n\_0].pop(),T[n\_1].push(T[n\_0].top()) \wss{What goes here?}\\
+$c = \mbox{Tableau}$ & T[$n_0$], T[$n_1$] := T[$n_0$].pop(),T[$n_1$].push(T[$n_0$].top()) \wss{What goes here?}\\
 \hhline{|-|-|}
-$c = \mbox{Foundation}$ & T[$n_0$], F[$n_1$] := T[n\_0].pop(),F[n\_1].push(T[n\_0].top())\wss{What goes here?}\\
+$c = \mbox{Foundation}$ & T[$n_0$], F[$n_1$] := T[$n_0$].pop(),F[$n_1$].push(T[$n_0$].top())\wss{What goes here?}\\
 \hhline{|-|-|}
 \end{tabular}
 
@@ -441,9 +441,9 @@ $c = \mbox{Foundation}$ & T[$n_0$], F[$n_1$] := T[n\_0].pop(),F[n\_1].push(T[n\_
 
 \begin{tabular}{|p{3cm}|l|}
 \hhline{|-|-|}
-$c = \mbox{Tableau}$ & W, T[$n$] := \wss{What goes here?}\\
+$c = \mbox{Tableau}$ & W, T[$n$] :=  W.pop(),T[n].push(W.top())\wss{What goes here?}\\
 \hhline{|-|-|}
-$c = \mbox{Foundation}$ & W, F[$n$] := \wss{What goes here?}\\
+$c = \mbox{Foundation}$ & W, F[$n$] :=  W.pop(),F[n].push(W.top())\wss{What goes here?}\\
 \hhline{|-|-|}
 \end{tabular}
 
@@ -455,7 +455,7 @@ $c = \mbox{Foundation}$ & W, F[$n$] := \wss{What goes here?}\\
 
 \noindent deck\_mv():
 \begin{itemize}
-\item transition: D, W := \wss{What goes here?}
+\item transition: D, W := D.pop(),W.push(D.top())\wss{What goes here?}
 \item exception:
   $exc := (\neg \text{is\_valid\_deck\_mv}() \Rightarrow \text{invalid\_argument})$
 \end{itemize}
@@ -490,9 +490,9 @@ $c = \mbox{Foundation}$ & W, F[$n$] := \wss{What goes here?}\\
   \text{is\_valid\_deck\_mv()}$ where\\
 
   $\text{valid\_tab\_mv} \equiv (\exists c: \text{CategoryT}, n_0: \mathbb{N},
-  n_1: \mathbb{N} | \wss{\text{What goes here?}}: \text{is\_valid\_tab\_mv}(c, n_0, n_1))$\\
+  n_1: \mathbb{N} | \text{is\_valid\_pos}(Tableau, $n\_0$)  \wedge \text{is\_valid\_pos}(c, $n\_1$)  \\ \wss{\text{What goes here?}}: \text{is\_valid\_tab\_mv}(c, n_0, n_1))$\\
 
-  $\text{valid\_waste\_mv} \equiv (\exists c: \text{CategoryT}, n: \mathbb{N} |
+  $\text{valid\_waste\_mv} \equiv (\exists c: \text{CategoryT}, n: \mathbb{N} |\text{is\_valid\_pos}(c, n)
   \wss{\text{What goes here?}} : \text{is\_valid\_waste\_mv}(c, n))$
 
 \item exception: None
@@ -501,7 +501,8 @@ $c = \mbox{Foundation}$ & W, F[$n$] := \wss{What goes here?}\\
 
 \noindent is\_win\_state():
 \begin{itemize}
-\item output: \wss{What goes here?}
+\item output: $cnt\_cards\_seq(F,\lambda t \rightarrow$ True) = TOTAL\_CARDS \wss{What goes here?}
+
 \item exception: None
 
 \end{itemize}
@@ -513,13 +514,14 @@ SeqCrdStckT = seq of CardStackT
 \subsection*{Local Functions}
 
 \noindent $\text{two\_decks} : \text{SeqCrdStckT} \times \text{SeqCrdStckT}
-\times \text{CardStackT} \times \text{CardStackT} \rightarrow \mathbb{N}$\\
+\times \text{CardStackT} \times \text{CardStackT} \rightarrow \mathbb{B}$\\
 \noindent
 $\text{two\_decks}(T, F, D, W) \equiv$ \wss{This function returns True if there
-  is two of each card in the game}
-$$(\forall \mathit{st}: \text{SuitT}, \mathit{rk}:
-\text{RankT} | \mathit{st} \in \text{SuitT} \wedge \mathit{rk} \in \text{RankT}
-: \wss{\text{What goes here?}})$$
+  is two of each card in the game}\\ \\
+$(\forall \mathit{st}: \text{SuitT}, \mathit{rk}: 
+\text{RankT} | \mathit{st} \in \text{SuitT} \wedge \mathit{rk} \in \text{RankT}:
+\\ (\exists a, b : CardT | a,b \in (T[0..9].toSeq() || F[0..7].toSeq() || D.toSeq() || W.toSeq()) : a.st = b.st \wedge a.rk = b.rk) \wss{\text{What goes here?}})
+$\\
 
 \noindent $\text{cnt\_cards\_seq}: \text{SeqCrdStckT} \times (\text{CardT}
 \rightarrow \mathbb{B}) \rightarrow \mathbb{N}$\\
@@ -528,6 +530,7 @@ $$(\forall \mathit{st}: \text{SuitT}, \mathit{rk}:
 
 \noindent $\text{cnt\_cards\_stack}: \text{CardStackT} \times (\text{CardT}
 \rightarrow \mathbb{B}) \rightarrow \mathbb{N}$\\
+\noindent $\text{cnt\_cards\_stack}(S, f) \equiv (+ s: \text{CardT} | s \in S.toSeq() \wedge f(s) :1)$\\
 \noindent \wss{What goes here?}\\
 
 \noindent $\text{cnt\_cards}: \text{SeqCrdStckT} \times \text{SeqCrdStckT}
@@ -544,7 +547,7 @@ f) + \text{cnt\_cards\_seq}(F, f) + \text{cnt\_cards\_stack}(D, f) +
 \noindent $\text{tab\_deck}: \text{(seq of CardT)} \rightarrow \text{SeqCrdStckT}$\\
 \noindent $\text{tab\_deck} (\mathit{deck}) \equiv T$ such that
 $(\forall i: \mathbb{N} | i \in [0..9] : T[i].\text{toSeq}() =
-\mathit{deck}[\wss{\text{What goes here?}}])$\\
+\mathit{deck}[i*4...4*(i+1)-1\wss{\text{What goes here?}}])$\\
 
 \noindent is\_valid\_pos: $ \text{CategoryT} \times \mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent is\_valid\_pos($c, n$) $\equiv (c = \text{Tableau} \Rightarrow n \in
@@ -553,21 +556,35 @@ $(\forall i: \mathbb{N} | i \in [0..9] : T[i].\text{toSeq}() =
 \noindent valid\_tab\_tab: $\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent valid\_tab\_tab ($n_0, n_1$) $\equiv$
 
-\begin{tabular}{|p{4cm}|p{3.5cm}|l|}
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{9.5cm}|}
 \hhline{|-|-|-|}
-$T[n_0].\text{size}() > 0$ & T[$n_1$].size() $>$ 0 & \wss{What goes here?}\\
+$T[n_0].\text{size}() > 0$ & T[$n_1$].size() $>$ 0 & T[$n_0$].top().s = T[$n_1$].top().s $\wedge$
+  T[$n_0$].top().r $= $ T[$n_1$].top().r- 1 \wss{What goes here?}\\
 \hhline{|~|-|-|}
- & T[$n_1$].size() = 0 & \wss{What goes here?}\\
+ & T[$n_1$].size() = 0 & True\wss{What goes here?}\\
 \hhline{|-|-|-|}
-T[$n_0$].size() = 0 & T[$n_1$].size() $>$ 0 & \wss{What goes here?}\\
+T[$n_0$].size() = 0 & T[$n_1$].size() $>$ 0 & False\wss{What goes here?}\\
 \hhline{|~|-|-|}
-& T[$n_1$].size() $=$ 0 & \wss{What goes here?}\\
+& T[$n_1$].size() $=$ 0 & False\wss{What goes here?}\\
 \hhline{|-|-|-|}
 \end{tabular}\\\\
 
 \noindent valid\_tab\_foundation: $\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent valid\_tab\_foundation($n_0, n_1$) $\equiv$ \wss{What goes here?  You
-  may need a table?}\\
+\noindent valid\_tab\_foundation($n_0, n_1$) $\equiv$ 
+
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{9.5cm}|}
+\hhline{|-|-|-|}
+$T[n_0].\text{size}() > 0$ & F[$n_1$].size() $>$ 0 & T[$n_0$].top().s = T[$n_1$].top().s $\wedge$ T[$n_0$].top().r $=$ T[$n_1$].top().r-1 \\
+\hhline{|~|-|-|}
+ & F$n_1$].size() = 0 & T[$n_0$].top().r = ACE\\
+\hhline{|-|-|-|}
+T[$n_0$].size() = 0 & F[$n_1$].size() $>$ 0 & False\\
+\hhline{|~|-|-|}
+& F[$n_1$].size() $=$ 0 & False\\
+\hhline{|-|-|-|}
+\end{tabular}\\\\
+
+\wss{What goes here?  You may need a table?}\\
 
 \noindent valid\_waste\_tab: $\mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent valid\_waste\_tab ($n$) $\equiv$
@@ -591,9 +608,13 @@ F[$n$].size() = 0 & W.top().r = ACE\\
 \hhline{|-|-|}
 \end{tabular}\\\\
 
-\noindent tab\_placeable: \wss{Complete this specification}\\
+\noindent tab\_placeable: $\text{CardT} \times \text{CardT} \rightarrow \mathbb{B}$ \\
+\noindent tab\_placeable($a, b$) $ \equiv a.s = b.s \wedge a.r = b.r - 1 \Rightarrow \text{True}$\\
+\wss{Complete this specification}\\
 
-\noindent foundation\_placeable: \wss{Complete this specification}
+\noindent foundation\_placeable:  $\text{CardT} \times \text{CardT} \rightarrow \mathbb{B}$ \\ 
+\noindent foundation\_placeable($a, b$) $\equiv a.s = b.s \wedge a.r = b.r - 1 \Rightarrow \text{True}$\\
+\wss{Complete this specification}
 
 \newpage
 
