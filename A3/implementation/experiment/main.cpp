@@ -36,7 +36,7 @@ int main() {
   }
   std::random_shuffle(d.begin(), d.end());
 
-  GameBoard board(d);
+  BoardT board(d);
   try {
     std::cout << "Valid tab move? " << board.is_valid_tab_mv(Foundation, 0, 0) << std::endl;
   } catch (std::out_of_range &e) {}
