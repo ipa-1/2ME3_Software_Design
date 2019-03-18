@@ -1,8 +1,9 @@
 /**
  * \file CardTypes.h
- * \author
+ * \author Alice Ip ipa1
  * \brief
  */
+
 #ifndef A3_CARD_TYPES_H_
 #define A3_CARD_TYPES_H_
 
@@ -30,5 +31,20 @@ typedef unsigned short int RankT;
  * \brief RankT for a King.
  */
 #define KING   13
+
+/**
+ * \brief Total cards in game
+ */
+#define TOTAL_CARDS   104
+
+
+
+enum SuitT {Heart, Diamond, Club, Spade};
+enum CategoryT {Tableau, Foundation, Deck, Waste};
+
+struct CardT {
+	SuitT s;
+	RankT r;
+};
 
 #endif

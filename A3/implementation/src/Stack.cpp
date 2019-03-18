@@ -6,39 +6,42 @@
 #include CardTypes.h
 
 template <class T> // Stack constructor
-Stack<T>::Stack(){
-	this->stack = new std::vector<T>();
-	return this->stack;
+Stack<T>::Stack(vector<vector<T>> s : s({})) {
+	this->stack = s;
 }
 
 template <class T> // Push onto stack
 void Stack<T>::push(T item){
-	this->stack->insert(this->stack->begin(),item);
-	return this->stack;
-}
+
+	vector<T> temp = this->stack;
+	temp.pushback(item);
+	return temp}
 
 template <class T> // Pops from stack
 void Stack<T>::pop(){
 	if (this->queue->size() == 0)
 		throw std::out_of_range("Stack is empty");
-	this->stack->erase(this->stack->begin());
+	vector<T> temp = this->stack;
+	temp.pop_back();
+	return temp;
 }
 
 template <class T> // Returns item at top of stack
 T Stack<T>::top(){
 	if (size() == 0)
 		throw std::out_of_range("Stack is empty");
-	return this->stack->begin();
+	vector<T> temp = this->stack;
+	return this->stack->temp.back();
 }
 
 template <class T> // Returns size of stack
 unsigned int Stack<T>::size(){
-	return this->stack->size;
+	return this->stack.size();
 }
 
 template <class T> 
 void Stack<T>::toSeq(){
-	std::list<T> seq;
+	return this->stack;
 	
 }
 
