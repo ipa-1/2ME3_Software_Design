@@ -13,6 +13,11 @@
 typedef unsigned short int RankT;
 
 /**
+ * \brief Describes the rank of a card.
+ */
+typedef unsigned int nat;
+
+/**
  * \brief RankT for an Ace.
  */
 #define ACE    1
@@ -36,8 +41,6 @@ typedef unsigned short int RankT;
  * \brief Total cards in game
  */
 #define TOTAL_CARDS   104
-
-
 
 enum SuitT {Heart, Diamond, Club, Spade};
 enum CategoryT {Tableau, Foundation, Deck, Waste};

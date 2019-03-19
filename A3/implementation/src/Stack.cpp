@@ -2,8 +2,9 @@
 // Implementation here
 #include <iostream> // Standard input/output library
 #include <stdexcept> // Standard exceptions for C++
-#include Stack.h
-#include CardTypes.h
+#include "Stack.h"
+#include "CardTypes.h"
+#include "Exceptions.h"
 
 template <class T> // Stack constructor
 Stack<T>::Stack(vector<vector<T>> s : s({})) {
@@ -52,10 +53,5 @@ template class Stack<CardT>;
 // there are several ways to make generics, but to have everyone's
 // unit tests pass, we are using the same approach
 //https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/PreviousYears/2018/A3/A3Soln/implementation/src/Seq2D.cpp
-
-// push and pop create new stacks
-// the output is a stack, and the access programs have an output
-// in the case where a mutator is expected, there is no output
-// and there would be a transition field instead of output field
 
 // need to provide a default constructor in tut 09
