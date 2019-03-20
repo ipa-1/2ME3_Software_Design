@@ -1,28 +1,25 @@
 //Alice Ip ipa1
 
 #ifndef A3_STACK_H_
+#define A3_STACK_H_
 #include <vector>
 #include <iostream> // Standard input/output library
 #include <stdexcept> // Standard exceptions for C++
 #include "CardTypes.h"
-#define A3_STACK_H_
 
 
-
-
-template <class T> // Stack constructor
-
+template <class T>// Stack constructor
 class Stack{
 
 	private:
-		std::vector<std::vector<T>> stack;
+		std::vector<T> stack;
 
 	public:
-		Stack(std::vector<std::vector<T>> cs);
-		void push(T item);
-		void pop();
-		T top();
-		unsigned int size();
-		//vector<T> toSeq();
+		Stack(std::vector<T> cs) ;
+		Stack<T> push(T item) const;
+		Stack<T> pop() const;
+		T top() const;
+		nat size() const;
+		std::vector<T> toSeq() const;
 };
 #endif

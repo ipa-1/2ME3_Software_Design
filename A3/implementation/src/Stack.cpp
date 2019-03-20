@@ -4,48 +4,47 @@
 #include <stdexcept> // Standard exceptions for C++
 #include <vector>
 #include "CardTypes.h"
-
-
+#include "Stack.h"
 
 template <class T> // Stack constructor
-Stack::Stack(vector<T> s ) 
-: s (vector<T> {})
+Stack<T>::Stack(std::vector<T> s ) 
+: stack ({})
 {
 	this->stack = s;
 }
 
 template <class T> // Push onto stack
-vector<T> Stack::push(T item){
+Stack<T> Stack<T>::push(T item)const{
 	std::vector<T> temp = this->stack;
 	temp.push_back(item);
-	return temp;
+	Stack<T> tempStack(temp);
+	return tempStack;
 }
 
 template <class T> // Pops from stack
-vector<T> Stack::pop(){
-	if (this->queue->size() == 0)
+Stack<T> Stack<T>::pop() const{
+	if (this->stack.size() == 0)
 		throw std::out_of_range("Stack is empty");
-	std::vector<T> temp
 	std::vector<T> temp = this->stack;
 	temp.pop_back();
-	return temp;
+	Stack<T> tempStack(temp);
+	return tempStack;
 }
 
 template <class T> // Returns item at top of stack
-T Stack::top(){
-	if (this.size() == 0)
+T Stack<T>::top() const{
+	if (this->stack.size() == 0)
 		throw std::out_of_range("Stack is empty");
-	std::vector<T> temp = this->stack;
-	return this->stack->temp.back();
+	return this->stack.back();
 }
 
 template <class T> // Returns size of stack
-nat Stack::size(){
+nat Stack<T>::size() const{
 	return this->stack.size();
 }
 
-vector<T> emplate <class T> // Returns the vector
-void Stack::toSeq(){
+template <class T> // Returns the vector
+std::vector<T> Stack<T>::toSeq()const{
 	return this->stack;
 }
 
