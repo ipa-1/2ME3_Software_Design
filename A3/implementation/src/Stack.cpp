@@ -2,56 +2,52 @@
 // Implementation here
 #include <iostream> // Standard input/output library
 #include <stdexcept> // Standard exceptions for C++
-#include "Stack.h"
+#include <vector>
 #include "CardTypes.h"
-#include "Exceptions.h"
+
+
 
 template <class T> // Stack constructor
-Stack<T>::Stack(vector<vector<T>> s : s({})) {
+Stack::Stack(vector<T> s ) 
+: s (vector<T> {})
+{
 	this->stack = s;
 }
 
 template <class T> // Push onto stack
-void Stack<T>::push(T item){
-
-	vector<T> temp = this->stack;
-	temp.pushback(item);
-	return temp}
+vector<T> Stack::push(T item){
+	std::vector<T> temp = this->stack;
+	temp.push_back(item);
+	return temp;
+}
 
 template <class T> // Pops from stack
-void Stack<T>::pop(){
+vector<T> Stack::pop(){
 	if (this->queue->size() == 0)
 		throw std::out_of_range("Stack is empty");
-	vector<T> temp = this->stack;
+	std::vector<T> temp
+	std::vector<T> temp = this->stack;
 	temp.pop_back();
 	return temp;
 }
 
 template <class T> // Returns item at top of stack
-T Stack<T>::top(){
-	if (size() == 0)
+T Stack::top(){
+	if (this.size() == 0)
 		throw std::out_of_range("Stack is empty");
-	vector<T> temp = this->stack;
+	std::vector<T> temp = this->stack;
 	return this->stack->temp.back();
 }
 
 template <class T> // Returns size of stack
-unsigned int Stack<T>::size(){
+nat Stack::size(){
 	return this->stack.size();
 }
 
-template <class T> 
-void Stack<T>::toSeq(){
+vector<T> emplate <class T> // Returns the vector
+void Stack::toSeq(){
 	return this->stack;
-	
 }
 
 // Keep this at bottom
 template class Stack<CardT>;
-
-// intended to help with implementation
-// there are several ways to make generics, but to have everyone's
-// unit tests pass, we are using the same approach
-//https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/PreviousYears/2018/A3/A3Soln/implementation/src/Seq2D.cpp
-
-// need to provide a default constructor in tut 09
