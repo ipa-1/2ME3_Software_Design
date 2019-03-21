@@ -24,7 +24,7 @@ Stack<T> Stack<T>::push(T item)const{
 template <class T> // Pops from stack
 Stack<T> Stack<T>::pop() const{
 	if (this->stack.size() == 0)
-		throw std::out_of_range("Stack is empty");
+		throw std::out_of_range("Cannot pop if Stack is empty");
 	std::vector<T> temp = this->stack;
 	temp.pop_back();
 	Stack<T> tempStack(temp);
@@ -34,7 +34,7 @@ Stack<T> Stack<T>::pop() const{
 template <class T> // Returns item at top of stack
 T Stack<T>::top() const{
 	if (this->stack.size() == 0)
-		throw std::out_of_range("Stack is empty");
+		throw std::out_of_range("Cannot top if Stack is empty");
 	return this->stack.back();
 }
 
