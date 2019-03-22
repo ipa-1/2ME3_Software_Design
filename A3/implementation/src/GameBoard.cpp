@@ -1,5 +1,6 @@
 //Alice Ip ipa1
 
+
 #include "CardTypes.h"
 #include "CardStack.h"
 #include "GameBoard.h"
@@ -15,19 +16,32 @@ BoardT::BoardT(std::vector<CardT> d) // new BoardT; takes in a seq of CardT
 	CardStackT temp({}); 
 	for(int i = 0; i < 10; i++){ // Initializes T
 		index = 4*i;
-		CardStackT temp({d[index], d[index+1], d[index+2], d[index+3]});
-		temp.push(d[index]);
-		T.push_back(temp);
-	}
+		//CardStackT temp({d[index], d[index+1], d[index+2], d[index+3]});
+		
+		temp = temp.push(d[index]);
+		temp = temp.push(d[index+1]);
+		temp = temp.push(d[index+2]);
+		temp = temp.push(d[index+3]);
+		T.push_back(temp); // pushes the CardStackT into the vector
+		temp = temp.pop();
+		temp = temp.pop();
+		temp = temp.pop();
+		temp = temp.pop();
 
+	}
+	
 	CardStackT temp2({}); 
 	for(int i = 0; i < 8; i++){ // Initializes F
-		T.push_back(temp2);
+		F.push_back(temp2);
 	}
 
 	for (int i = 40; i <= 103; i++){ // Initializes D
-		D.push(d[i]);
+		D = D.push(d[i]);
 	}
+
+
+	if (d.size() != 104)
+		throw std::invalid_argument("Card sequence not right size");
 };
 
 //Public Accessors
@@ -66,7 +80,7 @@ bool BoardT::is_valid_waste_mv(CategoryT c, nat n) const
 
 bool BoardT::is_valid_deck_mv() const
 {
-	return this->D.size() > 0;
+	return (D.size() > 0);
 };
 
 
@@ -77,14 +91,14 @@ void BoardT::tab_mv(CategoryT c, nat n0, nat n1)
 
 	if (c == Tableau){
 		CardT topCard = T[n0].top(); // Top of tableau n0
-		T[n0].pop();                 // Remove top of tableau n0
-		T[n1].push(topCard);         // Put the card on n1
+		T[n0] = T[n0].pop();                 // Remove top of tableau n0
+		T[n1] = T[n1].push(topCard);         // Put the card on n1
 	}
 
 	else if (c == Foundation){
 		CardT topCard = T[n0].top();
-		T[n0].pop();
-		F[n1].push(topCard);		
+		T[n0] = T[n0].pop();
+		F[n1] = F[n1].push(topCard);		
 	}
 };
 
@@ -96,14 +110,14 @@ void BoardT::waste_mv(CategoryT c, nat n)
 
 	if (c == Tableau){
 		CardT topCard = W.top();
-		W.pop();
-		T[n].push(topCard);
+		W = W.pop();
+		T[n] = T[n].push(topCard);
 	}
 
 	else if (c == Foundation){
 		CardT topCard = W.top();
-		W.pop();
-		F[n].push(topCard);		
+		W = W.pop();
+		F[n] = F[n].push(topCard);		
 	}
 };
 
@@ -113,8 +127,8 @@ void BoardT::deck_mv()
 	if (!(is_valid_deck_mv()))
 		throw std::invalid_argument("Invalid deck_mv argument");
 	CardT topCard = D.top();
-	D.pop();
-	W.push(topCard);
+	D = D.pop();
+	W = W.push(topCard);
 };
 
 
@@ -207,3 +221,4 @@ bool BoardT::is_valid_pos(CategoryT t, nat n) const
 	else
 		return true;
 };
+

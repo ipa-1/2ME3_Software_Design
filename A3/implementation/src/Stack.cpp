@@ -3,6 +3,9 @@
 #include <iostream> // Standard input/output library
 #include <stdexcept> // Standard exceptions for C++
 #include <vector>
+
+using namespace std;
+
 #include "CardTypes.h"
 #include "Stack.h"
 
@@ -15,6 +18,7 @@ Stack<T>::Stack(std::vector<T> s )
 
 template <class T> // Push onto stack
 Stack<T> Stack<T>::push(T item)const{
+	
 	std::vector<T> temp = this->stack;
 	temp.push_back(item);
 	Stack<T> tempStack(temp);
@@ -40,7 +44,8 @@ T Stack<T>::top() const{
 
 template <class T> // Returns size of stack
 nat Stack<T>::size() const{
-	return this->stack.size();
+	
+	return (this->stack).size();
 }
 
 template <class T> // Returns the vector
@@ -50,3 +55,4 @@ std::vector<T> Stack<T>::toSeq()const{
 
 // Keep this at bottom
 template class Stack<CardT>;
+template class Stack<int>;
