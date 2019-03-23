@@ -1,6 +1,5 @@
 //Alice Ip ipa1
 
-
 #include "CardTypes.h"
 #include "CardStack.h"
 #include "GameBoard.h"
@@ -12,6 +11,21 @@ BoardT::BoardT(std::vector<CardT> d) // new BoardT; takes in a seq of CardT
 , D (CardStackT({})) // CardStackT
 , W (CardStackT({})) // CardStackT
 {
+
+	/*if (d.size() != 104)
+		throw std::invalid_argument("Card sequence not right size*/
+	int count = 0;
+	for (int i = 0; i < 4; i++){
+		for (int j = 1; j < 14; j++ ){
+			for (int k = 0; k < 104;k++){
+				if (d[k].s == i && d[k].r == j)
+					count +=1;
+			}
+			if (count != 2)
+				throw std::invalid_argument("Card sequence not right size");
+			count = 0;
+		}
+	}
 	int index;
 	CardStackT temp({}); 
 	for(int i = 0; i < 10; i++){ // Initializes T
@@ -38,55 +52,64 @@ BoardT::BoardT(std::vector<CardT> d) // new BoardT; takes in a seq of CardT
 	for (int i = 40; i <= 103; i++){ // Initializes D
 		D = D.push(d[i]);
 	}
-
-
-	if (d.size() != 104)
-		throw std::invalid_argument("Card sequence not right size");
 };
 
 //Public Accessors
-bool BoardT::is_valid_tab_mv(CategoryT c, nat n0, nat n1) const
+
+// Checks if the move from tableau to tableau/foundation is valid
+bool BoardT::is_valid_tab_mv(CategoryT c, nat n0, nat n1) const 
 {
-	if (c == Tableau)
-		return true; //valid_tab_tab(n0, n1);
-	else if (c == Foundation)
-		return true; //valid_tab_foundation(n0, n1);
+
+	if (c == Tableau){
+		if (!(is_valid_pos(Tableau, n0) && is_valid_pos(Tableau, n1)))
+			throw std::out_of_range("is_valid_tab_mv invalid pos tableau");
+		return valid_tab_tab(n0, n1);
+	}
+
+	else if (c == Foundation){
+		if (!(is_valid_pos(Tableau, n0) && is_valid_pos(Foundation, n1)))
+			throw std::out_of_range("is_valid_tab_mv invalid pos foundation");
+		return valid_tab_foundation(n0,n1); 
+	}
 	else
 		return false;
 };
 
-
-bool BoardT::valid_tab_tab(nat n0, nat n1) const{
-	if (T[n0].size() > 0){
-		if (T[n1].size() > 0){ // check suits are same, and target is one rank smaller
-			return (T[n0].top().s == T[n1].top().s) && (T[n0].top().r == (T[n1].top().r + 1));
-		}
-		else // T[n1].size == 0, target is empty, move is valid
-			return true;
-	}
-	else // origin tableau is empty
-		return false;
-}
-
+// Checks if there is a valid move from waste to tableau/foundation
 bool BoardT::is_valid_waste_mv(CategoryT c, nat n) const
 {
-	if (c == Tableau)
-		return true;//valid_waste_tab(n);
-	else if (c == Foundation)
-		return true; //valid_waste_foundation(n);
+	if (W.size() == 0)
+		return false;
+
+
+
+	if (c == Tableau){
+		if (T[n].size() > 0)
+			return (W.top().s == T[n].top().s && W.top().r == T[n].top().r+1); //return valid_waste_tab(n);
+		else
+			return true;
+	}
+		
+	else if (c == Foundation){
+		if (F[n].size() > 0)
+			return (W.top().s == F[n].top().s && W.top().r == F[n].top().r+1); //return valid_waste_foundation(n);
+		else
+			return (W.top().r == 1);
+	}
 	else
 		return false;
 };
 
+// Checks to see if there is a valid deck move
 bool BoardT::is_valid_deck_mv() const
 {
-	return (D.size() > 0);
+	return (D.size() > 0); // Deck move is always valid unless there is nothing in deck
 };
 
 
 void BoardT::tab_mv(CategoryT c, nat n0, nat n1)
 { 
-	if (is_valid_tab_mv(c,n0,n1) == false)
+	if (!(is_valid_tab_mv(c,n0,n1)))
 		throw std::invalid_argument("Invalid tab_mv argument");
 
 	if (c == Tableau){
@@ -109,12 +132,16 @@ void BoardT::waste_mv(CategoryT c, nat n)
 		throw std::invalid_argument("Invalid waste_mv argument");
 
 	if (c == Tableau){
+		if(!(is_valid_pos(Tableau, n))) // check that tableau argument is in range
+			throw std::out_of_range("waste_mv tableau argument out of range");
 		CardT topCard = W.top();
 		W = W.pop();
 		T[n] = T[n].push(topCard);
 	}
 
 	else if (c == Foundation){
+		if(!(is_valid_pos(Foundation,n))) // check that foundation argument is in range
+			throw std::out_of_range("waste_mv foundation argument out of range");
 		CardT topCard = W.top();
 		W = W.pop();
 		F[n] = F[n].push(topCard);		
@@ -134,7 +161,7 @@ void BoardT::deck_mv()
 
 CardStackT BoardT::get_tab(nat n) const
 {
-	if (!(n >= 0 && n <= 9))
+	if (!(is_valid_pos(Tableau,n)))
 		throw std::out_of_range("get_tab tab argument out of range");
 	return T[n];
 }
@@ -143,7 +170,7 @@ CardStackT BoardT::get_tab(nat n) const
 
 CardStackT BoardT::get_foundation(nat n) const
 {
-	if (!(n >= 0 && n <= 7))
+	if (!(is_valid_pos(Foundation,n)))
 		throw std::out_of_range("get_foundation foundation argument out of range");
 	return F[n];
 };
@@ -222,3 +249,26 @@ bool BoardT::is_valid_pos(CategoryT t, nat n) const
 		return true;
 };
 
+bool BoardT::valid_tab_foundation(nat n0, nat n1) const
+{
+	if (T[n0].size() > 0){
+		if (F[n1].size() > 0)
+			return (T[n0].top().s == F[n1].top().s && T[n0].top().r == F[n1].top().r+1);
+		else
+			return true;
+	}
+	else
+		return false;
+}
+
+bool BoardT::valid_tab_tab(nat n0, nat n1) const{
+	if (T[n0].size() > 0){
+		if (T[n1].size() > 0){ // check suits are same, and target is one rank smaller
+			return (T[n0].top().s == T[n1].top().s) && (T[n0].top().r == (T[n1].top().r + 1));
+		}
+		else // T[n1].size == 0, target is empty, move is valid
+			return true;
+	}
+	else // origin tableau is empty
+		return false;
+}

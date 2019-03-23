@@ -45,7 +45,6 @@ typedef unsigned int nat;
 enum SuitT {Heart, Diamond, Club, Spade};
 enum CategoryT {Tableau, Foundation, Deck, Waste};
 
-//enum RankT {ACE,2,3,4,5,6,7,8,9,10,JACK,QUEEN,KING};
 
 struct CardT {
 	SuitT s;

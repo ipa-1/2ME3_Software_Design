@@ -31,6 +31,7 @@ class BoardT
 		bool is_valid_pos(CategoryT t, nat n) const;
 		bool valid_tab_mv() const;
 		bool valid_waste_mv() const;
+		bool valid_tab_foundation(nat n0, nat n1) const;
 
 
 
