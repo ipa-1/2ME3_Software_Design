@@ -12,8 +12,9 @@ BoardT::BoardT(std::vector<CardT> d) // new BoardT; takes in a seq of CardT
 , W (CardStackT({})) // CardStackT
 {
 
-	/*if (d.size() != 104)
-		throw std::invalid_argument("Card sequence not right size*/
+	if (d.size() != 104)
+		throw std::invalid_argument("Card sequence not right size");
+
 	int count = 0;
 	for (int i = 0; i < 4; i++){
 		for (int j = 1; j < 14; j++ ){
@@ -22,7 +23,7 @@ BoardT::BoardT(std::vector<CardT> d) // new BoardT; takes in a seq of CardT
 					count +=1;
 			}
 			if (count != 2)
-				throw std::invalid_argument("Card sequence not right size");
+				throw std::invalid_argument("Card sequence does not contain two of each cards");
 			count = 0;
 		}
 	}
@@ -93,7 +94,7 @@ bool BoardT::is_valid_waste_mv(CategoryT c, nat n) const
 	}
 		
 	else if (c == Foundation){
-		
+
 		if(!(is_valid_pos(Foundation,n))) // check that foundation argument is in range
 			throw std::out_of_range("waste_mv foundation argument out of range");
 

@@ -24,10 +24,30 @@ TEST_CASE("tests for Stack", "Stack"){
 
 	BoardT board(d);
 
-	
+	CardStackT emptyStack({});
+	CardStackT allCards(d);
 
 	SECTION( "Popping from an Empty Stack"){
-		CardStackT emptyStack({});
-		REQUIRE_THROWS_AS(Stack::pop(),std::out_of_range)
+		REQUIRE_THROWS_AS(emptyStack.pop(),std::out_of_range);
 	}
+
+	SECTION( "Top from an Empty Stack"){
+		REQUIRE_THROWS_AS(emptyStack.top(),std::out_of_range);
+	}
+
+	SECTION( "Pop decreases size"){
+		allCards = allCards.pop();
+		REQUIRE(allCards.size() == 103);
+	}
+
+	SECTION( "Push increases size"){
+		CardT n = { static_cast<SuitT>(0), ACE };
+		allCards = allCards.push(n);
+		REQUIRE(allCards.size() == 105);
+	}
+
+	SECTION( "Size returns correct size"){
+		REQUIRE(allCards.size() == 104);
+	}
+
 }
