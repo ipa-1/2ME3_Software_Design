@@ -1,7 +1,6 @@
-//Alice Ip ipa1
-
 /**
  *  \file Stack.h
+ *  \author Alice Ip ipa1
  *  \brief A class that represents a generic stack with typical stack functions
  */
 
@@ -12,8 +11,12 @@
 #include <stdexcept> // Standard exceptions for C++
 #include "CardTypes.h"
 
-
-template <class T>// Stack constructor
+/**
+ *  \brief adds a item of the type T to the stack
+ *  \details
+ *  \param item, the item to add to the stack
+ */
+template <class T>
 class Stack{
 
 	private:

@@ -44,10 +44,7 @@ int main() {
   temp = temp.push({ static_cast<SuitT>(1), 6});
   temp = temp.push({ static_cast<SuitT>(1), 7});
   cout <<"first:" << temp.top().s << temp.top().r << endl;
-  //temp = temp.pop();
-  //temp = temp.pop();
-  //temp = temp.pop();
-  //temp = temp.pop();
+
 
 
   

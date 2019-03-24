@@ -1,7 +1,6 @@
-// Alice Ip ipa1
-
 /**
  *  \file GameBoard.h
+ *  \author Alice Ip ipa1
  *  \brief A class that represents a gameboard with 
  *   interface to "play" the game
  */
