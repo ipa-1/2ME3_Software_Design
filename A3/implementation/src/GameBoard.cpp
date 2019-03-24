@@ -88,7 +88,7 @@ bool BoardT::is_valid_waste_mv(CategoryT c, nat n) const
 			throw std::out_of_range("waste_mv tableau argument out of range");
 
 		if (T[n].size() > 0)
-			return (W.top().s == T[n].top().s && W.top().r == T[n].top().r+1); //return valid_waste_tab(n);
+			return (W.top().s == T[n].top().s && W.top().r == T[n].top().r-1); //return valid_waste_tab(n);
 		else
 			return true;
 	}
@@ -278,7 +278,7 @@ bool BoardT::valid_tab_foundation(nat n0, nat n1) const
 bool BoardT::valid_tab_tab(nat n0, nat n1) const{
 	if (T[n0].size() > 0){
 		if (T[n1].size() > 0){ // check suits are same, and target is one rank smaller
-			return (T[n0].top().s == T[n1].top().s) && (T[n0].top().r == (T[n1].top().r + 1));
+			return (T[n0].top().s == T[n1].top().s) && (T[n0].top().r == (T[n1].top().r-1));
 		}
 		else // T[n1].size == 0, target is empty, move is valid
 			return true;
