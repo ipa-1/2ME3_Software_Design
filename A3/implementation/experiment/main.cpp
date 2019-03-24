@@ -35,7 +35,22 @@ int main() {
       d.push_back(n);
     }
   }
-  std::random_shuffle(d.begin(), d.end());
+  //std::random_shuffle(d.begin(), d.end());
+
+  CardStackT temp({}); 
+    
+  temp = temp.push({ static_cast<SuitT>(1), 4});
+  temp = temp.push({ static_cast<SuitT>(1), 5});
+  temp = temp.push({ static_cast<SuitT>(1), 6});
+  temp = temp.push({ static_cast<SuitT>(1), 7});
+  cout <<"first:" << temp.top().s << temp.top().r << endl;
+  //temp = temp.pop();
+  //temp = temp.pop();
+  //temp = temp.pop();
+  //temp = temp.pop();
+
+
+  
 
   BoardT board(d);
   try {
