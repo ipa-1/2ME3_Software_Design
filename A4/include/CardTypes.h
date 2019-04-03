@@ -20,11 +20,9 @@ enum CategoryT {
 /**
  * \brief Describes the possible card suits.
  */
-enum SuitT {
-  Spades,
-  Clubs,
-  Hearts,
-  Diamonds
+enum cellT {
+  ALIVE,
+  DEAD,
 };
 
 /**
@@ -33,24 +31,10 @@ enum SuitT {
 typedef unsigned short int RankT;
 
 /**
- * \brief RankT for an Ace.
+ * \brief Size of the board
  */
-#define ACE    1
+#define SIZE    4
 
-/**
- * \brief RankT for an Jack.
- */
-#define JACK   11
-
-/**
- * \brief RankT for a Queen.
- */
-#define QUEEN  12
-
-/**
- * \brief RankT for a King.
- */
-#define KING   13
 
 /**
  * \brief A playing card with suit and rank.

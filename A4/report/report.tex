@@ -1,0 +1,847 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{url}
+
+\oddsidemargin -10mm
+\evensidemargin -10mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+
+\title{Assignment 3, Part 1, Specification}
+\author{SFWR ENG 2AA4}
+
+\begin {document}
+
+\maketitle
+This Module Interface Specification (MIS) document contains modules, types and
+methods for implementing the state of a game of Conway's Game of Life. The game involves a grid of size N x N, of cells that can be ``ALIVE'' or ``DEAD''. The player can set the start state of the game through a txt file that will be read by the program. The program will then construct the game according to the txt file and display the changes from one game state to the next game state.
+
+
+\newpage
+
+\section* {Board Types Module}
+
+\subsection*{Module}
+
+BoardTypes
+
+\subsection* {Uses}
+
+N/A
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+SIZE = 4
+
+\subsubsection* {Exported Types}
+cellT = \{ALIVE, DEAD\} 
+
+\subsubsection* {Exported Access Programs}
+
+None
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section* {Generic Grid Module}
+
+\subsection* {Generic Template Module}
+
+Grid(T)
+
+\subsection* {Uses}
+
+BoardTypes
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+Grid(T) = ?
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Seq2D & seq of (seq of T), $\mathbb{R}$ & Seq2D & invalid\_argument\\
+\hline
+set & CellT, T & ~ & outside\_bounds\\
+\hline
+get & PointT & T & outside\_bounds\\
+\hline
+getNumRow & ~ & $\mathbb{N}$ & \\
+\hline
+getNumCol & ~ & $\mathbb{N}$ & \\
+\hline
+getScale & ~ & $\mathbb{R}$ & \\
+\hline
+count & T & $\mathbb{N}$ & \\
+\hline
+count & LineT, T & $\mathbb{N}$ & invalid\_argument\\
+\hline
+count & PathT, T & $\mathbb{N}$ & invalid\_argument\\
+\hline
+length & PathT & $\mathbb{R}$ & invalid\_argument\\
+\hline
+connected & PointT, PointT & $\mathbb{B}$ & invalid\_argument\\
+\hline
+\end{tabular}
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$s$: seq of (seq of T)\\
+scale: $\mathbb{R}$\\
+nRow: $\mathbb{N}$\\
+nCol: $\mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+\begin{itemize}
+\item The Seq2D(T) constructor is called for each object instance before any
+other access routine is called for that object.  The constructor can only be
+called once.
+\item Assume that the input to the constructor is a sequence of rows, where each
+  row is a sequence of elements of type T.  The number of columns (number of
+  elements) in each row is assumed to be equal. That is each row
+  of the grid has the same number of entries.  $s[i][j]$ means the ith row and
+  the jth column.  The 0th row is at the bottom of the map and the 0th column
+  is at the leftmost side of the map.
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+Seq2D($S$, scl):
+\begin{itemize}
+\item transition: \wss{Fill in the transition.}$s, \mbox{scale}, \mbox{nCol}, \mbox{nRow} := S,
+  \mbox{scl}, |S[0]|, |S|$
+\item output: $\mathit{out} := \mathit{self}$
+\item exception: \wss{Fill in the exception.  One should be generated if the
+    scale is less than zero, or the input sequence is empty, or the number of
+    columns is zero in the first row, or the number of columns in any row is
+    different from the number of columns in the first row.}$exc := (\mbox{scale} \leq 0 \lor |S| = 0 \lor |S[0]| = 0 \Rightarrow \mbox{invalid\_argument}|\\
+  \lnot\forall(l : \mbox{seq of T}|l \in S : |l| = |S[0]|) \Rightarrow
+  \mbox{invalid\_argument})$
+\end{itemize}
+
+\noindent set($p, v$):
+\begin{itemize}
+\item transition: \wss{?}$s[p.y][p.x] := v$
+\item exception: \wss{Generate an exception if the point lies outside of the
+    map.}$exc := (\neg \mbox{validPoint}(p) \Rightarrow \mbox{outside\_bounds})$
+\end{itemize}
+
+\noindent get($p$):
+\begin{itemize}
+\item output: \wss{?}$out := s[p.y][p.x]$
+\item exception: \wss{Generate an exception if the point lies outside of the
+    map.}$exc := (\neg \mbox{validPoint}(p) \Rightarrow \mbox{outside\_bounds})$
+\end{itemize}
+
+\noindent getNumRow():
+\begin{itemize}
+\item output: $out := \mbox{nRow}$
+\item exception: None
+\end{itemize}
+
+\noindent getNumCol():
+\begin{itemize}
+\item output: $out := \mbox{nCol}$
+\item exception: None
+\end{itemize}
+
+\noindent getScale():
+\begin{itemize}
+\item output: $out := \mbox{scale}$
+\item exception: None
+\end{itemize}
+
+\noindent count($t$: T):
+\begin{itemize}
+\item output: \wss{Count the number of times the value $t$ occurs in the 2D
+    sequence.}$out := +(i, j: \mathbb{N}| \mbox{validRow}(i) \land
+  \mbox{validCol}(j) \wedge s[i][j] = t : 1)$
+\item exception: None
+\end{itemize}
+
+\noindent count($l$: LineT, $t$: T):
+\begin{itemize}
+\item output: \wss{Count the number of times the value $t$ occurs in the line
+    $l$.}$out := +(p: \mbox{PointT} | p \in \mbox{pointsInLine}(l) \wedge
+  s[p.y][p.x] = t : 1)$
+\item exception: \wss{Exception if any point on the line lies off of the 2D
+    sequence (map)}$exc := (\neg\mbox{validLine}(l) \Rightarrow \mbox{invalid\_argument})$
+\end{itemize}
+
+\noindent count($\mathit{pth}$: PathT, $t$: T):
+\begin{itemize}
+\item output: \wss{Count the number of times the value $t$ occurs in the path
+    $pth$.}$out := +(p: \mbox{PointT} | p \in \mbox{pointsInPath}(\mathit{pth})
+  \wedge s[p.y][p.x] = t : 1)$
+\item exception: \wss{Exception if any point on the path lies off of the 2D
+    sequence (map)}$exc := (\neg\mbox{validPath}(\mathit{pth}) \Rightarrow \mbox{invalid\_argument})$
+\end{itemize}
+
+\noindent length($\mathit{pth}$: PathT):
+\begin{itemize}
+\item output: \wss{Use the scale to find the length of the
+    path.}$out := \mathit{pth}.\mbox{len} \cdot \mbox{scale}$
+\item exception: \wss{Exception if any point on the path lies off of the 2D
+    sequence (map)}$exc := (\neg\mbox{validPath}(\mathit{pth}) \Rightarrow \mbox{invalid\_argument})$
+\end{itemize}
+
+\noindent connected($p_1$: PointT, $p_2$: PointT):
+\begin{itemize}
+\item output: \wss{Return true if a path exists between $p_1$ and $p_2$ with all
+    of the points on the path being of the same value.  $p_1$ and $p_2$ are
+    considered to be part of the path.}
+  $out := \exists (\mathit{pth}: \mbox{PathT} | \mbox{validPath}(\mathit{pth})
+  \wedge \mathit{pth}.\mbox{strt} = p_1 \wedge \mathit{pth}.\mbox{end} = p_2 :
+  \mbox{count}(\mathit{pth}, s[p_1.y][p_1.x]) = \mathit{pth}.\mbox{len})$
+\item exception: \wss{Return an exception if either of the input points is not
+    valid.}$exc := (\neg\mbox{validPoint}(p_1) \vee \neg\mbox{validPoint}(p_1)
+  \Rightarrow \mbox{invalid\_argument})$
+
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \wss{returns true if the given natural number is a valid row
+  number.}$\mbox{validRow}(i) \equiv 0 \leq i \leq (\mbox{nRow} - 1)$\\
+
+\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \wss{returns true if the given natural number is a valid column
+  number.}$\mbox{validCol}(j) \equiv 0 \leq j \leq (\mbox{nCol} - 1)$\\
+
+\noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
+\noindent \wss{Returns true if the given point lies within the boundaries of the
+  map.}$\mbox{validPoint}(p) \equiv \mbox{validRow}(p.y) \wedge \mbox{validCol}(p.x)$\\
+
+\noindent validLine: $\mbox{LineT} \rightarrow \mathbb{B}$\\
+\noindent \wss{Returns true if all of the points for the given line lie within the boundaries of the
+  map.}$\mbox{validLine}(l) \equiv \forall(p: \mbox{PointT} | p \in \mbox{pointsInLine}(l):
+  \mbox{validPoint}(p))$\\
+
+\noindent validPath: $\mbox{PathT} \rightarrow \mathbb{B}$\\
+\noindent \wss{Returns true if all of the points for the given path lie within the boundaries of the
+  map.}$\mbox{validPath}(\mathit{pth}) \equiv \forall(p: \mbox{PointT} | p \in \mbox{pointsInPath}(\mathit{pth}):
+  \mbox{validPoint}(p))$\\
+
+\noindent pointsInLine: $\mbox{LineT} \rightarrow \mbox{(set of PointT)}$\\
+\noindent pointsInLine ($l$) 
+\wss{The same local function as given in the Path module.}
+\begin{multline*}
+\equiv \{ i: \mathbb{N} | i \in [0
+  .. (l.\mbox{len} - 1)] : l.\mbox{strt}.\mbox{translate}(\\
+(l.\mbox{orient}=\mbox{W} \Rightarrow -i |
+  l.\mbox{orient}=\mbox{E} \Rightarrow i | \mbox{True} \Rightarrow 0), (l.\mbox{orient}=\mbox{N} \Rightarrow i |
+  l.\mbox{orient}=\mbox{S} \Rightarrow -i | \mbox{True} \Rightarrow 0) ) \}
+\end{multline*}
+
+\noindent pointsInPath: $\mbox{PathT} \rightarrow \mbox{(set of PointT)}$\\
+\wss{Return the set of points that make up the input path.}
+\noindent pointsInPath($p$) 
+$\equiv \cup (i: \mathbb{N} | i \in [0..p.\mbox{size}]:
+\mbox{pointsInLine}(p.\mbox{line}(i)))$
+
+
+
+\newpage
+
+\section* {CardStack Module}
+
+\subsection* {Template Module}
+
+CardStackT is Stack(cardT)\wss{What should go here?}
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section* {Game Board ADT Module}
+
+\subsection*{Template Module}
+
+BoardT
+
+\subsection* {Uses}
+
+\noindent BoardTypes
+
+\subsection* {Syntax}
+
+
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new BoardT  & seq of CellT & BoardT & invalid\_argument\\
+\hline
+is\_valid\_tab\_mv & CategoryT, $\mathbb{N}$, $\mathbb{N}$ & $\mathbb{B}$ & out\_of\_range\\
+\hline
+is\_valid\_waste\_mv & CategoryT, $\mathbb{N}$ & $\mathbb{B}$ &
+                                                                invalid\_argument, out\_of\_range\\
+\hline
+is\_valid\_deck\_mv &  &  $\mathbb{B}$ & \\
+\hline
+tab\_mv & CategoryT, $\mathbb{N}$, $\mathbb{N}$ & & invalid\_argument\\
+\hline
+waste\_mv & CategoryT, $\mathbb{N}$ & & invalid\_argument\\
+\hline
+deck\_mv &  & & invalid\_argument\\
+\hline
+get\_tab & $\mathbb{N}$ & CardStackT & out\_of\_range\\
+\hline
+get\_foundation & $\mathbb{N}$ & CardStackT & out\_of\_range\\
+\hline
+get\_deck &  & CardStackT & \\
+\hline
+get\_waste &  & CardStackT & \\
+\hline
+valid\_mv\_exists & & $\mathbb{B}$ &\\
+\hline
+is\_win\_state & & $\mathbb{B}$ & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$T$: SeqCrdStckT \textit{\# Tableau}\\
+$F$: SeqCrdStckT \textit{\# Foundation}\\
+$D$: CardStackT \textit{\# Deck}\\
+$W$: CardStackT \textit{\# Waste}\\
+
+\subsubsection* {State Invariant}
+
+$|T| =10 \wss{\text{What goes here?}}$\\
+$|F| = 8\wss{\text{What goes here?}}$\\
+cnt\_cards($T$, $F$, $D$, $W$, $\lambda t \rightarrow True$ \wss{\text{What goes here?}}) = TOTAL\_CARDS\\
+two\_decks($T$, $F$, $D$, $W$) \textit{\# each card appears twice in the combined deck}
+
+\subsubsection* {Assumptions \& Design Decisions}
+
+\begin{itemize}
+
+\item The BoardT constructor is called before any other access
+  routine is called on that instance. Once a BoardT has been created, the
+  constructor will not be called on it again.
+
+\item The Foundation stacks must start with an ace, but any Foundation stack can
+  start with any suit. Once an Ace of that suit is placed there, this Foundation
+  stack becomes that type of stack and only those type of cards can be placed
+  there.
+
+\item Once a card has been moved to a Foundation stack, it cannot be moved again.
+
+\item For better scalability, this module is specified as an Abstract Data Type
+  (ADT) instead of an Abstract Object. This would allow multiple games to be
+  created and tracked at once by a client.
+
+\item The getter function is provided, though violating the property of being
+  essential, to give a would-be view function easy access to the state of the
+  game. This ensures that the model is able to be easily integrated with a game
+  system in the future.  Although outside of the scope of this assignment, the
+  view function could be part of a Model View Controller design pattern implementation
+  (\url{https://blog.codinghorror.com/understanding-model-view-controller/})
+
+\item A function will be available to create a double deck of cards that
+  consists of a random permutation of two regular decks of cards (TOTAL\_CARDS
+  cards total).  This double deck of cards can be used to build the game board.
+
+\end{itemize}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent GameBoard($\mathit{deck}$):
+\begin{itemize}
+\item transition: 
+$$T, F, D, W := \text{tab\_deck}(\mathit{deck}[0..39]),
+  \text{init\_seq}(8), \text{CardStackT}(\mathit{deck}[40..103]),
+  \text{CardStackT}(\langle \rangle)$$
+\item exception: $exc := (\lnot \text{two\_decks}(\text{init\_seq}(10),
+  \text{init\_seq}(8), \text{CardStackT}(\mathit{deck}),
+  \text{CardStackT}(\langle \rangle) ) \Rightarrow \text{invalid\_argument})$
+\end{itemize}
+
+\newpage
+
+\noindent is\_valid\_tab\_mv($c, n_0, n_1$):
+\begin{itemize}
+\item output:
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$c = \mbox{Tableau}$ & valid\_tab\_tab($n_0$,$n_1$) \\
+\hhline{|-|-|}
+$c = \mbox{Foundation}$ & valid\_tab\_foundation($n_0$,$n_1$) \\
+\hhline{|-|-|}
+$c = \mbox{Deck}$& False \wss{What goes here?}\\
+\hhline{|-|-|}
+$c = \mbox{Waste}$ & False \wss{What goes here?}\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception:
+
+\begin{tabular}{|p{14cm}|l|}
+  \hhline{~|-|}
+  \multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$exc :=$}\\
+  \hhline{|-|-|}
+  $c = \mbox{Tableau} \wedge \neg(\text{is\_valid\_pos}(\text{Tableau}, n_0) \wedge
+  \text{is\_valid\_pos}(\text{Tableau}, n_1))$ & out\_of\_range\\
+  \hhline{|-|-|}
+  $c = \mbox{Foundation} \wedge \neg(\text{is\_valid\_pos}(\text{Tableau}, n_0) \wedge
+  \text{is\_valid\_pos}(\text{Foundation}, n_1))$ & out\_of\_range\\
+  \hhline{|-|-|}
+\end{tabular}
+\end{itemize}
+
+\noindent is\_valid\_waste\_mv($c, n$):
+\begin{itemize}
+\item output:
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$c = \mbox{Tableau}$ & valid\_waste\_tab($n$) \\
+\hhline{|-|-|}
+$c = \mbox{Foundation}$ & valid\_waste\_foundation($n$) \\
+\hhline{|-|-|}
+$c = \mbox{Deck}$& False\wss{What goes here?}\\
+\hhline{|-|-|}
+$c = \mbox{Waste}$ & False \wss{What goes here?}\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception:
+
+\begin{tabular}{|p{10cm}|l|}
+  \hhline{~|-|}
+  \multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$exc :=$}\\
+  \hhline{|-|-|}
+  $\text{W.size()} = 0$ & invalid\_argument\\
+  \hhline{|-|-|}
+  $c = \mbox{Tableau} \wedge \neg \text{is\_valid\_pos}(\text{Tableau}, n)$ & out\_of\_range\\
+  \hhline{|-|-|}
+  $c = \mbox{Foundation} \wedge \neg \text{is\_valid\_pos}(\text{Foundation}, n)$ & out\_of\_range\\
+  \hhline{|-|-|}
+\end{tabular}
+\end{itemize}
+
+\noindent is\_valid\_deck\_mv():
+\begin{itemize}
+\item output:
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$c = \mbox{Tableau}$ & False \\
+\hhline{|-|-|}
+$c = \mbox{Foundation}$ & False\\
+\hhline{|-|-|}
+$c = \mbox{Deck}$& False \\
+\hhline{|-|-|}
+$c = \mbox{Waste}$ &  $ |D| >$ 0 \\
+\hhline{|-|-|}
+\end{tabular}
+
+ \wss{What goes here?  The deck moves involves moving a card from
+    the deck stack to the waste stack.}
+\item exception: None
+\end{itemize}
+
+\noindent tab\_mv($c, n_0, n_1$):
+\begin{itemize}
+\item transition:
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{|-|-|}
+$c = \mbox{Tableau}$ & T[$n_0$], T[$n_1$] := T[$n_0$].pop(),T[$n_1$].push(T[$n_0$].top()) \wss{What goes here?}\\
+\hhline{|-|-|}
+$c = \mbox{Foundation}$ & T[$n_0$], F[$n_1$] := T[$n_0$].pop(),F[$n_1$].push(T[$n_0$].top())\wss{What goes here?}\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: $exc := (\neg \text{is\_valid\_tab\_mv}(c, n_0, n_1)
+  \Rightarrow \text{invalid\_argument})$
+
+\end{itemize}
+
+\noindent waste\_mv($c, n$):
+\begin{itemize}
+\item transition:
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{|-|-|}
+$c = \mbox{Tableau}$ & W, T[$n$] :=  W.pop(),T[n].push(W.top())\wss{What goes here?}\\
+\hhline{|-|-|}
+$c = \mbox{Foundation}$ & W, F[$n$] :=  W.pop(),F[n].push(W.top())\wss{What goes here?}\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception:
+  $exc := (\neg \text{is\_valid\_waste\_mv}(c, n) \Rightarrow
+  \text{invalid\_argument})$
+
+\end{itemize}
+
+\noindent deck\_mv():
+\begin{itemize}
+\item transition: D, W := D.pop(),W.push(D.top())\wss{What goes here?}
+\item exception:
+  $exc := (\neg \text{is\_valid\_deck\_mv}() \Rightarrow \text{invalid\_argument})$
+\end{itemize}
+
+\noindent get\_tab($i$):
+\begin{itemize}
+\item output: $out := T[i]$
+\item exception: $exc : (\neg \text{is\_valid\_pos}(\text{Tableau}, i) \Rightarrow \text{out\_of\_range})$
+\end{itemize}
+
+\noindent get\_foundation($i$):
+\begin{itemize}
+\item output: $out := F[i]$
+\item exception: $exc : (\neg \text{is\_valid\_pos}(\text{Foundation}, i) \Rightarrow \text{out\_of\_range})$
+\end{itemize}
+
+\noindent get\_deck():
+\begin{itemize}
+\item output: $out := D$
+\item exception: None
+\end{itemize}
+
+\noindent get\_waste():
+\begin{itemize}
+\item output: $out := W$
+\item exception: None
+\end{itemize}
+
+\noindent valid\_mv\_exists():
+\begin{itemize}
+\item output: $out := \text{valid\_tab\_mv} \vee \text{valid\_waste\_mv} \vee
+  \text{is\_valid\_deck\_mv()}$ where\\
+
+  $\text{valid\_tab\_mv} \equiv (\exists c: \text{CategoryT}, n_0: \mathbb{N},
+  n_1: \mathbb{N} | \text{is\_valid\_pos}(Tableau, $n\_0$)  \wedge \text{is\_valid\_pos}(c, $n\_1$)  \\ \wss{\text{What goes here?}}: \text{is\_valid\_tab\_mv}(c, n_0, n_1))$\\
+
+  $\text{valid\_waste\_mv} \equiv (\exists c: \text{CategoryT}, n: \mathbb{N} |\text{is\_valid\_pos}(c, n)
+  \wss{\text{What goes here?}} : \text{is\_valid\_waste\_mv}(c, n))$
+
+\item exception: None
+
+\end{itemize}
+
+\noindent is\_win\_state():
+\begin{itemize}
+\item output: $cnt\_cards\_seq(F,\lambda t \rightarrow$ True) = TOTAL\_CARDS \wss{What goes here?}
+
+\item exception: None
+
+\end{itemize}
+
+\subsection*{Local Types}
+
+SeqCrdStckT = seq of CardStackT
+
+\subsection*{Local Functions}
+
+\noindent $\text{two\_decks} : \text{SeqCrdStckT} \times \text{SeqCrdStckT}
+\times \text{CardStackT} \times \text{CardStackT} \rightarrow \mathbb{B}$\\
+\noindent
+$\text{two\_decks}(T, F, D, W) \equiv$ \wss{This function returns True if there
+  is two of each card in the game}\\ \\
+$(\forall \mathit{st}: \text{SuitT}, \mathit{rk}: 
+\text{RankT} | \mathit{st} \in \text{SuitT} \wedge \mathit{rk} \in \text{RankT}:
+\\ (\exists a, b : CardT | a,b \in (T[0..9].toSeq() || F[0..7].toSeq() || D.toSeq() || W.toSeq()) : a.st = b.st \wedge a.rk = b.rk) \wss{\text{What goes here?}})
+$\\
+
+\noindent $\text{cnt\_cards\_seq}: \text{SeqCrdStckT} \times (\text{CardT}
+\rightarrow \mathbb{B}) \rightarrow \mathbb{N}$\\
+\noindent $\text{cnt\_cards\_seq}(S, f) \equiv (+ s: \text{CardStackT} | s \in S :
+\text{cnt\_cards\_stack}(s, f))$\\
+
+\noindent $\text{cnt\_cards\_stack}: \text{CardStackT} \times (\text{CardT}
+\rightarrow \mathbb{B}) \rightarrow \mathbb{N}$\\
+\noindent $\text{cnt\_cards\_stack}(S, f) \equiv (+ s: \text{CardT} | s \in S.toSeq() \wedge f(s) :1)$\\
+\noindent \wss{What goes here?}\\
+
+\noindent $\text{cnt\_cards}: \text{SeqCrdStckT} \times \text{SeqCrdStckT}
+\times \text{CardStackT} \times \text{CardStackT} \times (\text{CardT}
+\rightarrow \mathbb{B}) \rightarrow \mathbb{N}$\\
+\noindent $\text{cnt\_cards}(T, F, D, W, f) \equiv \text{cnt\_cards\_seq}(T,
+f) + \text{cnt\_cards\_seq}(F, f) + \text{cnt\_cards\_stack}(D, f) +
+\text{cnt\_cards\_stack}(W, f)$\\
+
+\noindent $\text{init\_seq}: \mathbb{N} \rightarrow \text{SeqCrdStckT}$\\
+\noindent $\text{init\_seq}(n) \equiv s \text{ such that } (|s| = n \land (\forall\, i
+\in [0..n-1] : s[i] = \text{CardStackT}(\langle \rangle))$\\
+
+\noindent $\text{tab\_deck}: \text{(seq of CardT)} \rightarrow \text{SeqCrdStckT}$\\
+\noindent $\text{tab\_deck} (\mathit{deck}) \equiv T$ such that
+$(\forall i: \mathbb{N} | i \in [0..9] : T[i].\text{toSeq}() =
+\mathit{deck}[i*4...4*(i+1)-1\wss{\text{What goes here?}}])$\\
+
+\noindent is\_valid\_pos: $ \text{CategoryT} \times \mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent is\_valid\_pos($c, n$) $\equiv (c = \text{Tableau} \Rightarrow n \in
+[0..9] | c = \text{Foundation} \Rightarrow n \in [0..7] | \text{True} \Rightarrow \text{True})$\\
+
+\noindent valid\_tab\_tab: $\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent valid\_tab\_tab ($n_0, n_1$) $\equiv$
+
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{9.5cm}|}
+\hhline{|-|-|-|}
+$T[n_0].\text{size}() > 0$ & T[$n_1$].size() $>$ 0 & T[$n_0$].top().s = T[$n_1$].top().s $\wedge$
+  T[$n_0$].top().r $= $ T[$n_1$].top().r- 1 \wss{What goes here?}\\
+\hhline{|~|-|-|}
+ & T[$n_1$].size() = 0 & True\wss{What goes here?}\\
+\hhline{|-|-|-|}
+T[$n_0$].size() = 0 & T[$n_1$].size() $>$ 0 & False\wss{What goes here?}\\
+\hhline{|~|-|-|}
+& T[$n_1$].size() $=$ 0 & False\wss{What goes here?}\\
+\hhline{|-|-|-|}
+\end{tabular}\\\\
+
+\noindent valid\_tab\_foundation: $\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent valid\_tab\_foundation($n_0, n_1$) $\equiv$ 
+
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{9.5cm}|}
+\hhline{|-|-|-|}
+$T[n_0].\text{size}() > 0$ & F[$n_1$].size() $>$ 0 & T[$n_0$].top().s = T[$n_1$].top().s $\wedge$ T[$n_0$].top().r $=$ T[$n_1$].top().r-1 \\
+\hhline{|~|-|-|}
+ & F$n_1$].size() = 0 & T[$n_0$].top().r = ACE\\
+\hhline{|-|-|-|}
+T[$n_0$].size() = 0 & F[$n_1$].size() $>$ 0 & False\\
+\hhline{|~|-|-|}
+& F[$n_1$].size() $=$ 0 & False\\
+\hhline{|-|-|-|}
+\end{tabular}\\\\
+
+\wss{What goes here?  You may need a table?}\\
+
+\noindent valid\_waste\_tab: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent valid\_waste\_tab ($n$) $\equiv$
+
+\begin{tabular}{|p{4cm}|l|}
+\hhline{|-|-|}
+T[$n$].size() $>$ 0 & tab\_placeable(W.top(), T[$n$].top())\\
+\hhline{|-|-|}
+T[$n$].size() = 0 & True\\
+\hhline{|-|-|}
+\end{tabular}\\\\
+
+\noindent valid\_waste\_foundation: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent valid\_waste\_foundation ($n$) $\equiv$
+
+\begin{tabular}{|p{4cm}|l|}
+\hhline{|-|-|}
+F[$n$].size() $>$ 0 & foundation\_placeable(W.top(), F[$n$].top())\\
+\hhline{|-|-|}
+F[$n$].size() = 0 & W.top().r = ACE\\
+\hhline{|-|-|}
+\end{tabular}\\\\
+
+\noindent tab\_placeable: $\text{CardT} \times \text{CardT} \rightarrow \mathbb{B}$ \\
+\noindent tab\_placeable($a, b$) $ \equiv a.s = b.s \wedge a.r = b.r - 1 \Rightarrow \text{True}$\\
+\wss{Complete this specification}\\
+
+\noindent foundation\_placeable:  $\text{CardT} \times \text{CardT} \rightarrow \mathbb{B}$ \\ 
+\noindent foundation\_placeable($a, b$) $\equiv a.s = b.s \wedge a.r = b.r - 1 \Rightarrow \text{True}$\\
+\wss{Complete this specification}
+
+\newpage
+
+
+
+
+
+
+\section* {Read Module}
+
+\subsection* {Module}
+
+Read
+
+\subsection* {Uses}
+
+BoardTypes
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+load\_start\_data & $s: \mbox{string}$ & ~ & ~\\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment Variables}
+
+start\_data: File listing game initialization data\\
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The input file will match the given specification.
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent load\_start\_data($s$)
+\begin{itemize}
+\item transition: read data from the file stdnt\_data associated with the string s.
+  Use this data to initialize a gameboard. Load will first
+  initialize  (SALst.init()) before populating SALst with student data that
+  follows the types in StdntAllocTypes.
+
+  The text file has the following format, where $id_i$, $fn_i$, $ln_i$, $g_i$,
+  $gpa_i$, $[ch_i^0, ch_i^1, ..., ch_i^{n-1}]$ and $fc_i$ stand for strings that
+  represent the ith student's macid, first name, last name, gender, grade point
+  average, list of choices and free choice, respectively.  The gender is
+  represented by either the string ``male'' or ``female.''  The list of choices
+  comes from strings following the department names in the type DeptT.  The list
+  of choices has length $n$.  $fc_i$ is either the string ``True'' or the string
+  ``False.''  All data values in a row are separated by commas.  Rows are
+  separated by a new line.  The data shown below is for a total of $m$ students.
+
+  \begin{equation}
+    \begin{array}{ccccccc}
+      id_0, & fn_0, & ln_0, & g_0, & gpa_0, & [ch_0^0, ch_0^1, ..., ch_0^{n-1}], & fc_0 \\
+      id_1, & fn_1, & ln_1, & g_1, & gpa_1, & [ch_1^0, ch_1^1, ..., ch_1^{n-1}], & fc_1\\
+      id_2, & fn_2, & ln_2, & g_2, & gpa_2, & [ch_2^0, ch_2^1, ..., ch_2^{n-1}], & fc_2
+      \\
+      ..., & ..., & ..., & ..., & ..., & [..., ..., ], & ...
+      \\
+      id_{m-1}, & fn_{m-1}, & ln_{m-1}, & g_{m-1}, & gpa_{m-1}, & [ch_{m-1}^0, ch_{m-1}^1, ..., ch_{m-1}^{n-1}], & fc_{m-1} \\
+    \end{array}
+  \end{equation}
+
+\item exception: none
+\end{itemize}
+
+\noindent load\_dcap\_data ($s$)
+\begin{itemize}
+\item transition: read data from the file dept\_capacity associated with the string s.
+  Use this data to update the state of the DCapALst module.  Load will first
+  initialize DCapALst (DCapALst.init()) before populating DCapALst with
+  department capacity data.
+
+  The text file has the following format.  Each department is identified by a
+  string with the department name, and then a string for the natural number that
+  represents the department's capacity.  All data values in a row are
+  separated by commas.  Rows are separated by a new line.
+
+  \begin{tabular}{ll}
+    civil, & $n_\text{civil}$\\
+    chemical, & $n_\text{chemical}$\\
+    electrical, & $n_\text{electrical}$\\
+    mechanical, & $n_\text{mechanical}$\\
+    software, & $n_\text{software}$\\
+    materials, & $n_\text{materials}$\\
+    engphys, & $n_\text{engphys}$\\
+  \end{tabular}
+
+\item exception: none
+\end{itemize}
+
+\section*{Critique of Design}
+
+The interface for the modules has rigour and formality. It uses language from discrete math, which has predefined symbols formal syntax, and precise semantics, removing all ambiguity. As well, arguments are checked to see if they are valid, and if not, an exception is called. Modules exercise a proper amount of separation of concerns, with high cohesion and low coupling. All modules are components of a game, so they are closely related. However, modules only call upon each other when necessary. For example, the StackT object does not call upon any other modules , but only provides the necessary functions for itself. The StackT module exhibits generality, as the T value can be of any type. As a result, StackT can be used to represent stacks of other types. Each function only performs one task, so it is clear how each function could be, or will be used. For example, there is a function ``is\_valid\_tab\_mv,'' which checks to make sure the cardT values are correct, and then a ``is\_valid\_pos'' function which checks to make sure the arguments are valid, and then a ``tab\_mv'' function which actually moves the values. \\
+
+ A possible improvement would be making the ``valid\_tab\_tab'' and other valid functions more general, so that the functions could be reused for other types of solitare . Another related improvement would be the sizes for the tableau and foundation could be a exported constant, so that the number of tableaus and foundation could be changed. Possible considerations would be limiting the size, or setting a constant for a maximum size of the stack of tableaus, as when the game is actually implemented, the tableau will show an image of the cards, and the number of cards in a tableau stack shouldn't be able to extend out of the game window. This will also limit ways the user could use the applications, and prevent possible bugs or errors
+
+\wss{Write a critique of the interface for the modules in this project.  Is there
+anything missing?  Is there anything you would consider changing?  Why?}\\
+
+\end {document}
