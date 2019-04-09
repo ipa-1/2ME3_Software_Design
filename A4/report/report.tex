@@ -345,7 +345,7 @@ BoardT
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new BoardT  & seq of CellT & BoardT & invalid\_argument\\
+new BoardT  &  & BoardT & invalid\_argument\\
 \hline
 is\_valid\_tab\_mv & CategoryT, $\mathbb{N}$, $\mathbb{N}$ & $\mathbb{B}$ & out\_of\_range\\
 \hline
@@ -362,12 +362,7 @@ deck\_mv &  & & invalid\_argument\\
 \hline
 get\_tab & $\mathbb{N}$ & CardStackT & out\_of\_range\\
 \hline
-get\_foundation & $\mathbb{N}$ & CardStackT & out\_of\_range\\
-\hline
-get\_deck &  & CardStackT & \\
-\hline
-get\_waste &  & CardStackT & \\
-\hline
+
 valid\_mv\_exists & & $\mathbb{B}$ &\\
 \hline
 is\_win\_state & & $\mathbb{B}$ & \\
@@ -834,6 +829,70 @@ The input file will match the given specification.
 
 \item exception: none
 \end{itemize}
+
+\section* {View Module}
+
+\subsection* {Module}
+
+View
+
+\subsection* {Uses}
+
+BoardTypes
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+display & $s: \mbox{BoardT}$ & ~ & ~\\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The input file will match the given specification.
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent load\_start\_data($s$)
+\begin{itemize}
+\item displays the state of the gameboard using text-based ASCII graphics. Dead cells will be represented using blank space characters and live cells will be represented using the ``o'' character.
+
+  \begin{equation}
+    \begin{array}{ccccccc}
+      id_0, & fn_0, & ln_0, & g_0, & gpa_0, & [ch_0^0, ch_0^1, ..., ch_0^{n-1}], & fc_0 \\
+      id_1, & fn_1, & ln_1, & g_1, & gpa_1, & [ch_1^0, ch_1^1, ..., ch_1^{n-1}], & fc_1\\
+      id_2, & fn_2, & ln_2, & g_2, & gpa_2, & [ch_2^0, ch_2^1, ..., ch_2^{n-1}], & fc_2
+      \\
+      ..., & ..., & ..., & ..., & ..., & [..., ..., ], & ...
+      \\
+      id_{m-1}, & fn_{m-1}, & ln_{m-1}, & g_{m-1}, & gpa_{m-1}, & [ch_{m-1}^0, ch_{m-1}^1, ..., ch_{m-1}^{n-1}], & fc_{m-1} \\
+    \end{array}
+  \end{equation}
+
+\item exception: none
+\end{itemize}
+
+\newpage
 
 \section*{Critique of Design}
 
