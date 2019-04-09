@@ -7,8 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-using std::vector;
-using namespace std;
+#include <cstdlib> // for exit function
 
 #include "CellTypes.h"
 #include "GameBoard.h"
@@ -22,18 +21,19 @@ BoardT::BoardT(string fname)
 	//std::cout << "construct end" << std::endl;
 };
 
-#include <iostream>
-using std::cerr;
-using std::endl;
-#include <fstream>
-using std::ofstream;
-#include <cstdlib> // for exit function
+BoardT::BoardT(cellT** b) 
+:rows(0), columns(0)
+{
+	//std::cout << "construct start" << std::endl;
+
+	//std::cout << "construct end" << std::endl;
+};
 
 
 void BoardT::write(std::string fname) const
 {
 	//std::cout << "read start" << std::endl;
-	std::cout << fname << std::endl;
+	//std::cout << fname << std::endl;
 
 	std::ofstream ofile;
 	ofile.open(fname);
@@ -141,6 +141,65 @@ int BoardT::getRows() const
 
 int BoardT::getColumns() const{
 	return columns;
+}
+
+bool BoardT::isValidCell(int a, int b) const{
+	if (a < 0 || a >= rows || b < 0 || b >= columns)
+		return false;
+	else
+		return true;
+}
+
+int BoardT::neighbourCount(int a, int b) const{
+	int count = 0;
+	for (int i = a-1; i < a+1; i++){
+		for (int j = b-1; j < b+1; j++){
+			if (i == a && j == b)
+				continue;
+			if (isValidCell(i,j)){
+				if (B[i][j] == ALIVE)
+					count +=1;
+			}
+
+		}
+	}
+	return count;
+} 
+
+bool BoardT::survives(int a, int b) const{
+	int nCount = neighbourCount(a,b);
+
+	if (B[a][b] == DEAD){
+		if (nCount == 3)
+			return true;
+		else
+			return false;
+	}
+	else{
+		if (nCount == 2 || nCount == 3 )
+			return true;
+		else
+			return false;
+	}
+}
+
+BoardT BoardT::nextState(){
+
+	cellT** N = new cellT*[rows];
+
+	for(int i = 0; i < rows; ++i)
+    	N[i] = new cellT[columns];
+
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < columns; j++){
+			if (survives(i,j))
+				N[i][j] = ALIVE;
+		}
+		//std::cout  << std::endl;
+	}
+
+	BoardT newBoard(N);
+	return newBoard;
 }
 
 

@@ -19,12 +19,18 @@ class BoardT {
 
  public:
   BoardT(std::string fname);
+  BoardT(cellT** b);
+
   void read(std::string fname);
   void write(std::string fname) const;
   cellT** getBoard() const;
   int getRows() const;
   int getColumns() const;
-  void BoardT::nextMove();
+  bool isValidCell(int a, int b) const;
+  int neighbourCount(int a, int b) const;
+  BoardT nextState();
+  bool survives(int a, int b) const;
+
 
 };
 

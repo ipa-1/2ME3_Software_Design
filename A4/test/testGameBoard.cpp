@@ -25,6 +25,47 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     REQUIRE_THROWS_AS(BoardT ("in2.txt"),std::invalid_argument);
   }
 
+  SECTION("isValidCell(): Out of bounds: Corner"){
+    BoardT board("in.txt");
+    REQUIRE(board.isValidCell(-1,-1) == false);
+    REQUIRE(board.isValidCell(-1,3) == false);
+    REQUIRE(board.isValidCell(3,-1) == false);
+    REQUIRE(board.isValidCell(3,3) == false);
+
+  }
+
+  SECTION("isValidCell(): Out of bounds: Side"){
+    BoardT board("in.txt");
+    REQUIRE(board.isValidCell(-1,1) == false);
+    REQUIRE(board.isValidCell(0,-1) == false);
+    REQUIRE(board.isValidCell(0,3) == false);
+    REQUIRE(board.isValidCell(3,1) == false);
+
+  }
+
+  SECTION("isValidCell(): In bounds: Corner"){
+    BoardT board("in.txt");
+    REQUIRE(board.isValidCell(0,0) == true);
+    REQUIRE(board.isValidCell(0,2) == true);
+    REQUIRE(board.isValidCell(2,0) == true);
+    REQUIRE(board.isValidCell(2,2) == true);
+
+  }
+
+  SECTION("isValidCell(): In bounds: Side"){
+    BoardT board("in.txt");
+    REQUIRE(board.isValidCell(1,0) == true);
+    REQUIRE(board.isValidCell(1,2) == true);
+    REQUIRE(board.isValidCell(0,1) == true);
+    REQUIRE(board.isValidCell(2,1) == true);
+
+  }
+
+    SECTION("isValidCell(): In bounds: Center"){
+    BoardT board("in.txt");
+    REQUIRE(board.isValidCell(1,1) == true);
+  }
+
   //   SECTION( "BoardT(): Empty card sequence to board initializer exception"){
   //   std::vector<CardT> emptyVector;
   //   REQUIRE_THROWS_AS(BoardT (emptyVector),std::invalid_argument);
