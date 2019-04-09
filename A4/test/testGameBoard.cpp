@@ -4,6 +4,7 @@
 #include "catch.h"
 #include "CellTypes.h"
 #include "GameBoard.h"
+#include "View.h"
 
 
 /**
@@ -24,6 +25,14 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     //BoardT board("in2.txt");
     REQUIRE_THROWS_AS(BoardT ("in2.txt"),std::invalid_argument);
   }
+
+  SECTION("BoardT(): read file size verification") {
+    BoardT board("in.txt");
+    REQUIRE(board.getRows() == 3);
+    REQUIRE(board.getColumns() == 3);
+
+  }
+
 
   SECTION("isValidCell(): Out of bounds: Corner"){
     BoardT board("in.txt");
@@ -66,11 +75,60 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     REQUIRE(board.isValidCell(1,1) == true);
   }
 
-  //   SECTION( "BoardT(): Empty card sequence to board initializer exception"){
-  //   std::vector<CardT> emptyVector;
-  //   REQUIRE_THROWS_AS(BoardT (emptyVector),std::invalid_argument);
-  // }
+  SECTION("neighbourCount(): Successful count"){
+    BoardT board("in.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.neighbourCount(1,1) == 5);
+  }
 
+  SECTION("neighbourCount(): Corner cell"){
+    BoardT board("in.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.neighbourCount(0,0) == 2);
+  }
+
+//////////////////////////////////////////////////////////////////////
+  SECTION("survives(): live cell fewer than two live neighbours"){
+    BoardT board("in3.txt");
+
+    REQUIRE(board.survives(3,1) == false);
+  }
+
+  SECTION("survives(): live cell with two neighbours"){
+    BoardT board("in3.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.survives(1,3) == true);
+  }
+
+    SECTION("survives(): live cell with three neighbours"){
+    BoardT board("in3.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.survives(1,0) == true);
+  }
+
+    SECTION("survives(): live cell with more than three neighbours"){
+    BoardT board("in3.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.survives(0,2) == false);
+  }
+
+    SECTION("survives(): dead cell with exactly three neighbours"){
+    BoardT board("in3.txt");
+    //View view; // instantiating a view, do not do View view();, this does not work
+    //view.print(board);
+    //std::cout  << std::endl;
+    REQUIRE(board.survives(0,0) == true);
+  }
 
   
 

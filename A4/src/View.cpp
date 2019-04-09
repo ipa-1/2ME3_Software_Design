@@ -26,8 +26,6 @@ void View::print(BoardT b) const
 	int columns = b.getColumns();
 	//std::cout<< "Columns: " << rows  << std::endl;
 
-	//std::cout << rows <<std::endl;
-
 	for (int i = 0; i < rows; i++){
 		for (int j = 0; j < columns; j++){
 			std::cout << B[i][j];

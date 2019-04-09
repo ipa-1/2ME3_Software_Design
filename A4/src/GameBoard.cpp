@@ -7,7 +7,13 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+using std::cerr;
+using std::endl;
+using std::ofstream;
 #include <cstdlib> // for exit function
+
+using std::vector;
+using namespace std;
 
 #include "CellTypes.h"
 #include "GameBoard.h"
@@ -16,23 +22,15 @@
 BoardT::BoardT(string fname) 
 :rows(0), columns(0)
 {
-	//std::cout << "construct start" << std::endl;
 	read(fname);
-	//std::cout << "construct end" << std::endl;
 };
 
 BoardT::BoardT(cellT** b) 
 :rows(0), columns(0)
-{
-	//std::cout << "construct start" << std::endl;
-
-	//std::cout << "construct end" << std::endl;
-};
-
+{};
 
 void BoardT::write(std::string fname) const
 {
-	//std::cout << "read start" << std::endl;
 	//std::cout << fname << std::endl;
 
 	std::ofstream ofile;
@@ -73,12 +71,9 @@ void BoardT::read(std::string fname)
 			columns = line.length();
 
 			//std::cout << "length: " << columns << " " << line << std::endl;
-
 			if (rows > 0 && columns != prevColumns){ throw std::invalid_argument("File does not have consistent columns");}
 			prevColumns = columns;
 			rows+=1;
-
-			//std::cout << "next"<< std::endl;
 		}
 
 		file.close();
@@ -92,12 +87,10 @@ void BoardT::read(std::string fname)
 	for(int i = 0; i < rows; ++i)
     	B[i] = new cellT[columns];
 
-	//std::cout  << std::endl;
-
 	// Store the information in the file in the gameboard
 	file.open(fname);
 	int rowIndex = 0;
-	//int colIndex = 0;
+
 
 	if (file.is_open()){
 		while (getline(file,line)){
@@ -118,7 +111,7 @@ void BoardT::read(std::string fname)
 		std::cout << "couldn't be opened" << std::endl;
 	}
 
-	std::cout  << std::endl;
+	//std::cout  << std::endl;
 
 	// for (int i = 0; i < rows; i++){
 	// 	for (int j = 0; j < columns; j++){
@@ -152,19 +145,25 @@ bool BoardT::isValidCell(int a, int b) const{
 
 int BoardT::neighbourCount(int a, int b) const{
 	int count = 0;
-	for (int i = a-1; i < a+1; i++){
-		for (int j = b-1; j < b+1; j++){
-			if (i == a && j == b)
+	for (int i = a-1; i < a+2; i++){
+		for (int j = b-1; j < b+2; j++){
+			
+			if (i == a && j == b){
+				//std::cout<<B[i][j];
 				continue;
+			}
 			if (isValidCell(i,j)){
+				//std::cout<<B[i][j]  ;
 				if (B[i][j] == ALIVE)
 					count +=1;
 			}
-
 		}
+		//std::cout  << std::endl;
 	}
 	return count;
 } 
+
+
 
 bool BoardT::survives(int a, int b) const{
 	int nCount = neighbourCount(a,b);
