@@ -8,7 +8,7 @@ int main() {
   BoardT board("in.txt");
 
   View view; // instantiating a view, do not do View view();, this does not work
-  //view.print(board);
+  view.print(board);
   BoardT board2 = board.nextState();
   std::cout << std::endl;
 

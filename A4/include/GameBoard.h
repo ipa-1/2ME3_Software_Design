@@ -19,15 +19,15 @@ class BoardT {
 
  public:
   BoardT(std::string fname);
-  BoardT(cellT** b);
+  BoardT(cellT** b, int r, int c);
 
   void read(std::string fname);
   void write(std::string fname) const;
   cellT** getBoard() const;
-  int getRows() const;
-  int getColumns() const;
-  bool isValidCell(int a, int b) const;
-  int neighbourCount(int a, int b) const;
+  int getRows() const;						//tested
+  int getColumns() const;					//tested
+  bool isValidCell(int a, int b) const;     //tested
+  int neighbourCount(int a, int b) const;	//tested
   BoardT nextState();
   bool survives(int a, int b) const;
 

@@ -25,9 +25,13 @@ BoardT::BoardT(string fname)
 	read(fname);
 };
 
-BoardT::BoardT(cellT** b) 
+BoardT::BoardT(cellT** b, int r, int c) 
 :rows(0), columns(0)
-{};
+{
+	B = b;
+	rows = r;
+	columns = c;
+};
 
 void BoardT::write(std::string fname) const
 {
@@ -193,11 +197,35 @@ BoardT BoardT::nextState(){
 		for (int j = 0; j < columns; j++){
 			if (survives(i,j))
 				N[i][j] = ALIVE;
+			else
+				N[i][j] = DEAD;
 		}
 		//std::cout  << std::endl;
 	}
 
-	BoardT newBoard(N);
+	// for (int i = 0; i < rows; i++){
+	// 	for (int j = 0; j < columns; j++){
+	// 		std::cout << B[i][j];
+	// 	}
+	// 	std::cout  << std::endl;
+	// }
+
+	// std::cout  << std::endl;
+
+	// for (int i = 0; i < rows; i++){
+	// 	for (int j = 0; j < columns; j++){
+	// 		std::cout << N[i][j];
+	// 	}
+	// 	std::cout  << std::endl;
+	// }
+
+	BoardT newBoard(N,rows,columns);
+
+	// std::cout  << std::endl;
+	// std::cout<< newBoard.getColumns() << std::endl;
+	// std::cout<< newBoard.getRows() << std::endl;
+	// std::cout  << std::endl;
+
 	return newBoard;
 }
 
