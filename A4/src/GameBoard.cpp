@@ -87,7 +87,7 @@ void BoardT::read(std::string fname)
 	}
 	else{std::cout << "couldn't be opened" << std::endl;}
 
-
+	if (rows == 0 && columns == 0){ throw std::invalid_argument("File cannot be empty");}
 
 	// Create the array to hold file information
 	 B = new cellT*[rows];

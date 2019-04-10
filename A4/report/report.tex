@@ -162,7 +162,7 @@ $B := \text{read}(s) $
 \item transition: read data from the file  associated with the string s.
   The data in the text file will be used to initiate the gameboard state variables $B$, $rows$ and $columns$, where $rows$ is the number of lines in the file, $columns$ is the number of characters on each line in the file, and $B$ holds the CellT at a particular line and position in the line. The line number and position of the character in the file must be reflected in $B$. 
 
-  The text file has the following format, where `` `` stand for a CellT with a value of DEAD  and ``o'' stands for CellT with a value of ALIVE. All characters in the file will either be `` `` or  ``o''. lines are separated by a carriage return.  There can be any finite number of lines in the file with finite number of characters on each line as long as the length of each line in the file is the same for every line.  If the length of each line in the file is not the same for the whole file, there is an invalid\_argument exception
+  The text file has the following format, where `` `` stand for a CellT with a value of DEAD  and ``o'' stands for CellT with a value of ALIVE. All characters in the file will either be `` `` or  ``o''. lines are separated by a carriage return.  There can be any finite number of lines in the file with finite number of characters on each line as long as the length of each line in the file is the same for every line.  If the length of each line in the file is not the same for the whole file, there is an invalid\_argument exception. If the file is empty, there is an invalid\_argument exception.
 
 \item exception: invalid\_argument
 \end{itemize}

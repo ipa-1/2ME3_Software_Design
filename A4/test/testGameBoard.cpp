@@ -8,7 +8,7 @@
 
 TEST_CASE("tests for GameBoard", "[BoardT]") {
 
-  SECTION("BoardT(): read file incorrect") {
+  SECTION("read(): read file incorrect") {
     REQUIRE_THROWS_AS(BoardT ("in2.txt"),std::invalid_argument);
   }
 
@@ -29,6 +29,10 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     BoardT board("in.txt");
     REQUIRE(board.getRows() == 3);
     REQUIRE(board.getColumns() == 3);
+  }
+
+  SECTION("read(): Reading empty file") {
+    REQUIRE_THROWS_AS(BoardT ("in4.txt"),std::invalid_argument);
   }
 
   SECTION("write(): Checking that after writing, if the same file is read, the cellT values are the same"){
