@@ -10,7 +10,7 @@
 using std::vector;
 using namespace std;
 
-#include "CellTypes.h"
+#include "BoardTypes.h"
 #include "GameBoard.h"
 #include "View.h"
 

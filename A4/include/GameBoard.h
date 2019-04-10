@@ -1,7 +1,13 @@
+/**
+ * \file GameBoard.h
+ * \author Alice Ip
+ * \brief Provides Gameboard states and methods for Conway's Game 
+ *		  of Life
+ */
 #ifndef A4_GAME_BOARD_H_
 #define A4_GAME_BOARD_H_
 
-#include "CellTypes.h"
+#include "BoardTypes.h"
 #include <string>
 #include <vector>
 
@@ -23,6 +29,39 @@ class BoardT {
 	 */
  	int columns;
 
+ 	/**
+	 *  \brief Constructor for board that takes an array, row and column
+	 *  \param b array holding state of board
+	 *  \param r number of rows in array
+	 *  \param c number of columns in array
+	 */
+  	BoardT(cellT** b, int r, int c);
+
+  	  	 /**
+	 *  \brief Checks if the cell at the given row and column is a valid cell in the gameboard
+	 *  \param a row number
+	 *  \param b column number
+	 *  \returns an boolean indicating if valid cell
+	 */				
+  	bool isValidCell(int a, int b) const;
+
+  	 /**
+	 *  \brief Counts the number of neighbours to given cell that are alive
+	 *  \param a row number
+	 *  \param b column number
+	 *  \returns int indicating number of alive neighbours
+	 */	
+  	int neighbourCount(int a, int b) const;
+
+  	 /**
+	 *  \brief Checks if the cell at the given row and column is alive in next state
+	 *  \param a row number
+	 *  \param b column number
+	 *  \returns an boolean indicating if cell is alive in next state
+	 */	
+  	bool survives(int a, int b) const;
+
+
  public:
 
 	/**
@@ -31,13 +70,7 @@ class BoardT {
 	 */
   	BoardT(std::string fname);
 
-	/**
-	 *  \brief Constructor for board that takes an array, row and column
-	 *  \param b array holding state of board
-	 *  \param r number of rows in array
-	 *  \param c number of columns in array
-	 */
-  	BoardT(cellT** b, int r, int c);
+
 
 	/**
 	 *  \brief Reads a txt file and initializes the state of the gameboard
@@ -68,30 +101,6 @@ class BoardT {
 	 *  \returns a gameboard with the next state
 	 */				
   	BoardT nextState();
-
-  	 /**
-	 *  \brief Checks if the cell at the given row and column is a valid cell in the gameboard
-	 *  \param a row number
-	 *  \param b column number
-	 *  \returns an boolean indicating if valid cell
-	 */				
-  	bool isValidCell(int a, int b) const;
-
-  	 /**
-	 *  \brief Counts the number of neighbours to given cell that are alive
-	 *  \param a row number
-	 *  \param b column number
-	 *  \returns int indicating number of alive neighbours
-	 */	
-  	int neighbourCount(int a, int b) const;
-
-  	 /**
-	 *  \brief Checks if the cell at the given row and column is alive in next state
-	 *  \param a row number
-	 *  \param b column number
-	 *  \returns an boolean indicating if cell is alive in next state
-	 */	
-  	bool survives(int a, int b) const;
 
   	 /**
 	 *  \brief Accesses the cell at the given row and column

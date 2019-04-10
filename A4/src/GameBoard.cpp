@@ -1,5 +1,9 @@
-//Alice Ip ipa1
-
+/**
+ * \file GameBoard.cpp
+ * \author Alice Ip ipa1
+ * \brief Source code for methods for a game of
+ *        Conway's Game of Life
+ */
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -15,7 +19,7 @@ using std::ofstream;
 using std::vector;
 using namespace std;
 
-#include "CellTypes.h"
+#include "BoardTypes.h"
 #include "GameBoard.h"
 
 
@@ -25,13 +29,8 @@ BoardT::BoardT(string fname)
 	read(fname);
 };
 
-BoardT::BoardT(cellT** b, int r, int c) 
-:rows(0), columns(0)
-{
-	B = b;
-	rows = r;
-	columns = c;
-};
+// Public Accessors:
+
 
 void BoardT::write(std::string fname) const
 {
@@ -140,6 +139,37 @@ int BoardT::getColumns() const{
 	return columns;
 }
 
+cellT BoardT::getCell(int a, int b) const{
+	if (!(isValidCell(a,b)))
+		throw std::invalid_argument("getCell arguments out of range");
+
+	return B[a][b];
+}
+
+BoardT BoardT::nextState(){
+
+	cellT** N = new cellT*[rows];
+
+	for(int i = 0; i < rows; ++i)
+    	N[i] = new cellT[columns];
+
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < columns; j++){
+			if (survives(i,j))
+				N[i][j] = ALIVE;
+			else
+				N[i][j] = DEAD;
+		}
+		//std::cout  << std::endl;
+	}
+
+	BoardT newBoard(N,rows,columns);
+	return newBoard;
+}
+
+// Private Accessors:
+
+
 bool BoardT::isValidCell(int a, int b) const{
 	if (a < 0 || a >= rows || b < 0 || b >= columns)
 		return false;
@@ -186,51 +216,15 @@ bool BoardT::survives(int a, int b) const{
 	}
 }
 
-cellT BoardT::getCell(int a, int b) const{
-	return B[a][b];
-}
+BoardT::BoardT(cellT** b, int r, int c) 
+:rows(0), columns(0)
+{
+	B = b;
+	rows = r;
+	columns = c;
+};
 
-BoardT BoardT::nextState(){
 
-	cellT** N = new cellT*[rows];
 
-	for(int i = 0; i < rows; ++i)
-    	N[i] = new cellT[columns];
-
-	for (int i = 0; i < rows; i++){
-		for (int j = 0; j < columns; j++){
-			if (survives(i,j))
-				N[i][j] = ALIVE;
-			else
-				N[i][j] = DEAD;
-		}
-		//std::cout  << std::endl;
-	}
-
-	// for (int i = 0; i < rows; i++){
-	// 	for (int j = 0; j < columns; j++){
-	// 		std::cout << B[i][j];
-	// 	}
-	// 	std::cout  << std::endl;
-	// }
-
-	// std::cout  << std::endl;
-
-	// for (int i = 0; i < rows; i++){
-	// 	for (int j = 0; j < columns; j++){
-	// 		std::cout << N[i][j];
-	// 	}
-	// 	std::cout  << std::endl;
-	// }
-
-	BoardT newBoard(N,rows,columns);
-
-	// std::cout  << std::endl;
-	// std::cout<< newBoard.getColumns() << std::endl;
-	// std::cout<< newBoard.getRows() << std::endl;
-	// std::cout  << std::endl;
-
-	return newBoard;
-}
 
 

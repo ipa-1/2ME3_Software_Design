@@ -1,2 +1,2 @@
-src/GameBoard.o: src/GameBoard.cpp include/CellTypes.h \
- include/GameBoard.h include/CellTypes.h
+src/GameBoard.o: src/GameBoard.cpp include/BoardTypes.h \
+ include/GameBoard.h include/BoardTypes.h
