@@ -21,16 +21,49 @@
 TEST_CASE("tests for GameBoard", "[BoardT]") {
 
   SECTION("BoardT(): read file incorrect") {
-
-    //BoardT board("in2.txt");
     REQUIRE_THROWS_AS(BoardT ("in2.txt"),std::invalid_argument);
   }
 
-  SECTION("BoardT(): read file size verification") {
+  SECTION("read(): Verification that cells are ALIVE or DEAD in state variables as expected from file") {
+    BoardT board("in.txt");
+    REQUIRE(board.getCell(0,0) == DEAD);
+    REQUIRE(board.getCell(0,1) == ALIVE);
+    REQUIRE(board.getCell(0,2) == DEAD);
+    REQUIRE(board.getCell(1,0) == DEAD);
+    REQUIRE(board.getCell(1,1) == ALIVE);
+    REQUIRE(board.getCell(1,2) == ALIVE);
+    REQUIRE(board.getCell(2,0) == ALIVE);
+    REQUIRE(board.getCell(2,1) == ALIVE);
+    REQUIRE(board.getCell(2,2) == ALIVE);
+  }
+
+  SECTION("read(): Verification that rows and columns are as expected from file") {
     BoardT board("in.txt");
     REQUIRE(board.getRows() == 3);
     REQUIRE(board.getColumns() == 3);
+  }
 
+  SECTION("write(): Checking that after writing, if the same file is read, the cellT values are the same"){
+    BoardT board("in.txt");
+    board.write("out2.txt");
+    BoardT board2("out2.txt");
+    REQUIRE(board2.getCell(0,0) == DEAD);
+    REQUIRE(board2.getCell(0,1) == ALIVE);
+    REQUIRE(board2.getCell(0,2) == DEAD);
+    REQUIRE(board2.getCell(1,0) == DEAD);
+    REQUIRE(board2.getCell(1,1) == ALIVE);
+    REQUIRE(board2.getCell(1,2) == ALIVE);
+    REQUIRE(board2.getCell(2,0) == ALIVE);
+    REQUIRE(board2.getCell(2,1) == ALIVE);
+    REQUIRE(board2.getCell(2,2) == ALIVE);
+  }
+
+  SECTION("write(): Checking that after writing, size of row and column are the same"){
+    BoardT board("in.txt");
+    board.write("out2.txt");
+    BoardT board2("out2.txt");
+    REQUIRE(board2.getRows() == 3);
+    REQUIRE(board2.getColumns() == 3);
   }
 
 
@@ -118,8 +151,6 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     REQUIRE(board.survives(0,0) == true);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////
-
   SECTION("nextState(): Row and column sizes of next state are consistent"){
     BoardT board("in.txt");
     BoardT board2 = board.nextState();
@@ -127,5 +158,20 @@ TEST_CASE("tests for GameBoard", "[BoardT]") {
     REQUIRE(board.getColumns() == board2.getColumns());
     REQUIRE(board.getRows() == board2.getRows());
   }  
+
+  SECTION("nextState(): ALIVE and DEAD are as expected in next state"){
+    BoardT board("in.txt");
+    BoardT board2 = board.nextState();
+
+    REQUIRE(board2.getCell(0,0) == DEAD);
+    REQUIRE(board2.getCell(0,1) == ALIVE);
+    REQUIRE(board2.getCell(0,2) == ALIVE);
+    REQUIRE(board2.getCell(1,0) == DEAD);
+    REQUIRE(board2.getCell(1,1) == DEAD);
+    REQUIRE(board2.getCell(1,2) == DEAD);
+    REQUIRE(board2.getCell(2,0) == ALIVE);
+    REQUIRE(board2.getCell(2,1) == DEAD);
+    REQUIRE(board2.getCell(2,2) == ALIVE);
+  }
 
 }

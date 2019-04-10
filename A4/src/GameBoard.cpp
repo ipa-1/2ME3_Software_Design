@@ -7,11 +7,11 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <cstdlib> // for exit function
+
 using std::cerr;
 using std::endl;
 using std::ofstream;
-#include <cstdlib> // for exit function
-
 using std::vector;
 using namespace std;
 
@@ -48,8 +48,12 @@ void BoardT::write(std::string fname) const
     std::string line;
 
 	for (int i=0; i<rows; i++){
-		for (int j=0; j<columns; j++)
-			ofile << B[i][j];
+		for (int j=0; j<columns; j++){
+			if (B[i][j] == ALIVE)
+				ofile << 'o';
+			else
+				ofile << ' ';
+		}
 		ofile << endl; 
 	}
 
@@ -126,10 +130,6 @@ void BoardT::read(std::string fname)
 	//std::cout << "read end" << std::endl;
 }
 
-cellT** BoardT::getBoard() const
-{
-	return B;
-}
 
 int BoardT::getRows() const
 {
@@ -184,6 +184,10 @@ bool BoardT::survives(int a, int b) const{
 		else
 			return false;
 	}
+}
+
+cellT BoardT::getCell(int a, int b) const{
+	return B[a][b];
 }
 
 BoardT BoardT::nextState(){

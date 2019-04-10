@@ -19,7 +19,7 @@ View::View() {};
 
 void View::print(BoardT b) const
 {
-	cellT** B = b.getBoard();
+
 	//rows = b.size
 	int rows = b.getRows();
 	//std::cout<< "Rows: " << rows  << std::endl;
@@ -28,7 +28,11 @@ void View::print(BoardT b) const
 
 	for (int i = 0; i < rows; i++){
 		for (int j = 0; j < columns; j++){
-			std::cout << B[i][j];
+
+			if (b.getCell(i,j) == ALIVE)
+				std::cout << 'o';
+			else
+				std::cout << ' ';
 		}
 		std::cout  << std::endl;
 	}

@@ -4,11 +4,11 @@
  * \brief Provides type definitions and enumerations for a game of
  *        Forty Thieves.
  */
-#ifndef A4_CELL_TYPES_H_
-#define A4_CELL_TYPES_H_
+#ifndef A4_CELL_TYPES_H
+#define A4_CELL_TYPES_H
 
 /**
- * \brief Describes the possible card suits.
+ * \brief Describes the possible cell states
  */
 enum cellT {
   ALIVE,
