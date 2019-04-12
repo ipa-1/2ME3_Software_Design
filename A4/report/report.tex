@@ -37,7 +37,7 @@
 
 \newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
 
-\title{Assignment 3, Part 1, Specification}
+\title{Assignment 4, Part 1, Specification}
 \author{SFWR ENG 2AA4}
 
 \begin {document}
@@ -281,6 +281,7 @@ print & $s: \mbox{BoardT}$ & ~ & ~\\
 \subsection* {Semantics}
 
 \subsubsection* {Environment Variables}
+console: gameboard representation as ASCII characters `` `` and ``x''
 
 \subsubsection* {State Variables}
 
@@ -314,7 +315,7 @@ None
 
 \noindent print($s$)
 \begin{itemize}
-\item displays the state of the gameboard using text-based ASCII graphics. 
+\item displays the state of the gameboard using text-based ASCII graphics on the console. 
 
 The view has the following format, where `` `` stand for a CellT with a value of DEAD  and ``o'' stands for CellT with a value of ALIVE. All characters in the view will either be `` `` or  ``o''. The number of lines and characters on each line depends on the row and column state variables respectively, from the gameboard. The line number and position of the character in the view must be consistent with the gameboard's $B$ state variable. 
 
