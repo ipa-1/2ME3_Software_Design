@@ -1,7 +1,0 @@
-ipa1 Alice Ip female 7 materials engphys civil
-ipk2 Kevin Ip male 8 materials software
-ipe3 Eric Ip male 12 civil chemical electrical
-ipa3 Alex Ip female 5 materials chemical software
-tot2 Thomas To male 4 electrical software civil
-yoonj2 Jeonghan Yoon male 4 electrical software civil
-kimm1 Mingyu Kim female 3 electrical civil materials

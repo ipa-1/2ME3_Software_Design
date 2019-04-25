@@ -8,7 +8,7 @@
 #ifndef A3_GAME_BOARD_H_
 #define A3_GAME_BOARD_H_
 
-#include "CardTypes.h"
+#include "BoardTypes.h"
 #include "CardStack.h"
 
 class BoardT
